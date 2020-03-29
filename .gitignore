@@ -3,6 +3,7 @@ HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
+src/main/resources/application.properties
 !**/src/test/**
 
 ### STS ###

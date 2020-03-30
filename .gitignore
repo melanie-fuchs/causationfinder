@@ -1,6 +1,8 @@
 HELP.md
 bin/
 notes.txt
+tables.xlsx$
+uml.dia
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar

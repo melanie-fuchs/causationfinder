@@ -1,11 +1,13 @@
 package ch.yoursource.causationfinder.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ch.yoursource.causationfinder.entity.User;
 import ch.yoursource.causationfinder.registration.dto.UserRegistrationDto;
 import ch.yoursource.causationfinder.repository.UserRepository;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired

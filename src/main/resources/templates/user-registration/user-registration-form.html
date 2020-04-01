@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="ISO-8859-1">
 <title>User Registration Form</title>
 </head>
 <body>
 	<h2>User Registration Form</h2>
+	
+
+	
+	<!-- When form is loaded, will call userRegistrationDto.getFirstName(), etc -->
+	<!-- th:action sends form data to /registration -->
+	<form action="#" th:action="@{/registration}"
+		th:object="${userRegistrationDto}" method="POST">
+		
+		<label for="username">Username*:</label>
+		<input type="text" name="username" required="required"/>
+		
+		<label for="firstName">First Name:</label>
+		<input type="text" name="firstName"/>
+		
+		<label for="lastName">Last Name:</label>
+		<input type="text" name="lastName"/>
+		
+		<label for="email">E-Mail*:</label>
+		<input type="text" name="email" required="required"/>
+		
+		<label for="birthdate">Birthdate:</label>
+		<input type="text" name="birthdate"/>
+		
+		<label for="password">Password*:</label>
+		<input type="password" name="password" required="required"/>
+		
+		<label for="validatingPassword">Validate password*:</label>
+		<input type="password" name="validatingPassword" required="required"/>
+		
+		<input type="submit"/>
+	</form>
 </body>
 </html>
+

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -19,18 +20,24 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
+	@NotEmpty
 	@NotNull
 	@Column(name = "username")
 	private String username;
-	
+
+	@NotEmpty
 	@NotNull
 	@Column(name = "password")
 	private String password;
-	
+
+	@NotEmpty
+	@NotNull
 	@Column(name = "first_name")
 	private String firstName;
-	
+
+	@NotEmpty
+	@NotNull
 	@Column(name = "last_name")
 	private String lastName;
 	
@@ -38,6 +45,7 @@ public class User {
 	private Date birthdate;
 	
 	@NotNull
+	@NotEmpty
 	@Column(name = "email")
 	private String email;
 

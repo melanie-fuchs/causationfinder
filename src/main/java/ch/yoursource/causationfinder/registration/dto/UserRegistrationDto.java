@@ -2,6 +2,7 @@ package ch.yoursource.causationfinder.registration.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +14,7 @@ public class UserRegistrationDto {
 	
 	@NotEmpty
 	@NotNull
+	@Email
 	private String email;
 	
 	@NotNull

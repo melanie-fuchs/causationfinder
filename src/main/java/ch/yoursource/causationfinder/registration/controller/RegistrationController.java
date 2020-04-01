@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import ch.yoursource.causationfinder.entity.User;
 import ch.yoursource.causationfinder.registration.dto.UserRegistrationDto;
@@ -32,8 +33,8 @@ public class RegistrationController {
 	}
 
 	@PostMapping("/registration")
-	public String saveUser(
-			@ModelAttribute("userRegistrationDto") @Valid UserRegistrationDto accountDto,
+	public ModelAndView saveUser(
+			@ModelAttribute("userRegistrationDto") @Valid UserRegistrationDto userRegistrationDto,
 			BindingResult result,
 			WebRequest request,
 			Errors errors) {
@@ -41,17 +42,19 @@ public class RegistrationController {
 		
 		try {
 			if (!result.hasErrors()) {
-				registered = createUserAccount(accountDto, result);
+				registered = createUserAccount(userRegistrationDto, result);
 			}
 		} catch (EmailExistsException e) {
 			result.rejectValue("email", "message.regError");
 		}
 
 		if (result.hasErrors()) {
-	        return "user-registration/registration-failed-form";
+			// first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
+			return new ModelAndView("user-registration/registration-failed-form", "userRegistrationDto", userRegistrationDto);
 	    } 
 	    else {
-	        return "user-registration/registration-succeeded-form";
+	    	// first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
+			return new ModelAndView("user-registration/registration-succeeded", "userRegistrationDto", userRegistrationDto);
 	    }
 	}
 

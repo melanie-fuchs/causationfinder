@@ -16,25 +16,34 @@
 		th:object="${userRegistrationDto}" method="POST">
 		
 		<label for="username">Username*:</label>
-		<input type="text" name="username" required="required"/>
+		<input th:field="*{username}" type="text" required="required"/>
+		<br />
 		
 		<label for="firstName">First Name:</label>
-		<input type="text" name="firstName"/>
+		<input th:field="*{firstName}" type="text"/>
+		<br />
 		
 		<label for="lastName">Last Name:</label>
-		<input type="text" name="lastName"/>
+		<input th:field="*{lastName}" type="text"/>
+		<br />
 		
 		<label for="email">E-Mail*:</label>
-		<input type="text" name="email" required="required"/>
+		<input th:field="*{email}" type="text" required="required"/>
+		<p th:each="error : ${#fields.errors('email')}"
+			th:text="${error}"/>
+		<br />
 		
 		<label for="birthdate">Birthdate:</label>
-		<input type="date" name="birthdate"/>
+		<input th:field="*{birthdate}" type="date" />
+		<br />
 		
 		<label for="password">Password*:</label>
-		<input type="password" name="password" required="required"/>
+		<input th:field="*{password}" type="password" required="required"/>
+		<br />
 		
 		<label for="validatingPassword">Validate password*:</label>
-		<input type="password" name="validatingPassword" required="required"/>
+		<input th:field="*{validatingPassword}" type="password" required="required"/>
+		<br />
 		
 		<input type="submit"/>
 	</form>

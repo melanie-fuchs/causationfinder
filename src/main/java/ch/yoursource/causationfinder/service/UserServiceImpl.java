@@ -17,10 +17,19 @@ public class UserServiceImpl implements UserService {
 	public User registerNewUser(UserRegistrationDto userRegistrationDto) throws EmailExistsException {
 		
 		if (emailExists(userRegistrationDto.getEmail())) {
-			throw new EmailExistsException("There is already and account with e-mail address: " + 
+			throw new EmailExistsException("There is already an account with e-mail address: " + 
 					userRegistrationDto.getEmail());
 		}
-		return null;
+		
+		User user = new User();
+		user.setUsername(userRegistrationDto.getUsername());
+		user.setFirstName(userRegistrationDto.getFirstName());
+		user.setLastName(userRegistrationDto.getLastName());
+		user.setBirthdate(userRegistrationDto.getBirthdate());
+		user.setEmail(userRegistrationDto.getEmail());
+		user.setPassword(userRegistrationDto.getPassword());
+		
+		return userRepository.save(user);
 	}
 
 	private boolean emailExists(String email) {

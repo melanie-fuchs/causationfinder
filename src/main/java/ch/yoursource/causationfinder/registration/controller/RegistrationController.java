@@ -45,13 +45,13 @@ public class RegistrationController {
 				registered = createUserAccount(userRegistrationDto, result);
 			}
 		} catch (EmailExistsException e) {
-			result.rejectValue("email", "message.regError");
+			result.rejectValue("email", "messages.regError");
 		}
 
 		if (result.hasErrors()) {
 			System.out.println("\t>>> WITHIN RegistrationController: " + result.getFieldErrors().toString());
 			// first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
-			return new ModelAndView("user-registration/registration-failed-form", "userRegistrationDto", userRegistrationDto);
+			return new ModelAndView("user-registration/user-registration-form", "userRegistrationDto", userRegistrationDto);
 	    } 
 	    else {
 			System.out.println("\t>>> WITHIN RegistrationController: registration successful");

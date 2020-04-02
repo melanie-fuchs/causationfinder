@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import ch.yoursource.causationfinder.registration.annotation.PasswordMatches;
+
+@PasswordMatches
 public class UserRegistrationDto {
 
 	@NotNull

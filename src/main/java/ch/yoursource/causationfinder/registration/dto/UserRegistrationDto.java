@@ -6,6 +6,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class UserRegistrationDto {
 
 	@NotNull
@@ -26,6 +28,7 @@ public class UserRegistrationDto {
 
 	private String lastName;
 	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date birthdate;
 
 	public String getUsername() {

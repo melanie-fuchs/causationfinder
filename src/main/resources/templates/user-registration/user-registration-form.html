@@ -8,12 +8,23 @@
 <body>
 	<h2>User Registration Form</h2>
 	
-
+ 
 	
 	<!-- When form is loaded, will call userRegistrationDto.getFirstName(), etc -->
 	<!-- th:action sends form data to /registration -->
 	<form action="#" th:action="@{/registration}"
 		th:object="${userRegistrationDto}" method="POST">
+			
+		<!-- Debug section: TODO Remove later Keep as backup in case current solution is buggy-->
+		<!-- <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+	    	<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+		</div>-->
+		<!-- >
+		<p th:each="err : ${#fields.errors('*PasswordMatches')}" th:text="${err}"></p>
+		-->		
+		
+		<!-- end of debug section -->
+		
 		
 		<label for="username">Username*:</label>
 		<input th:field="*{username}" type="text" required="required"/>
@@ -43,6 +54,7 @@
 		
 		<label for="validatingPassword">Validate password*:</label>
 		<input th:field="*{validatingPassword}" type="password" required="required"/>
+		<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error">Invalid Input yume</p>
 		<br />
 		
 		<input type="submit"/>

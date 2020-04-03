@@ -19,6 +19,8 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 			.addPropertyNode("validatingPassword").addConstraintViolation();
 		}
 		return isValid;
+		
+//		TODO: remove later... Keep in case current solution is buggy
 //		return user.getPassword().equals(user.getValidatingPassword());
 	}
 }

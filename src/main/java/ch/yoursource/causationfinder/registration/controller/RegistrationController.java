@@ -60,8 +60,7 @@ public class RegistrationController {
 	    }
 	}
 
-	private User createUserAccount(UserRegistrationDto accountDto, BindingResult result) 
-		throws EmailExistsException {
+	private User createUserAccount(UserRegistrationDto accountDto, BindingResult result) {
 			User registered = userService.registerNewUser(accountDto);
 			
 			return registered;

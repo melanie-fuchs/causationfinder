@@ -6,6 +6,12 @@
 <title>User Registration Form</title>
 </head>
 <body>
+	<!-- Debug section: TODO implement multiple languages
+	<a href="registration?lang=de">de</a>
+	<a href="registration?lang=fr">fr</a>
+	<a href="registration?lang=en">en</a>
+	END OF DEBUG SECTION -->
+	
 	<h2>User Registration Form</h2>
 	
  
@@ -40,8 +46,6 @@
 		
 		<label for="email">E-Mail*:</label>
 		<input th:field="*{email}" type="text" required="required"/>
-		<p th:each="error : ${#fields.errors('email')}"
-			th:text="${error}"/>
 		<br />
 		
 		<label for="birthdate">Birthdate:</label>
@@ -54,9 +58,10 @@
 		
 		<label for="validatingPassword">Validate password*:</label>
 		<input th:field="*{validatingPassword}" type="password" required="required"/>
-		<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error">Invalid Input yume</p>
 		<br />
 		
+		<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error">Invalid Input yume</p>
+
 		<input type="submit"/>
 	</form>
 </body>

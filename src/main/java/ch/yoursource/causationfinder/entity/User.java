@@ -1,7 +1,7 @@
 package ch.yoursource.causationfinder.entity;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "user_table")
@@ -27,13 +31,18 @@ public class User {
 
 	@NotEmpty
 	@NotNull
+	@Size(min=3, max=20)
 	@Column(name = "username")
 	private String username;
 
 	@NotEmpty
 	@NotNull
+	@Size(min=8, max=64)
 	@Column(name = "password")
 	private String password;
+	
+	@Transient
+	private String passwordConfirm;
 
 	@NotEmpty
 	@NotNull
@@ -46,6 +55,7 @@ public class User {
 	private String lastName;
 	
 	@Column(name = "birthdate")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date birthdate;
 	
 	@NotNull
@@ -55,12 +65,12 @@ public class User {
 
     @ManyToMany
     @JoinTable( 
-        name = "users_roles", 
+        name = "users_roles",
         joinColumns = @JoinColumn(
-          name = "user_id", referencedColumnName = "id"), 
+          name = "user_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(
-          name = "role_id", referencedColumnName = "id")) 
-    private Collection<UserRole> roles;
+          name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
     
 	public User() {}
 
@@ -105,6 +115,14 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 
 
 	public String getFirstName() {
@@ -146,7 +164,14 @@ public class User {
 		this.email = email;
 	}
 
-
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName

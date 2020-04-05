@@ -14,8 +14,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.yoursource.causationfinder.entity.User;
-import ch.yoursource.causationfinder.registration.dto.UserRegistrationDto;
-import ch.yoursource.causationfinder.service.EmailExistsException;
 import ch.yoursource.causationfinder.service.UserService;
 
 @Controller
@@ -26,43 +24,46 @@ public class RegistrationController {
 
 	@GetMapping("/registration") // comes from our configuration file (DemoSecurityConfiguration)
 	public String showRegistrationForm(WebRequest request, Model model) {
-		UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
-		model.addAttribute("userRegistrationDto", userRegistrationDto);
+		User user = new User();
+		model.addAttribute("user", user);
 
 		return "user-registration/user-registration-form";
 	}
 
 	@PostMapping("/registration")
 	public ModelAndView saveUser(
-			@ModelAttribute("userRegistrationDto") @Valid UserRegistrationDto userRegistrationDto,
+			@ModelAttribute("user") @Valid User user,
 			BindingResult result,
 			WebRequest request,
-			Errors errors) {
-		User registered = new User();
+			Errors errors) {		
+		boolean hasErrors = false;
 		
-		try {
-			if (!result.hasErrors()) {
-				registered = createUserAccount(userRegistrationDto, result);
-			}
-		} catch (EmailExistsException e) {
-			result.rejectValue("email", "messages.regError");
-		}
-
 		if (result.hasErrors()) {
+			hasErrors = true;			
+		}
+		
+		if (userService.findByEmail(user.getEmail()) != null) {
+			errors.rejectValue("email", "messages.registration.emailDuplicate");
+			hasErrors = true;
+		}
+		
+		if (userService.findByUsername(user.getUsername()) != null) {
+			errors.rejectValue("username", "messages.registration.usernameDuplicate");
+			hasErrors = true;
+		}
+		
+		if (!user.getPassword().equals(user.getPasswordConfirm())) {
+			errors.rejectValue("passwordConfirm", "messages.registration.passwordsDontMatch");
+			hasErrors = true;
+		}
+		
+		if (hasErrors) {
 			System.out.println("\t>>> WITHIN RegistrationController: " + result.getFieldErrors().toString());
 			// first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
-			return new ModelAndView("user-registration/user-registration-form", "userRegistrationDto", userRegistrationDto);
-	    } 
-	    else {
-			System.out.println("\t>>> WITHIN RegistrationController: registration successful");
-	    	// first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
-			return new ModelAndView("user-registration/registration-succeeded", "userRegistrationDto", userRegistrationDto);
-	    }
-	}
-
-	private User createUserAccount(UserRegistrationDto accountDto, BindingResult result) {
-			User registered = userService.registerNewUser(accountDto);
+			return new ModelAndView("user-registration/user-registration-form", "user", user);
+		}		
 			
-			return registered;
-		}
+		userService.save(user);
+		return new ModelAndView("user-registration/registration-succeeded", "user", user);
+	}
 }

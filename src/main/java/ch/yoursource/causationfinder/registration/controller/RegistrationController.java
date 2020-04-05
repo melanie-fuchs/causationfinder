@@ -14,13 +14,23 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.yoursource.causationfinder.entity.User;
+import ch.yoursource.causationfinder.service.SecurityService;
 import ch.yoursource.causationfinder.service.UserService;
 
 @Controller
-public class RegistrationController {
-
-	@Autowired
+public class RegistrationController {	
 	private UserService userService;
+	private SecurityService securityService;
+	
+	@Autowired
+	public RegistrationController(
+		UserService userService, 
+		SecurityService securityService
+	) {
+		this.userService = userService;
+		this.securityService = securityService;
+	}
+
 
 	@GetMapping("/registration") // comes from our configuration file (DemoSecurityConfiguration)
 	public String showRegistrationForm(WebRequest request, Model model) {
@@ -64,6 +74,7 @@ public class RegistrationController {
 		}		
 			
 		userService.save(user);
+		securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
 		return new ModelAndView("user-registration/registration-succeeded", "user", user);
 	}
 }

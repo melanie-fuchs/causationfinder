@@ -8,8 +8,8 @@ import ch.yoursource.causationfinder.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("SELECT u FROM User u WHERE u.email = :email")
-	User findByEmail(@Param("email") String email);
+	public User findByEmail(@Param("email") String email);
 
 	@Query("SELECT u FROM User u WHERE u.username = :username")
-	User findByUsername(@Param("username") String username);
+	public User findByUsername(@Param("username") String username);
 }

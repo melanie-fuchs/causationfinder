@@ -44,13 +44,9 @@ public class User {
 	@Transient
 	private String passwordConfirm;
 
-	@NotEmpty
-	@NotNull
 	@Column(name = "first_name")
 	private String firstName;
 
-	@NotEmpty
-	@NotNull
 	@Column(name = "last_name")
 	private String lastName;
 	
@@ -72,11 +68,14 @@ public class User {
           name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
     
+    @Column(name = "enabled")
+    private boolean enabled;
+    
 	public User() {}
 
 
 	public User(@NotNull int id, @NotNull String username, @NotNull String password, String firstName, String lastName,
-			Date birthdate, @NotNull String email) {
+			Date birthdate, @NotNull String email, boolean enabled) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -84,6 +83,7 @@ public class User {
 		this.lastName = lastName;
 		this.birthdate = birthdate;
 		this.email = email;
+		this.enabled = enabled;
 	}
 
 
@@ -162,6 +162,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public void setRoles(Set<Role> roles) {

@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.registration.controller;
+package ch.yoursource.causationfinder.controller;
 
 import javax.validation.Valid;
 
@@ -31,8 +31,7 @@ public class RegistrationController {
 		this.securityService = securityService;
 	}
 
-
-	@GetMapping("/registration") // comes from our configuration file (DemoSecurityConfiguration)
+	@GetMapping("/registration")
 	public String showRegistrationForm(WebRequest request, Model model) {
 		User user = new User();
 		model.addAttribute("user", user);

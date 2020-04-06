@@ -76,5 +76,4 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		user.setEnabled(true);
 		userRepository.save(user);
 	}
-
 }

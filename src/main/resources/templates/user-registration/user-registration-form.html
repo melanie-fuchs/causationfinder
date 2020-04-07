@@ -60,7 +60,7 @@
 		<input th:field="*{passwordConfirm}" type="password" required="required"/>
 		<br />
 		
-		<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error">Invalid Input yume</p>
+		<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
 
 		<input type="submit"/>
 	</form>

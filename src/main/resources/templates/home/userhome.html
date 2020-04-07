@@ -6,5 +6,13 @@
 </head>
 <body>
 	<h2>User Home</h2>
+
+	<div>
+		Welcome, <span th:text="${#request.userPrincipal.principal.username}"></span>
+	</div>
+	
+	<a href="/updateuser">Update User Info</a>
+	<br>
+	<a href="/changepassword">Change Password</a>
 </body>
 </html>

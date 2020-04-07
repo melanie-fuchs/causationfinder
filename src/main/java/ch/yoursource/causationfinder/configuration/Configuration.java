@@ -54,6 +54,7 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
 //	}
 //	
 //	
+	//
 //	// interceptor will switch to a new locale based on value of the lang-parameter appended to a request
 //	@Bean
 //	public LocaleChangeInterceptor localeChangeInterceptor() {

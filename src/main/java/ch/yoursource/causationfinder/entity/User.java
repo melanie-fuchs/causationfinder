@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,7 +44,7 @@ public class User {
 	
 	@Transient
 	private String passwordConfirm;
-
+	
 	@Column(name = "first_name")
 	private String firstName;
 
@@ -56,6 +57,7 @@ public class User {
 	
 	@NotNull
 	@NotEmpty
+	@Email
 	@Column(name = "email")
 	private String email;
 

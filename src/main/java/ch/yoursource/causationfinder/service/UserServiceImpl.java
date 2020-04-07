@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ch.yoursource.causationfinder.dto.ChangePasswordDto;
+import ch.yoursource.causationfinder.dto.UpdateUserDto;
 import ch.yoursource.causationfinder.entity.Role;
 import ch.yoursource.causationfinder.entity.User;
 import ch.yoursource.causationfinder.repository.RoleRepository;
@@ -26,7 +28,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void save(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+	    if (user.getPassword() != null) {
+	        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+	    }
 		
 		Role userRole = roleRepository.findByName("ROLE_USER");
 		
@@ -51,4 +55,25 @@ public class UserServiceImpl implements UserService {
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+
+    @Override
+    public void saveUpdatedUserData(User currentUser, UpdateUserDto updateUserDto) {
+        currentUser.setUsername(updateUserDto.getUsername());
+        currentUser.setFirstName(updateUserDto.getFirstName());
+        currentUser.setLastName(updateUserDto.getLastName());
+        currentUser.setEmail(updateUserDto.getEmail());
+        currentUser.setBirthdate(updateUserDto.getBirthdate());
+        
+        userRepository.save(currentUser);
+    }
+    
+
+
+    @Override
+    public void saveChangedPassword(User currentUser, String newPassword) {
+        currentUser.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        
+        userRepository.save(currentUser);
+    }
+
 }

@@ -25,7 +25,7 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
+        return super.authenticationManagerBean();
 	}
 	
 	@Bean

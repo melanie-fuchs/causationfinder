@@ -10,11 +10,23 @@
 	<div>
 		Welcome, <span th:text="${#request.userPrincipal.principal.username}"></span>
 	</div>
+
+	<div th:insert="fragments/navigation :: navigation"></div>
+
+	<!--  old stuff
+		
+	<a href="/data/customparameter/manage">manage custom parameters</a>
+	<a href="/data/today/enter">enter data for today</a>
+	<a href="/data/yesterday/enter">enter data for yesterday</a>
+	<a href="/data/date/enter">enter data for specific date</a>
 	
+	
+
+	<br>
 	<a href="/updateuser">Update User Info</a>
 	<br>
 	<a href="/changepassword">Change Password</a>
 	<br>
-	<a href="/logout">Logout</a>
+	-->
 </body>
 </html>

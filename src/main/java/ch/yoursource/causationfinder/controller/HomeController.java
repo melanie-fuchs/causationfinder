@@ -8,6 +8,6 @@ import org.springframework.web.context.request.WebRequest;
 public class HomeController {
 	@GetMapping("/")
 	public String showHome(WebRequest request) {
-		return "home/home";
+	    return "home/home";
 	}
 }

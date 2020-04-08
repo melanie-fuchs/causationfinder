@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "custom_parameter")
 public class CustomParameter {
@@ -36,19 +35,24 @@ public class CustomParameter {
 	@ManyToOne
 	@JoinColumn(name = "predefined_param_id", nullable = true)
 	private PredefinedParameter predefinedParam;
+	
+	@NotNull
+	@Column(name = "active")
+	private boolean active;
 
 	public CustomParameter() {}
 
 	public CustomParameter(@NotNull int id, User user, @NotNull String type, @NotNull String paramName,
-			PredefinedParameter predefinedParam) {
-		this.id = id;
-		this.user = user;
-		this.type = type;
-		this.paramName = paramName;
-		this.predefinedParam = predefinedParam;
-	}
+            PredefinedParameter predefinedParam, @NotNull boolean active) {
+        this.id = id;
+        this.user = user;
+        this.type = type;
+        this.paramName = paramName;
+        this.predefinedParam = predefinedParam;
+        this.active = active;
+    }
 
-	public int getId() {
+    public int getId() {
 		return id;
 	}
 
@@ -87,11 +91,19 @@ public class CustomParameter {
 	public void setPredefinedParam(PredefinedParameter predefinedParam) {
 		this.predefinedParam = predefinedParam;
 	}
+	
+	public boolean isActive() {
+        return active;
+    }
+	
+	public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	@Override
+    @Override
 	public String toString() {
 		return "CustomParameter [id=" + id + ", user=" + user + ", type=" + type + ", paramName=" + paramName
-				+ ", predefinedParam=" + predefinedParam + "]";
+				+ ", predefinedParam=" + predefinedParam + ", active=" + active + "]";
 	}
 
 

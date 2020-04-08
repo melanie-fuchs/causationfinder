@@ -1,22 +1,14 @@
 package ch.yoursource.causationfinder.configuration;
 
-import java.util.Locale;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @EnableWebSecurity
 @org.springframework.context.annotation.Configuration
@@ -69,16 +61,12 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
 //		registry.addInterceptor(localeChangeInterceptor());
 //	}
 	
-	
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-	    web.ignoring()
-	    .antMatchers("/registration", "/");
-	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests(). // restict access based on the HttpServletRequest
+		http.authorizeRequests(). // restrict access based on the HttpServletRequest
+		antMatchers("/").permitAll().
+		antMatchers("/registration").anonymous(). 
 		anyRequest().authenticated() // any request: the user MUST be logged in! (authenticated)
 		.and()
 		.formLogin()

@@ -5,7 +5,9 @@
 <title>Welcome</title>
 </head>
 <body>
+	
 	<h2>Welcome</h2>
+	
 	
 	<div sec:authorize="isAuthenticated()">
   		<div>Hello <span th:text="${#authentication.name}">username</span>! You are already logged in! Go to your userhome!</div>
@@ -29,6 +31,7 @@
 	</div>
 	-->
 	
+	<div th:insert="fragments/footer :: footer"></div>
 	
 </body>
 </html>

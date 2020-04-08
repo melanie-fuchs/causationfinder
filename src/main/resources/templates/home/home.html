@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
 <title>Welcome</title>
@@ -7,12 +7,28 @@
 <body>
 	<h2>Welcome</h2>
 	
-	Do you already have an account?
-	<a href="/userhome">Login</a>
+	<div sec:authorize="isAuthenticated()">
+  		<div>Hello <span th:text="${#authentication.name}">username</span>! You are already logged in! Go to your userhome!</div>
+		<a href="/userhome">my home</a>
+	</div>
 	
-	<br>
+	<div sec:authorize="!isAuthenticated()">
+		Do you already have an account? <a href="/userhome">Login</a>
+		<br>
 	
-	Do you want to sign up?
-	<a href="/registration">Register</a>
+		Do you want to sign up?	<a href="/registration">Register</a>
+	</div>
+
+	<!-- 
+	<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+  		Du bisch de admin!!!!
+	</div>
+	
+	<div th:if="${!#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+  		Du bisch ned de admin!!!!
+	</div>
+	-->
+	
+	
 </body>
 </html>

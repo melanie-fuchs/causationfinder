@@ -52,6 +52,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			createAdminUser(userAdminRoles);
 		}
 		
+		//TODO: create all predefined parameters for table predefinedParameter
+		
 		setupCompleted = true;		
 	}
 	

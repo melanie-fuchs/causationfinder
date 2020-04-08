@@ -28,8 +28,7 @@ public class PredefinedParameter {
 
 	public PredefinedParameter() {}
 
-	public PredefinedParameter(@NotNull int id, @NotNull String type, @NotNull String paramName) {
-		this.id = id;
+	public PredefinedParameter(@NotNull String type, @NotNull String paramName) {
 		this.type = type;
 		this.paramName = paramName;
 	}

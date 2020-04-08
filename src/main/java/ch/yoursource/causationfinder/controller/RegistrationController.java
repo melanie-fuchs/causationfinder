@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.yoursource.causationfinder.entity.User;
+import ch.yoursource.causationfinder.service.ParameterService;
 import ch.yoursource.causationfinder.service.SecurityService;
 import ch.yoursource.causationfinder.service.UserService;
 
@@ -21,14 +22,17 @@ import ch.yoursource.causationfinder.service.UserService;
 public class RegistrationController {	
 	private UserService userService;
 	private SecurityService securityService;
+	private ParameterService parameterService;
 	
 	@Autowired
 	public RegistrationController(
 		UserService userService, 
-		SecurityService securityService
+		SecurityService securityService,
+		ParameterService parameterService
 	) {
 		this.userService = userService;
 		this.securityService = securityService;
+		this.parameterService = parameterService;
 	}
 
 	@GetMapping("/registration")
@@ -73,6 +77,8 @@ public class RegistrationController {
 		}		
 			
 		userService.save(user);
+		parameterService.activateAllPredefinedParameters(user);
+		
 		securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
 		return new ModelAndView("user-registration/registration-succeeded", "user", user);
 	}

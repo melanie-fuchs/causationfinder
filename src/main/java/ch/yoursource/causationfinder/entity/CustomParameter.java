@@ -42,9 +42,8 @@ public class CustomParameter {
 
 	public CustomParameter() {}
 
-	public CustomParameter(@NotNull int id, User user, @NotNull String type, @NotNull String paramName,
+	public CustomParameter(User user, @NotNull String type, @NotNull String paramName,
             PredefinedParameter predefinedParam, @NotNull boolean active) {
-        this.id = id;
         this.user = user;
         this.type = type;
         this.paramName = paramName;

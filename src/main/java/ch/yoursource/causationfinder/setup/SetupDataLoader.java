@@ -1,6 +1,8 @@
 package ch.yoursource.causationfinder.setup;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import ch.yoursource.causationfinder.entity.PredefinedParameter;
 import ch.yoursource.causationfinder.entity.Role;
 import ch.yoursource.causationfinder.entity.User;
+import ch.yoursource.causationfinder.repository.PredefinedParameterRepository;
 import ch.yoursource.causationfinder.repository.RoleRepository;
 import ch.yoursource.causationfinder.repository.UserRepository;
 
@@ -19,18 +23,21 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
+	private PredefinedParameterRepository predefinedParameterRepository;
 	private BCryptPasswordEncoder passwordEncoder;
-	
+		
 	private boolean setupCompleted = false;
 	
 	@Autowired
 	public SetupDataLoader(
 		UserRepository userRepository,
 		RoleRepository roleRepository,
+		PredefinedParameterRepository predefinedParameterRepository,
 		BCryptPasswordEncoder passwordEncoder
 	) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
+		this.predefinedParameterRepository = predefinedParameterRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 	
@@ -52,12 +59,39 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			createAdminUser(userAdminRoles);
 		}
 		
-		//TODO: create all predefined parameters for table predefinedParameter
-		
+		this.definePrefedinedParameter();
+
 		setupCompleted = true;		
 	}
 	
-	private Role createRoleIfNotFound(String name) {
+    private void definePrefedinedParameter() {
+        
+        int tableSize = predefinedParameterRepository.findAll().size();
+        
+        if(tableSize == 0) {
+            List<PredefinedParameter> predefinedParameters = new ArrayList<PredefinedParameter>();
+            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Hours Slept Per Night"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Quailty Of Sleep"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Happiness From 0 to 10"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Gluten Eaten"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Sweets Eaten"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Did Sports"));
+
+            predefinedParameterRepository.saveAll((Iterable<PredefinedParameter>)predefinedParameters);
+        }
+        // TODO: Numeric is not good. There has to be some sort of range.
+        // The range varies and should be set in advance.
+        // like hours of slept cannot be more than 24, happiness
+        // foe example rating between 0 and 10, same as qulity of sleep.
+        // So ther should be multiple kinds of numeric.
+        // Probably doing it with enum
+        
+        // TODO: create all predefined parameters for table predefinedParameter
+    }
+
+    
+
+    private Role createRoleIfNotFound(String name) {
 		Role role = roleRepository.findByName(name);
 		
 		if (role == null) {

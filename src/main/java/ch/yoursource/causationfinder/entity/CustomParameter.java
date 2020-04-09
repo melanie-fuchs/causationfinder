@@ -2,6 +2,8 @@ package ch.yoursource.causationfinder.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import ch.yoursource.causationfinder.setup.ParameterType;
 
 @Entity
 @Table(name = "custom_parameter")
@@ -25,8 +29,9 @@ public class CustomParameter {
 	private User user;
 	
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
-	private String type;
+	private ParameterType type;
 	
 	@NotNull
 	@Column(name = "param_name")
@@ -42,7 +47,7 @@ public class CustomParameter {
 
 	public CustomParameter() {}
 
-	public CustomParameter(User user, @NotNull String type, @NotNull String paramName,
+	public CustomParameter(User user, @NotNull ParameterType type, @NotNull String paramName,
             PredefinedParameter predefinedParam, @NotNull boolean active) {
         this.user = user;
         this.type = type;
@@ -67,11 +72,11 @@ public class CustomParameter {
 		this.user = user;
 	}
 
-	public String getType() {
+	public ParameterType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ParameterType type) {
 		this.type = type;
 	}
 

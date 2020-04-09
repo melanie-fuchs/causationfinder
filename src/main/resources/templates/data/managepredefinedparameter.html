@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Manage Parameter</title>
+
+</head>
+<body>
+	<form action="#" th:action="@{/data/managepredefinedparameter}"
+		th:object="${managepredefinedparameter}" method="POST">
+		
+	<h2>Manage Parameter</h2>
+	
+	
+	<h3>Predefined Parameters</h3>
+	<p>All checked parameters are active. If you do not want to track and analyze some of them, you can
+	uncheck them here. Data already collected will not be deleted, but it's not visible and editable as
+	long as the parameter is disabled.</p>
+	
+	<th:block th:each="parameter : ${managepredefinedparameter}">
+		<input
+			type="checkbox"
+			th:name="checkedPredefinedParameters[]"
+			th:value="${parameter.id}"
+			th:checked="${parameter.active} ? ${true}: ${false}"
+			/>
+		<label th:text="${parameter.paramName}"></label>
+		<br>
+	</th:block>
+	
+	<br>
+	<input type="submit" />
+	
+	</form>
+	
+</body>
+</html>

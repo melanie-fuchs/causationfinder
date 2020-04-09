@@ -71,7 +71,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if(tableSize == 0) {
             List<PredefinedParameter> predefinedParameters = new ArrayList<PredefinedParameter>();
             predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Hours Slept Per Night"));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Quailty Of Sleep"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Quality Of Sleep"));
             predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Happiness From 0 to 10"));
             predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Gluten Eaten"));
             predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Sweets Eaten"));

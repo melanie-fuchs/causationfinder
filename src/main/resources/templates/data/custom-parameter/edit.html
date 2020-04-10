@@ -15,9 +15,12 @@
 	
 		
 		<br>
-		<h4>Edit Existing Parameters</h4>
+		<h4>Edit Existing Custom Parameters</h4>
 		
-		<p>Check the parameters to set them active, uncheck them to set them inactive</p>
+		<p>
+			Check the parameters to set them active, uncheck them to set them inactive.
+			Inactive Parameters will not be analyzable
+		</p>
 		
 		<th:block th:each="parameter : ${managecustomparameter}">
 			<input

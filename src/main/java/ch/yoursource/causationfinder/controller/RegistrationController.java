@@ -71,7 +71,6 @@ public class RegistrationController {
 		}
 		
 		if (hasErrors) {
-			System.out.println("\t>>> WITHIN RegistrationController: " + result.getFieldErrors().toString());
 			// first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
 			return new ModelAndView("user-registration/user-registration-form", "user", user);
 		}		

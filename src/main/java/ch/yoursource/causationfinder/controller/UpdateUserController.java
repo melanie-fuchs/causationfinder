@@ -81,7 +81,6 @@ public class UpdateUserController {
         }
         
         if (hasErrors) {
-            System.out.println("\t>>> WITHIN UpdateUserController: " + result.getFieldErrors().toString());
             // first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
             return new ModelAndView("user-profile/updateuserform", "updateUserDto", updatedUserData);
         }

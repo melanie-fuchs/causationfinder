@@ -71,8 +71,6 @@ public class EditCustomParameterController {
             
             boolean isChecked = checkedParameterIds.contains(Integer.valueOf(parameterId));
             
-            System.out.println(">>>  Within for-loop: iChecked: " + isChecked);
-            
             if (parameter.isActive() == isChecked) {
                 //active state of this parameter was not changed
                 continue;
@@ -81,12 +79,9 @@ public class EditCustomParameterController {
             try {
                 CustomParameter c = customParameterRepository.findById(parameterId).orElseThrow();
                 c.setActive(isChecked);
-                System.out.println(">>>  Within try before its saved in repo: iChecked: " + isChecked);
                 customParameterRepository.save(c);
-                System.out.println(">>>  Within try after its saved in repo: iChecked: " + isChecked);
 
             } catch (NoSuchElementException e) {
-                System.out.println(">>>  Within catch before runtime is thrown: iChecked: " + isChecked);
 
                 throw new RuntimeException(e);
             }

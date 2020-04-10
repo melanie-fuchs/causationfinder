@@ -2,7 +2,6 @@ package ch.yoursource.causationfinder.controller;
 
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.buf.UDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,12 +55,9 @@ public class UpdateUserController {
         if (result.hasErrors()) {
             hasErrors = true;
         }
+
+        User oldUserData = getLoggedInUser();
         
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = loggedInUser.getName();
-
-        User oldUserData = userService.findByUsername(username);
-
         // get user with e-mail that the user entered in updateform. Might be null
         User existingUserByEmail = userService.findByEmail(updatedUserData.getEmail());
         // get user with username that the user entered in updateform. Might be null
@@ -88,5 +84,13 @@ public class UpdateUserController {
         
         userService.saveUpdatedUserData(oldUserData, updatedUserData);
         return new ModelAndView("home/userhome");
+    }
+    
+    private User getLoggedInUser()
+    {        
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getName();
+
+        return userService.findByUsername(username);
     }
 }

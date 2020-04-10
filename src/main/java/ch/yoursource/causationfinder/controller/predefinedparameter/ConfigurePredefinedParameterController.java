@@ -91,19 +91,21 @@ public class ConfigurePredefinedParameterController {
     
     private List<CustomParameter> getPredefinedParametersByCurrentUser()
     {
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = loggedInUser.getName();
-
-        User user = userService.findByUsername(username);
-        
-        
         // Sort the list so it always shows the same order (else it orders depending on active status or sth)
-        List<CustomParameter> predefinedParameters = this.customParameterRepository.findPredefinedByUser(user);
+        List<CustomParameter> predefinedParameters = this.customParameterRepository.findPredefinedByUser(getLoggedInUser());
         predefinedParameters.sort(
             (CustomParameter a, CustomParameter b) -> {
                 return a.getParamName().compareTo(b.getParamName());
             });
         
         return predefinedParameters;        
+    }
+    
+    private User getLoggedInUser()
+    {        
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getName();
+
+        return userService.findByUsername(username);
     }
 }

@@ -56,9 +56,7 @@ public class ChangePasswordController {
             hasErrors = true;
         }
         
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = loggedInUser.getName();
-        User theLoggedInUser = userService.findByUsername(username);
+        User theLoggedInUser = getLoggedInUser();
         
         // check if the old password is correct (like the one in database)
         if(!isCorrectPassword(changePasswordDto.getOldPassword(), theLoggedInUser.getPassword())) {
@@ -80,5 +78,13 @@ public class ChangePasswordController {
         
         userService.saveChangedPassword(theLoggedInUser, changePasswordDto.getNewPassword());
         return new ModelAndView("home/userhome");
+    }
+    
+    private User getLoggedInUser()
+    {        
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getName();
+
+        return userService.findByUsername(username);
     }
 }

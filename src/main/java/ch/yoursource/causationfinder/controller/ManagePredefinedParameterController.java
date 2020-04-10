@@ -48,7 +48,7 @@ public class ManagePredefinedParameterController {
     
     @PostMapping("/data/managepredefinedparameter")
     public ModelAndView changeActiveStateOfPredefinedParameters(
-        @RequestParam(value="checkedPredefinedParameters[]", required = true) int[] parameterIds,
+        @RequestParam(value="checkedPredefinedParameters[]", required = false) int[] parameterIds,
         WebRequest request,
         Model model
     ) {        
@@ -58,8 +58,12 @@ public class ManagePredefinedParameterController {
         
         List<Integer> checkedParameterIds = new ArrayList<Integer>();
         
-        for (int checkedParameterId : parameterIds) {
-            checkedParameterIds.add(checkedParameterId);
+        // make sure the status is being updated in the database even tho no params are
+        // were transferred from the html-form (html form will only send the checked id's)
+        if (parameterIds != null) {
+            for (int checkedParameterId : parameterIds) {
+                checkedParameterIds.add(checkedParameterId);
+            }
         }
         
         for (CustomParameter parameter : predefinedParameters) {

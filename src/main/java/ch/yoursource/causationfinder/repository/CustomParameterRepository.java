@@ -15,4 +15,8 @@ public interface CustomParameterRepository extends JpaRepository<CustomParameter
     @Query("SELECT c FROM CustomParameter c WHERE c.user = :user AND c.predefinedParam IS NOT NULL")
     public List<CustomParameter> findPredefinedByUser(@Param("user") User user);
     
+    // find all CustomParameters per User
+    @Query("SELECT c FROM CustomParameter c WHERE c.user = :user AND c.predefinedParam IS NULL")
+    public List<CustomParameter> findCustomByUser(@Param("user") User user);
+    
 }

@@ -41,6 +41,9 @@ public class CustomParameter {
 	@JoinColumn(name = "predefined_param_id", nullable = true)
 	private PredefinedParameter predefinedParam;
 	
+    @Column(name = "description")
+    private String description;
+	
 	@NotNull
 	@Column(name = "active")
 	private boolean active;
@@ -48,11 +51,12 @@ public class CustomParameter {
 	public CustomParameter() {}
 
 	public CustomParameter(User user, @NotNull ParameterType type, @NotNull String paramName,
-            PredefinedParameter predefinedParam, @NotNull boolean active) {
+            PredefinedParameter predefinedParam, String description, @NotNull boolean active) {
         this.user = user;
         this.type = type;
         this.paramName = paramName;
         this.predefinedParam = predefinedParam;
+        this.description = description;
         this.active = active;
     }
 
@@ -104,11 +108,17 @@ public class CustomParameter {
         this.active = active;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
-	public String toString() {
-		return "CustomParameter [id=" + id + ", user=" + user + ", type=" + type + ", paramName=" + paramName
-				+ ", predefinedParam=" + predefinedParam + ", active=" + active + "]";
-	}
-
-
+    public String toString() {
+        return "CustomParameter [id=" + id + ", user=" + user + ", type=" + type + ", paramName=" + paramName
+                + ", predefinedParam=" + predefinedParam + ", description=" + description + ", active=" + active + "]";
+    }
 }

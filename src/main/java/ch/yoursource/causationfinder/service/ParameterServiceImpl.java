@@ -37,6 +37,7 @@ public class ParameterServiceImpl implements ParameterService {
             c.setUser(user);
             c.setType(p.getType());
             c.setParamName(p.getParamName());
+            c.setDescription(p.getDescription());
             customParameterRepository.save(c);
         }
     }

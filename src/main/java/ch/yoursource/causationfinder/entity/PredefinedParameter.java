@@ -31,11 +31,15 @@ public class PredefinedParameter {
 	@Column(name = "param_name")
 	private String paramName;
 
+    @Column(name = "description")
+    private String description;
+
 	public PredefinedParameter() {}
 
-	public PredefinedParameter(@NotNull ParameterType type, @NotNull String paramName) {
+	public PredefinedParameter(@NotNull ParameterType type, @NotNull String paramName, String description) {
 		this.type = type;
 		this.paramName = paramName;
+		this.description = description;
 	}
 
 	public int getId() {
@@ -62,9 +66,18 @@ public class PredefinedParameter {
 		this.paramName = paramName;
 	}
 
-	@Override
-	public String toString() {
-		return "PredefinedParameter [id=" + id + ", type=" + type + ", paramName=" + paramName + "]";
-	}
+	public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "PredefinedParameter [id=" + id + ", type=" + type + ", paramName=" + paramName + ", description="
+                + description + "]";
+    }
 
 }

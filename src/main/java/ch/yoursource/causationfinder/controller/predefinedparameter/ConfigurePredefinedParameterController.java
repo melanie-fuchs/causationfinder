@@ -43,7 +43,7 @@ public class ConfigurePredefinedParameterController {
         
         model.addAllAttributes(predefinedParameters);    
         
-        return "data/managepredefinedparameter";
+        return "/data/predefined-parameter/configure";
     }
     
     @PostMapping("/data/predefined-parameter/configure")
@@ -85,7 +85,7 @@ public class ConfigurePredefinedParameterController {
             }
         }
         
-        return new ModelAndView("/data/managepredefinedparameter");
+        return new ModelAndView("/data/predefined-parameter/configure");
         
     }
     

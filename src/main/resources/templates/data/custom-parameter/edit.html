@@ -1,5 +1,14 @@
-<div th:fragment="managecustomparameter-edit">
-	<form action="#" th:action="@{/data/managecustomparameter}"
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Manage Parameter</title>
+
+</head>
+<body>
+	<div th:insert="fragments/navigation :: navigation"></div>
+
+	<form action="#" th:action="@{/data/custom-parameter/edit}"
 		th:object="${managecustomparameter}" method="POST">
 		
 		<h2>Manage Parameter</h2>
@@ -26,4 +35,6 @@
 		<br>
 		<input type="submit" />
 	</form>
-</div>
+		
+</body>
+</html>

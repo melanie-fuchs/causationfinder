@@ -6,7 +6,9 @@
 
 </head>
 <body>
-	<form action="#" th:action="@{/data/managepredefinedparameter}"
+	<div th:insert="fragments/navigation :: navigation"></div>
+
+	<form action="#" th:action="@{/data/predefined-parameter/configure}"
 		th:object="${managepredefinedparameter}" method="POST">
 		
 	<h2>Manage Parameter</h2>

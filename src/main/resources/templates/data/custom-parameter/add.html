@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Manage Parameter</title>
+
+</head>
+<body>
+	<div th:insert="fragments/navigation :: navigation"></div>
+
+	<form action="#" th:action="@{/data/custom-parameter/add}"
+		th:object="${managecustomparameter}" method="POST">
+		
+		<h2>Manage Parameter</h2>
+	
+		
+		<br>
+		<h4>Add New Parameters</h4>
+			
+			<p>
+				You can create your own custom parameters here.
+				It's important that you keep the values in a reasonable range.
+			</p>
+			
+			<br>
+			<h5>Choose a Type *</h5>
+			<div>
+				<input type="radio" name="type" value="STRING" required="required" />
+				<label for="type">Text</label>
+			</div>
+			<div>
+				<input type="radio" name="type" value="NUMERIC" required="required" />
+				<label for="type">Number (can be floating point number)</label>
+			</div>
+			<div>
+				<input type="radio" name="type" value="BOOLEAN" required="required" />
+				<label for="type">Yes/No (Boolean)</label>
+			</div>
+			
+			
+			<br>
+			<h5>Write a Name *</h5>
+			<label for="parameterName">Parameter-Name:</label>
+			<br>
+			<input type="text" name="parameterName" required="required"/>
+			
+			<br>
+			<br>
+			<h5>Write a Description</h5>
+			<label for="description">Parameter-Name:</label>
+			<br>
+			<textarea name="description"></textarea>
+			
+			<br>
+			<br>
+			
+			<input type="submit">
+			
+		</form>
+		
+</body>
+</html>

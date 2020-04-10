@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.controller;
+package ch.yoursource.causationfinder.controller.customparameter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +21,13 @@ import ch.yoursource.causationfinder.repository.CustomParameterRepository;
 import ch.yoursource.causationfinder.service.UserService;
 
 @Controller
-public class ManageCustomParameterController {
+public class EditCustomParameterController {
     
     private CustomParameterRepository customParameterRepository;
     private UserService userService;
     
     @Autowired
-    public ManageCustomParameterController(
+    public EditCustomParameterController(
         CustomParameterRepository customParameterRepository,
         UserService userService
     ) {
@@ -35,7 +35,7 @@ public class ManageCustomParameterController {
         this.userService = userService;
     }
     
-    @GetMapping("/data/managecustomparameter")
+    @GetMapping("/data/custom-parameter/edit")
     public String showManageParameterForm(WebRequest request, Model model) {
         List<CustomParameter> customParameters = this.getCustomParametersByCurrentUser();
         
@@ -43,15 +43,15 @@ public class ManageCustomParameterController {
         
         model.addAllAttributes(customParameters);    
         
-        return "data/managecustomparameter";
+        return "data/custom-parameter/edit";
     }
     
-    @PostMapping("/data/managecustomparameter")
+    @PostMapping("/data/custom-parameter/edit")
     public ModelAndView changeActiveStateOfCustomParameters(
         @RequestParam(value="checkedCustomParameters[]", required = false) int[] parameterIds,
         WebRequest request,
         Model model
-    ) {        
+    ) { 
         List<CustomParameter> customParameters = this.getCustomParametersByCurrentUser();    
         
         model.addAttribute("managecustomparameter", customParameters);
@@ -92,7 +92,7 @@ public class ManageCustomParameterController {
             }
         }
         
-        return new ModelAndView("/data/managecustomparameter");
+        return new ModelAndView("data/custom-parameter/edit");
         
     }
     

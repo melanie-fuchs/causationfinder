@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.controller;
+package ch.yoursource.causationfinder.controller.predefinedparameter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +21,13 @@ import ch.yoursource.causationfinder.repository.CustomParameterRepository;
 import ch.yoursource.causationfinder.service.UserService;
 
 @Controller
-public class ManagePredefinedParameterController {
+public class ConfigurePredefinedParameterController {
     
     private CustomParameterRepository customParameterRepository;
     private UserService userService;
     
     @Autowired
-    public ManagePredefinedParameterController(
+    public ConfigurePredefinedParameterController(
         CustomParameterRepository customParameterRepository,
         UserService userService
     ) {
@@ -35,7 +35,7 @@ public class ManagePredefinedParameterController {
         this.userService = userService;
     }
     
-    @GetMapping("/data/managepredefinedparameter")
+    @GetMapping("/data/predefined-parameter/configure")
     public String showManageParameterForm(WebRequest request, Model model) {
         List<CustomParameter> predefinedParameters = this.getPredefinedParametersByCurrentUser();
         
@@ -46,7 +46,7 @@ public class ManagePredefinedParameterController {
         return "data/managepredefinedparameter";
     }
     
-    @PostMapping("/data/managepredefinedparameter")
+    @PostMapping("/data/predefined-parameter/configure")
     public ModelAndView changeActiveStateOfPredefinedParameters(
         @RequestParam(value="checkedPredefinedParameters[]", required = false) int[] parameterIds,
         WebRequest request,

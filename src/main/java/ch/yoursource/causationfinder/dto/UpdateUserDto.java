@@ -1,8 +1,7 @@
 package ch.yoursource.causationfinder.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -24,7 +23,7 @@ public class UpdateUserDto {
     private String lastName;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @NotNull
     @NotEmpty
@@ -58,11 +57,11 @@ public class UpdateUserDto {
         this.lastName = lastName;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

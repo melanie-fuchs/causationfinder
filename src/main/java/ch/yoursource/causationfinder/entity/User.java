@@ -1,6 +1,6 @@
 package ch.yoursource.causationfinder.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -53,7 +53,7 @@ public class User {
 	
 	@Column(name = "birthdate")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private Date birthdate;
+	private LocalDate birthdate;
 	
 	@NotNull
 	@NotEmpty
@@ -77,7 +77,7 @@ public class User {
 
 
 	public User(@NotNull int id, @NotNull String username, @NotNull String password, String firstName, String lastName,
-			Date birthdate, @NotNull String email, boolean enabled) {
+			LocalDate birthdate, @NotNull String email, boolean enabled) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -147,12 +147,12 @@ public class User {
 	}
 
 
-	public Date getBirthdate() {
+	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
 

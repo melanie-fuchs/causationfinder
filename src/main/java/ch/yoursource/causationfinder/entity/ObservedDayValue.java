@@ -31,19 +31,18 @@ public class ObservedDayValue {
 	private CustomParameter customParameter;
 			
 	@Column(name = "numeric_value")
-	private double numericValue;
+	private Double numericValue;
 	
 	@Column(name = "boolean_value")
-	private boolean booleanValue;
+	private Boolean booleanValue;
 
 	@Column(name = "string_value")
 	private String stringValue;
 	
 	public ObservedDayValue() {}
 
-	public ObservedDayValue(@NotNull int id, @NotNull Date date, CustomParameter customParameter, double numericValue,
-			boolean booleanValue, String stringValue) {
-		this.id = id;
+	public ObservedDayValue(@NotNull Date date, CustomParameter customParameter, Double numericValue,
+			Boolean booleanValue, String stringValue) {
 		this.date = date;
 		this.customParameter = customParameter;
 		this.numericValue = numericValue;
@@ -77,23 +76,23 @@ public class ObservedDayValue {
 		this.customParameter = customParameter;
 	}
 
-	public double getNumericValue() {
+	public Double getNumericValue() {
 		return numericValue;
 	}
 
-	public void setNumericValue(double numericValue) {
+	public void setNumericValue(Double numericValue) {
 		this.numericValue = numericValue;
 	}
 
-	public boolean isBooleanValue() {
+	public Boolean getBooleanValue() {
 		return booleanValue;
 	}
 
-	public void setBooleanValue(boolean booleanValue) {
+	public void setBooleanValue(Boolean booleanValue) {
 		this.booleanValue = booleanValue;
 	}
 
-	public String isStringValue() {
+	public String getStringValue() {
 		return stringValue;
 	}
 

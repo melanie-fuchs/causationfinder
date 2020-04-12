@@ -76,15 +76,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Gluten Eaten", "Did you eat anything that contains gluten today? Like Bread, Pasta, etc?"));
             predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Processed Sweets Eaten", "Did you eat any processed sweets like chocolate, lollipops, cookies etc today?"));
             predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Did Sports", "Did you do some kind of sports today?"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.STRING, "Diary", "Write about your day today"));
 
             predefinedParameterRepository.saveAll((Iterable<PredefinedParameter>)predefinedParameters);
         }
-        // TODO: Numeric is not good. There has to be some sort of range.
-        // The range varies and should be set in advance.
-        // like hours of slept cannot be more than 24, happiness
-        // foe example rating between 0 and 10, same as qulity of sleep.
-        // So ther should be multiple kinds of numeric.
-        // Probably doing it with enum
         
         // TODO: create all predefined parameters for table predefinedParameter
     }

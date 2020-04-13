@@ -6,7 +6,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @EnableWebSecurity
 @org.springframework.context.annotation.Configuration
@@ -24,9 +27,6 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
         return bCryptPasswordEncoder;
     }
 
-    // TODO implement to allow multiple languages
-    //default locale set to US (if key not found in messages_XX.properties-files,
-    // messages.properties will be used as fallback
 //  @Bean
 //  public LocaleResolver localeResolver() {
 //      SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
@@ -34,30 +34,24 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
 //      return sessionLocaleResolver;
 //  }
     
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new CustomLocaleResolver();
+    }
 
-//  
-//  @Bean
-//  public LocalValidatorFactoryBean getValidator() {
-//      LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-//      bean.setValidationMessageSource(messageSource());
-//      return bean;
-//  }
-//  
-//  
-    //
-//  // interceptor will switch to a new locale based on value of the lang-parameter appended to a request
-//  @Bean
-//  public LocaleChangeInterceptor localeChangeInterceptor() {
-//      LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-//      localeChangeInterceptor.setParamName("lang");
-//      return localeChangeInterceptor;
-//  }
-//  
-//  // register the LocaleChanceInterceptor-Bean to the application's interceptor 
-//  @Override
-//  public void addInterceptors(InterceptorRegistry registry) {
-//      registry.addInterceptor(localeChangeInterceptor());
-//  }
+    // interceptor will switch to a new locale based on value of the lang-parameter appended to a request
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        return localeChangeInterceptor;
+    }
+
+    // register the LocaleChanceInterceptor-Bean to the application's interceptor 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
     
 
     @Override

@@ -6,7 +6,23 @@
 </head>
 <body>
 	<div th:insert="fragments/navigation :: navigation"></div>
+	
 	<h2>Analyze Data</h2>
+	<br/>
+	<form action="#" th:action="@{/data/datacollection//analyze-data}" method="GET">
+		<label for="startDate">Start Date:</label>
+		<br/>
+		<input name="startDate" type="date" required="required" th:value="${startDate}" />
+		<br/><br/>
+		<label for="endDate">End Date:</label>
+		<br/>
+		<input name="endDate" type="date" required="required" th:value="${endDate}" />
+		
+		<br/><br/>
+		<input type="submit"/>
+	</form>
+	
+	
 
 </body>
 </html>

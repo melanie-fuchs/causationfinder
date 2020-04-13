@@ -12,19 +12,24 @@
 		<input type="submit" value="Change date and reload"	/>
 	</form>
 	
+	<form id="loadDataFromYesterdayForm" action="#" th:action="@{/data/datacollection/enter-data} + '#setTodayAfterLoad'" method="GET">
+		<input name="date" id="dateHidden" type="hidden" th:value="${date}" />
+	</form>
+	
 	<br />
 
-	<form action="#" th:action="@{/data/datacollection/enter-data}"
+	<form id="actualForm" action="#" th:action="@{/data/datacollection/enter-data}"
 		th:object="${activeParametersNumeric}" method="POST">
 
 		<h2>Enter Data</h2>
 		
-		<!--  input type="date"-->
-		<label for="date">Date:</label>
-		<input name="date" type="date" required="required" th:value="${date}" />
+		<button id="loadDataFromYesterday">Overwrite with data from yesterday</button>
 		<br /><br />
 		
-		
+		<!--  input type="date"-->
+		<label for="date">Date:</label>
+		<input id="actualDate" name="date" type="date" required="required" th:value="${date}" />
+		<br /><br />
 
 		<th:block th:each="parameter : ${activeParametersNumeric}">
 			<label th:text="${parameter.paramName}"></label>
@@ -60,5 +65,44 @@
 		<input type="submit" />
 
 	</form>
+	<script>
+	
+		function zeroPad(number, width){
+			 width -= number.toString().length;
+			  if ( width > 0 )
+			  {
+			    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+			  }
+			  return number + ""; // always return a string
+		}
+	
+		function getToday() {
+			var today = new Date();
+			return today.getFullYear()+'-'+(zeroPad(today.getMonth()+1, 2))+'-'+zeroPad(today.getDate(), 2);
+		}
+		
+		function getYesterday() {
+			var date = new Date();
+			date.setDate(date.getDate() - 1);
+			return date.getFullYear()+'-'+(zeroPad(date.getMonth()+1, 2))+'-'+zeroPad(date.getDate(), 2);			
+		}
+	
+		document.addEventListener("DOMContentLoaded", function() {
+			var button = document.getElementById("loadDataFromYesterday").addEventListener("click", function (e) {
+				e.preventDefault();
+				var date = document.getElementById("dateHidden");
+				date.value = getYesterday();
+				
+				var form = document.getElementById("loadDataFromYesterdayForm");
+				form.submit();
+			});
+			
+			if (window.location.hash == "#setTodayAfterLoad") {
+				var form = document.getElementById("actualForm");
+				var date = document.getElementById("actualDate");
+				date.value = getToday();
+			}
+		});
+	</script>
 </body>
 </html>

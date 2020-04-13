@@ -62,6 +62,10 @@ public class EnterDataController {
         return "data/datacollection/enter-data";
     }
     
+    // TODO:
+    // make a button to load data to html form from the previous day
+    // should make it easier for the user to enter data based on yeserday's values
+    
     @PostMapping("data/datacollection/enter-data")
     public ModelAndView saveEntry(
         @RequestParam(value="date", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,

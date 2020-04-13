@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ch.yoursource.causationfinder.dto.ChangePasswordDto;
 import ch.yoursource.causationfinder.dto.UpdateUserDto;
 import ch.yoursource.causationfinder.entity.Role;
 import ch.yoursource.causationfinder.entity.User;
@@ -16,16 +15,21 @@ import ch.yoursource.causationfinder.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
 	private RoleRepository roleRepository;
-	
-	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Autowired
+	public UserServiceImpl(
+        UserRepository userRepository,
+        RoleRepository roleRepository,
+        BCryptPasswordEncoder bCryptPasswordEncoder
+    ) {
+	    this.userRepository = userRepository;
+	    this.roleRepository = roleRepository;
+	    this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
+	
 	@Override
 	public void save(User user) {
 	    if (user.getPassword() != null) {
@@ -67,8 +71,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(currentUser);
     }
     
-
-
     @Override
     public void saveChangedPassword(User currentUser, String newPassword) {
         currentUser.setPassword(bCryptPasswordEncoder.encode(newPassword));

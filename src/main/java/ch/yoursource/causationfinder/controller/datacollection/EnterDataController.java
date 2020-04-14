@@ -153,29 +153,38 @@ public class EnterDataController {
             if (key.contains(booleanParameterPrefix)) {
                 int parameterId = Integer.valueOf(key.substring(booleanParameterPrefix.length()));
                 
-                checkedBooleanParameters.add(parameterId);
+                String[] value = request.getParameterMap().get(key);
+                System.out.println(">>>>>>>>>>>>>> Value is: " + value[0]);
+                
+              
                 System.out.println("ID of BOOLEAN-Parameter is: " + parameterId);
                 
+                
+                ObservedDayValue valueForGivenDayAndParameter = observedValuesPerParameterIdFromGivenDay.get(parameterId);
+                
+                
+                //what happens if we didnt find a value?
+                if (valueForGivenDayAndParameter == null) {
+                    //we didnt find a value, create new one and set customParameter
+                    valueForGivenDayAndParameter = new ObservedDayValue();
+                    try {
+                        //TODO: optimize, don't run sql query for each parameter
+                        valueForGivenDayAndParameter.setCustomParameter(customParameterRepository.findById(parameterId).orElseThrow());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                
+                if(value[0].equals("true")) {
+                    valueForGivenDayAndParameter.setBooleanValue(true);
+                } else {
+                    valueForGivenDayAndParameter.setBooleanValue(false);
+                }
+                valueForGivenDayAndParameter.setDate(this.getDateFromLocalDate(givenDay));
+                observedDayValueRepository.save(valueForGivenDayAndParameter);
             }
         }
         
-        for (CustomParameter cp : customParameterRepository.findActiveByUserAndType(getLoggedInUser(), ParameterType.BOOLEAN)) {
-            
-            boolean isChecked = checkedBooleanParameters.contains(Integer.valueOf(cp.getId()));
-            
-            ObservedDayValue valueForGivenDayAndParameter = observedValuesPerParameterIdFromGivenDay.get(cp.getId());
-            
-            
-            //what happens if we didnt find a value?
-            if (valueForGivenDayAndParameter == null) {
-                //we didnt find a value, create new one and set customParameter
-                valueForGivenDayAndParameter = new ObservedDayValue();
-                valueForGivenDayAndParameter.setCustomParameter(cp);
-            }
-            valueForGivenDayAndParameter.setBooleanValue(isChecked);
-            valueForGivenDayAndParameter.setDate(this.getDateFromLocalDate(givenDay));
-            observedDayValueRepository.save(valueForGivenDayAndParameter);
-        }
         
         // reload all the customparameters and their values so they will be set once the submitbutton is pressed
         observedValuesFromGivenDay = this.observedDayValueRepository.findByDateAndUser(getDateFromLocalDate(givenDay), user);

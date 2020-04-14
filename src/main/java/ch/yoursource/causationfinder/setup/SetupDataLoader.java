@@ -70,13 +70,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         
         if(tableSize == 0) {
             List<PredefinedParameter> predefinedParameters = new ArrayList<PredefinedParameter>();
-            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Hours Slept Per Night", "How many hours did you sleep tonight?"));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Quality Of Sleep", "Rate the quality of your sleep from 0 (really bad) to 10 (very good)"));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Happiness", "Rate how happy you were today from 0 (not happy at all) to 10 (very happy)"));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Gluten Eaten", "Did you eat anything that contains gluten today? Like Bread, Pasta, etc?"));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Processed Sweets Eaten", "Did you eat any processed sweets like chocolate, lollipops, cookies etc today?"));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Did Sports", "Did you do some kind of sports today?"));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.STRING, "Diary", "Write about your day today"));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Hours Slept Per Night", "How many hours did you sleep tonight?", 0.0, 24.0));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Quality Of Sleep", "Rate the quality of your sleep from 0 (really bad) to 10 (very good)", 0.0, 10.0));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Happiness", "Rate how happy you were today from 0 (not happy at all) to 10 (very happy)", 0.0, 10.0));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Gluten Eaten", "Did you eat anything that contains gluten today? Like Bread, Pasta, etc?", null, null));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Processed Sweets Eaten", "Did you eat any processed sweets like chocolate, lollipops, cookies etc today?", null, null));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Did Sports", "Did you do some kind of sports today?", null, null));
+            predefinedParameters.add(new PredefinedParameter(ParameterType.STRING, "Diary", "Write about your day today", null, null));
 
             predefinedParameterRepository.saveAll((Iterable<PredefinedParameter>)predefinedParameters);
         }

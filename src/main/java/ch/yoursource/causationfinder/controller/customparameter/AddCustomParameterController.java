@@ -38,9 +38,11 @@ public class AddCustomParameterController {
     
     @PostMapping("/data/custom-parameter/add")
     public String addCustomParameter(
-        @RequestParam(value="type", required=true) String type,
-        @RequestParam(value="parameterName", required=true) String parameterName,
-        @RequestParam(value="description", required=false) String description,
+        @RequestParam(value="type", required = true) String type,
+        @RequestParam(value="parameterName", required = true) String parameterName,
+        @RequestParam(value="description", required = false) String description,
+        @RequestParam(value="minValue", required = false) Double minValue,
+        @RequestParam(value="maxValue", required = false) Double maxValue,
         WebRequest request,
         Model model
     ) { 
@@ -58,6 +60,8 @@ public class AddCustomParameterController {
                 break;
             case "NUMERIC":
                 customParameter.setType(ParameterType.NUMERIC);
+                customParameter.setMinValue(minValue);
+                customParameter.setMaxValue(maxValue);
                 break;
             default:
                 customParameter.setType(ParameterType.NUMERIC);
@@ -66,7 +70,7 @@ public class AddCustomParameterController {
         
         return "home/userhome";        
     }
-    
+
     private User getLoggedInUser()
     {        
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();

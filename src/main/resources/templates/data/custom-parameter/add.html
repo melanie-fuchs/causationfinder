@@ -37,6 +37,20 @@
 				<label for="type">Yes/No (Boolean)</label>
 			</div>
 			
+			<br>
+			<div id="minMaxContainer" style="display:none">
+				Set minimum and maximum value for numeric values. These values are used to set a reasonable
+				range for the Y-Axis in the graph when analyzing your data. If not set, the lines will have a range
+				between the smallest and the highest of your entries.
+				<br/>
+				<label for="minValue">Minimum value:</label>
+				<br>
+				<input type="number" name="minValue"/>
+				<br/>
+				<label for="maxValue">Maximum value:</label>
+				<br/>
+				<input type="number" name="maxValue"/>
+			</div>
 			
 			<br>
 			<h5>Write a Name *</h5>
@@ -57,6 +71,26 @@
 			<input type="submit">
 			
 		</form>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var numericType = "NUMERIC";
+				
+				var minMaxContainer = document.getElementById("minMaxContainer");
+				
+				var types = document.getElementsByName("type");
+				
+				for (var i = 0; i < types.length; i++) {
+					var type = types[i];
+					type.addEventListener("change", function (e) {
+						if (e.target.value == numericType) {
+							minMaxContainer.style.display = "block";
+						} else {
+							minMaxContainer.style.display = "none";
+						}
+					});
+				}
+			});
+		</script>
 		
 </body>
 </html>

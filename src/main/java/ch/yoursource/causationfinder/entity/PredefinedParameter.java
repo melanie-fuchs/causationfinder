@@ -33,13 +33,21 @@ public class PredefinedParameter {
 
     @Column(name = "description")
     private String description;
+    
+    @Column(name="min_value")
+    private Double minValue;
+    
+    @Column(name="max_value")
+    private Double maxValue;
 
 	public PredefinedParameter() {}
 
-	public PredefinedParameter(@NotNull ParameterType type, @NotNull String paramName, String description) {
+	public PredefinedParameter(@NotNull ParameterType type, @NotNull String paramName, String description, Double minValue, Double maxValue) {
 		this.type = type;
 		this.paramName = paramName;
 		this.description = description;
+		this.minValue = minValue;
+		this.maxValue = maxValue;
 	}
 
 	public int getId() {
@@ -73,11 +81,26 @@ public class PredefinedParameter {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public Double getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(Double minValue) {
+        this.minValue = minValue;
+    }
+
+    public Double getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(Double maxValue) {
+        this.maxValue = maxValue;
+    }
 
     @Override
     public String toString() {
         return "PredefinedParameter [id=" + id + ", type=" + type + ", paramName=" + paramName + ", description="
-                + description + "]";
+                + description + ", minValue=" + minValue + ", maxValue=" + maxValue + "]";
     }
-
 }

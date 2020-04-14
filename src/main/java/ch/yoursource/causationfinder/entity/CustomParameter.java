@@ -47,17 +47,26 @@ public class CustomParameter {
 	@NotNull
 	@Column(name = "active")
 	private boolean active;
+	
+    @Column(name="min_value")
+    private Double minValue;
+    
+    @Column(name="max_value")
+    private Double maxValue;
 
 	public CustomParameter() {}
 
 	public CustomParameter(User user, @NotNull ParameterType type, @NotNull String paramName,
-            PredefinedParameter predefinedParam, String description, @NotNull boolean active) {
+            PredefinedParameter predefinedParam, String description, @NotNull boolean active,
+            Double minValue, Double maxValue) {
         this.user = user;
         this.type = type;
         this.paramName = paramName;
         this.predefinedParam = predefinedParam;
         this.description = description;
         this.active = active;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
     public int getId() {
@@ -115,10 +124,27 @@ public class CustomParameter {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public Double getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(Double minValue) {
+        this.minValue = minValue;
+    }
+
+    public Double getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(Double maxValue) {
+        this.maxValue = maxValue;
+    }
 
     @Override
     public String toString() {
         return "CustomParameter [id=" + id + ", user=" + user + ", type=" + type + ", paramName=" + paramName
-                + ", predefinedParam=" + predefinedParam + ", description=" + description + ", active=" + active + "]";
-    }
+                + ", predefinedParam=" + predefinedParam + ", description=" + description + ", active=" + active
+                + ", minValue=" + minValue + ", maxValue=" + maxValue + "]";
+    }    
 }

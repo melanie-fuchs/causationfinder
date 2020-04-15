@@ -18,6 +18,11 @@ import ch.yoursource.causationfinder.repository.UserRepository;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+ * The class is used to return an instance of spring's user (as our user is 
+ * custom)
+ */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

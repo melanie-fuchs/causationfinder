@@ -9,7 +9,7 @@
 	
 	<h2>Analyze Data</h2>
 	<br/>
-	<form action="#" th:action="@{/data/datacollection//analyze-data}" method="GET">
+	<form action="#" th:action="@{/data/datacollection/analyze-data}" method="POST">
 		<label for="startDate">Start Date:</label>
 		<br/>
 		<input name="startDate" type="date" required="required" th:value="${startDate}" />
@@ -22,6 +22,28 @@
 		<input type="submit"/>
 	</form>
 	
+	
+	<!-- 
+		<script>
+			var data = 'hier Json ausgeben'; // { 
+			     {
+			     	id: 79
+			     	minValue: null,
+			     	maxVlaue: null,
+			     	data: [1,2,3,4,5],
+			     },			     
+			     {			     
+			     
+			     
+			     }
+			
+			}
+			
+			
+			magicGraphicLibrary.show(data);
+		
+		</script>	
+	 -->
 	
 
 </body>

@@ -1,6 +1,9 @@
 package ch.yoursource.causationfinder.serializer;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -55,13 +58,18 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
             JsonGenerator jgen,
             SerializerProvider provider)
             throws IOException, JsonGenerationException {
+        
         jgen.writeStartObject();
         jgen.writeStringField("parameterName", value.getParameterName());
         if (value.getMinValue() != null) {
-            jgen.writeNumberField("minValue", value.getMinValue());
+            jgen.writeNumberField("minValue", value.getMinValue());            
+        } else {
+            jgen.writeNumberField("minValue", this.getMinValue(value));
         }
         if (value.getMaxValue() != null) {
             jgen.writeNumberField("maxValue", value.getMaxValue());
+        } else {
+            jgen.writeNumberField("maxValue", this.getMaxValue(value));
         }
         jgen.writeArrayFieldStart("values");
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
@@ -72,6 +80,24 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
         }
         jgen.writeEndArray();
         jgen.writeEndObject();
+    }
+    
+    // method to return the smallest value the user has ever entered within the date-range
+    private Double getMaxValue(CustomParameterDayAnalyzeDto value) {
+        HashSet<Double> valuesOfParameter = new HashSet<Double>();
+        for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
+            valuesOfParameter.add(v.getValue());
+        }
+        return Collections.max(valuesOfParameter);        
+    }
+
+    // method to return the highest value the user has ever entered within the date-range
+    private Double getMinValue(CustomParameterDayAnalyzeDto value) {
+        HashSet<Double> valuesOfParameter = new HashSet<Double>();
+        for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
+            valuesOfParameter.add(v.getValue());
+        }
+        return Collections.min(valuesOfParameter);        
     }
 
 }

@@ -92,8 +92,8 @@ public class AnalyzeDataController {
         
         System.out.println("number of customParameters: " + allCustomParameters.size());
         
-        // get all Dates between the two dates
-        List<LocalDate> allDates = startDate.datesUntil(endDate).collect(Collectors.toList());
+        // get all Dates between the two dates (add one day (plusDays(1L)) to the endDate, so the enddate itself will be analyzed as well)
+        List<LocalDate> allDates = startDate.datesUntil(endDate.plusDays(1L)).collect(Collectors.toList());
 
         // create matrix, x and y axis
         double[][] valuesByParametersAndDate = new double[allCustomParameters.size()][allDates.size()];
@@ -172,7 +172,7 @@ public class AnalyzeDataController {
             e.printStackTrace();
         }
         // <-- end of debug purpose
-        
+   
         
         // TODO Display the Data and let the user hide values by unchecking the parameter.
         // TODO let the user analyze data in steps, like display every second day, every week etc

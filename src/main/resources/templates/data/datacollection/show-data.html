@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Analyze Data</title>
+</head>
+<body>
+	<div th:insert="fragments/navigation :: navigation"></div>
+	
+	<script th:inline="javascript">
+/*<![CDATA[*/
+
+    var data = /*[[${data}]]*/ 'default';
+    console.log(data);
+
+/*]]>*/
+</script>
+</body>
+</html>

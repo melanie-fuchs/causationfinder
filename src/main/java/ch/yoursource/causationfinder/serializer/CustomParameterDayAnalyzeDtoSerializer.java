@@ -1,7 +1,6 @@
 package ch.yoursource.causationfinder.serializer;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashSet;
 

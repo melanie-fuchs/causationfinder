@@ -64,12 +64,12 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
         if (value.getMinValue() != null) {
             jgen.writeNumberField("minValue", value.getMinValue());            
         } else {
-            jgen.writeNumberField("minValue", this.getMinValue(value));
+            jgen.writeNumberField("minValue", this.getLowestValue(value));
         }
         if (value.getMaxValue() != null) {
             jgen.writeNumberField("maxValue", value.getMaxValue());
         } else {
-            jgen.writeNumberField("maxValue", this.getMaxValue(value));
+            jgen.writeNumberField("maxValue", this.getHighestValue(value));
         }
         jgen.writeArrayFieldStart("values");
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
@@ -83,7 +83,7 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
     }
     
     // method to return the smallest value the user has ever entered within the date-range
-    private Double getMaxValue(CustomParameterDayAnalyzeDto value) {
+    private Double getHighestValue(CustomParameterDayAnalyzeDto value) {
         HashSet<Double> valuesOfParameter = new HashSet<Double>();
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
             valuesOfParameter.add(v.getValue());
@@ -92,7 +92,7 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
     }
 
     // method to return the highest value the user has ever entered within the date-range
-    private Double getMinValue(CustomParameterDayAnalyzeDto value) {
+    private Double getLowestValue(CustomParameterDayAnalyzeDto value) {
         HashSet<Double> valuesOfParameter = new HashSet<Double>();
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
             valuesOfParameter.add(v.getValue());

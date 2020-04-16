@@ -1,6 +1,7 @@
 package ch.yoursource.causationfinder.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class ConfirmationToken {
@@ -29,7 +32,8 @@ public class ConfirmationToken {
     
     
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate createdDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date createdDate;
     
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "id")
@@ -37,7 +41,7 @@ public class ConfirmationToken {
     
     public ConfirmationToken(User user) {
         this.user = user;
-        createdDate = LocalDate.now();
+        createdDate = new Date();
         confirmationToken = UUID.randomUUID().toString(); 
     }
 
@@ -57,11 +61,11 @@ public class ConfirmationToken {
         this.confirmationToken = confirmationToken;
     }
 
-    public LocalDate getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 

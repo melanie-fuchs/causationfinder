@@ -1,19 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>Analyze Data</title>
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
+	<head>
+		<meta charset="utf-8" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>	
+		<title>Analyze Data</title>
+	</head>
+	<body>
+		<form action="#" th:action="@{/data/datacollection/show-data}" method="GET">
+			
+		</form>
 	
-	<script th:inline="javascript">
-/*<![CDATA[*/
+		<div th:insert="fragments/navigation :: navigation"></div>
 
-    var data = /*[[${data}]]*/ 'default';
-    console.log(data);
-
-/*]]>*/
-</script>
-</body>
+		<canvas id="canvas"></canvas>
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+   			var data = /*[[${data}]]*/ 'default';
+    		console.log(data);
+			/*]]>*/
+		</script>
+	
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				var jsondata = data;
+				console.debug(jsondata);
+				
+				var dates = [];
+				
+				Object.keys(jsondata).map(function(item) {
+					console.log(item);
+					console.log(item.parameterName);
+				});
+				
+				/*var parameterNames = jsondata.map(function(e) {
+					return e.parameterName;
+				});
+				
+				var minValue = jsondata.map(function(e) {
+					return e.minValue;
+				});
+				
+				var maxValue = jsondata.map(function(e) {
+					return e.maxValue;
+				});
+				
+				var datadate = jsondata.parameterName.map(function(e) {
+					return e.date;
+				});
+				
+				var datavalue = jsondata.parameterName.map(function(e) {
+					return e.value;
+				});*/
+				
+				/*var ctx = document.getElementById('canvas').getContext('2d');
+				var config = {
+						type: 'line',
+						data: {
+							labels: parameterNames,
+							datasets: [{
+								label: 'Graph Line',
+								data: datavalue
+							}]
+						}
+				};
+			
+				var chart = new Chart(ctx, config);*/
+			});
+			
+		</script>
+	</body>
 </html>

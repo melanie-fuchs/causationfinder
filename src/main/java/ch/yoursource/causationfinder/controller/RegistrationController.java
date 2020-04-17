@@ -49,11 +49,14 @@ public class RegistrationController {
 	}
 
 	@GetMapping("/registration")
-	public String showRegistrationForm(WebRequest request, Model model) {
+	public ModelAndView showRegistrationForm(
+	        ModelAndView modelAndView,
+	        WebRequest request) {
 		User user = new User();
-		model.addAttribute("user", user);
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("user-registration/user-registration-form");
 
-		return "user-registration/user-registration-form";
+		return modelAndView;
 	}
 
 	@PostMapping("/registration")
@@ -61,7 +64,8 @@ public class RegistrationController {
 			@ModelAttribute("user") @Valid User user,
 			BindingResult result,
 			WebRequest request,
-			Errors errors) {		
+			Errors errors,
+			ModelAndView modelAndView) {		
 		boolean hasErrors = false;
 		
 		if (result.hasErrors()) {
@@ -85,29 +89,33 @@ public class RegistrationController {
 		
 		if (hasErrors) {
 			// first parameter is path to registration-form, second parameter is variable-name to access dto in template/html file)
-			return new ModelAndView("user-registration/user-registration-form", "user", user);
+			// return new ModelAndView("user-registration/user-registration-form", "user", user);
+		    modelAndView.addObject("user", user);
+		    modelAndView.setViewName("user-registration/user-registration-form");
+		    return modelAndView;
 		}		
 
 		// everything is fine and the user should now get an email to verify the address.
-		// he user will be saved in the database, but will be set enabled=false
 		// TODO: Must make sure the user cannot login if he's not enabled!!
-        user.setEnabled(false);
+		user.setEnabled(false);
         userService.save(user);
         ConfirmationToken confirmationToken = new ConfirmationToken(user);
+
+        System.out.println("TOKEN BEFORE clicked the link: " + confirmationToken);
+        
         confirmationTokenRepository.save(confirmationToken);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Complete Registration");
         mailMessage.setFrom("registration@yoursource.ch");
-        mailMessage.setText("To conform your account, please click here: " +
+        mailMessage.setText("To confirm your account, please click here: " +
                 "http://localhost:8080/user-registration/confirm-account?token="+confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(mailMessage);
-//        modelAndView.addObject("email", user.getEmail());
-//        modelAndView.addObject("user", user);
-//        modelAndView.setViewName("user-registration/registration-succeeded");
-//        
-//		return modelAndView;
-		return new ModelAndView("user-registration/registration-succeeded", "user", user);
+        modelAndView.addObject("email", user.getEmail());
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("user-registration/registration-succeeded");
+        
+		return modelAndView;
 	}
 
 	@RequestMapping(value="/user-registration/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
@@ -115,15 +123,20 @@ public class RegistrationController {
 	        ModelAndView modelAndView,
 	        @RequestParam("token") String confirmationToken) {
 	    
+	    System.out.println("TOKEN after clicked the link: " + confirmationToken);
+	    
 	    ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        System.out.println("TOKEN after clicked the link: " + token);
 	    
 	    if(token != null) {
+            System.out.println(">>>>> user: " + token.getUser());
+	        System.out.println(">>>>> email: " + token.getUser().getEmail());
 	        User user = userService.findByEmail(token.getUser().getEmail());
 	        user.setEnabled(true);
 	        parameterService.activateAllPredefinedParameters(user);
-	        securityService.autoLogin(user.getUsername(), user.getPasswordConfirm());
-	        userService.save(user);
-	        modelAndView.setViewName("account-verified");
+	        userService.update(user);
+	        modelAndView.setViewName("user-registration/account-verified");
 	    } else {
 	        // TODO return errorpage
 	        // modelAndView.addObject("message", "link is invalid or broken");

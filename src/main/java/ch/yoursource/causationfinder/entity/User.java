@@ -41,7 +41,7 @@ public class User {
 	@Size(min=8, max=64)
 	@Column(name = "password")
 	private String password;
-	
+    
 	@Transient
 	private String passwordConfirm;
 	
@@ -181,8 +181,8 @@ public class User {
 	public Set<Role> getRoles() {
 		return roles;
 	}
-	
-	@Override
+
+    @Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", birthdate=" + birthdate + ", email=" + email + "]";

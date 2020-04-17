@@ -45,9 +45,15 @@ public class UserServiceImpl implements UserService {
 		Set<Role> userRoles = new HashSet<Role>();
 		userRoles.add(userRole);
 		user.setRoles(userRoles);
-		user.setEnabled(true);
 		
 		userRepository.save(user);
+	}
+	
+	// method needed because spring would encode the already hashed password again
+	// when saving the user after registration confirmed
+	@Override
+	public void update(User user) {
+	    userRepository.save(user);
 	}
 
 	@Override

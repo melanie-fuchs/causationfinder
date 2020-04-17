@@ -35,14 +35,17 @@ public class ConfirmationToken {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date createdDate;
     
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
     
     public ConfirmationToken(User user) {
         this.user = user;
         createdDate = new Date();
         confirmationToken = UUID.randomUUID().toString(); 
+    }
+    
+    public ConfirmationToken() {
     }
 
     public int getId() {

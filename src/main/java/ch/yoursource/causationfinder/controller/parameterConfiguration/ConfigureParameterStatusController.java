@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.controller.predefinedparameter;
+package ch.yoursource.causationfinder.controller.parameterConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +21,13 @@ import ch.yoursource.causationfinder.repository.CustomParameterRepository;
 import ch.yoursource.causationfinder.service.UserService;
 
 @Controller
-public class ConfigurePredefinedParameterController {
+public class ConfigureParameterStatusController {
     
     private CustomParameterRepository customParameterRepository;
     private UserService userService;
     
     @Autowired
-    public ConfigurePredefinedParameterController(
+    public ConfigureParameterStatusController(
         CustomParameterRepository customParameterRepository,
         UserService userService
     ) {
@@ -35,33 +35,48 @@ public class ConfigurePredefinedParameterController {
         this.userService = userService;
     }
     
-    @GetMapping("/data/predefined-parameter/configure")
-    public String showManageParameterForm(WebRequest request, Model model) {
+    @GetMapping("/data/parameter-configuration/configure-parameter-status")
+    public String showManageParameterForm(
+            WebRequest request,
+            Model model) {
+        // prepare all predefined parameters
         List<CustomParameter> predefinedParameters = this.getPredefinedParametersByCurrentUser();
-        
-        model.addAttribute("managepredefinedparameter", predefinedParameters);
-        
+        model.addAttribute("managepredefinedparameter", predefinedParameters); 
         model.addAllAttributes(predefinedParameters);    
         
-        return "/data/predefined-parameter/configure";
+        // prepare all custom parameters
+        List<CustomParameter> customParameters = this.getCustomParametersByCurrentUser();
+        model.addAttribute("managecustomparameter", customParameters);
+        model.addAllAttributes(customParameters); 
+        
+        return "/data/parameter-configuration/configure-parameter-status";
     }
     
-    @PostMapping("/data/predefined-parameter/configure")
+    @PostMapping("/data/parameter-configuration/configure-parameter-status")
     public ModelAndView changeActiveStateOfPredefinedParameters(
-        @RequestParam(value="checkedPredefinedParameters[]", required = false) int[] parameterIds,
+        @RequestParam(value="checkedPredefinedParameters[]", required = false) int[] predefinedParameterIds,
+        @RequestParam(value="checkedCustomParameters[]", required = false) int[] customParameterIds,
         WebRequest request,
         Model model
-    ) {        
+    ) {
         List<CustomParameter> predefinedParameters = this.getPredefinedParametersByCurrentUser();    
-        
         model.addAttribute("managepredefinedparameter", predefinedParameters);
+        
+        List<CustomParameter> customParameters = this.getCustomParametersByCurrentUser();    
+        model.addAttribute("managecustomparameter", customParameters);
         
         List<Integer> checkedParameterIds = new ArrayList<Integer>();
         
-        // make sure the status is being updated in the database even tho no params are
-        // were transferred from the html-form (html form will only send the checked id's)
-        if (parameterIds != null) {
-            for (int checkedParameterId : parameterIds) {
+        // make sure the status is being updated in the database even tho no params
+        // were transferred from the html-form --> html-form only sends checked params
+        if (predefinedParameterIds != null) {
+            for (int checkedParameterId : predefinedParameterIds) {
+                checkedParameterIds.add(checkedParameterId);
+            }
+        }
+        
+        if (customParameterIds != null) {
+            for (int checkedParameterId : customParameterIds) {
                 checkedParameterIds.add(checkedParameterId);
             }
         }
@@ -85,8 +100,7 @@ public class ConfigurePredefinedParameterController {
             }
         }
         
-        return new ModelAndView("/data/predefined-parameter/configure");
-        
+        return new ModelAndView("/data/parameter-configuration/configure-parameter-status");
     }
     
     private List<CustomParameter> getPredefinedParametersByCurrentUser()
@@ -99,6 +113,18 @@ public class ConfigurePredefinedParameterController {
             });
         
         return predefinedParameters;        
+    }
+    
+    private List<CustomParameter> getCustomParametersByCurrentUser()
+    {
+        // Sort the list so it always shows the same order (else it orders depending on active status or sth)
+        List<CustomParameter> customParameters = this.customParameterRepository.findCustomByUser(getLoggedInUser());
+        customParameters.sort(
+            (CustomParameter a, CustomParameter b) -> {
+                return a.getParamName().compareTo(b.getParamName());
+            });
+        
+        return customParameters;        
     }
     
     private User getLoggedInUser()

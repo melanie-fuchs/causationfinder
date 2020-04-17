@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.controller.customparameter;
+package ch.yoursource.causationfinder.controller.parameterConfiguration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -31,12 +31,12 @@ public class AddCustomParameterController {
         this.userService = userService;
     }
     
-    @GetMapping("/data/custom-parameter/add")
+    @GetMapping("/data/parameter-configuration/add-parameter")
     public String showAddCustomParameterForm(WebRequest request) {        
-        return "data/custom-parameter/add";
+        return "data/parameter-configuration/add-parameter";
     }
     
-    @PostMapping("/data/custom-parameter/add")
+    @PostMapping("/data/parameter-configuration/add-parameter")
     public String addCustomParameter(
         @RequestParam(value="type", required = true) String type,
         @RequestParam(value="parameterName", required = true) String parameterName,

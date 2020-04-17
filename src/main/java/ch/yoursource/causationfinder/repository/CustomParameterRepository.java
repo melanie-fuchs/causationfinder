@@ -22,6 +22,6 @@ public interface CustomParameterRepository extends JpaRepository<CustomParameter
     
     // find all active customParameters per user 
     @Query("SELECT c FROM CustomParameter c WHERE c.user = :user AND c.active=true AND c.type=:type")
-    public List<CustomParameter> findActiveByUserAndType(@Param("user") User user, @Param("type") ParameterType type);   
+    public List<CustomParameter> findActiveByUserAndType(@Param("user") User user, @Param("type") ParameterType type);  
 }
  

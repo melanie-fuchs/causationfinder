@@ -16,22 +16,24 @@
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/
-   			var data = /*[[${data}]]*/ 'default';
-    		console.log(data);
+   			var jsonString = /*[[${data}]]*/ 'default';
 			/*]]>*/
 		</script>
 	
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
-				var jsondata = data;
-				console.debug(jsondata);
-				
+				var data = JSON.parse(jsonString);
+
 				var dates = [];
 				
-				Object.keys(jsondata).map(function(item) {
-					console.log(item);
-					console.log(item.parameterName);
+				Object.values(data).map(function(item) {
+					item.values.map(function (dateValue) {
+						if (!dates.includes(dateValue.date)) {
+							dates.push(dateValue.date);
+						}
+					});
 				});
+
 				
 				/*var parameterNames = jsondata.map(function(e) {
 					return e.parameterName;
@@ -52,20 +54,37 @@
 				var datavalue = jsondata.parameterName.map(function(e) {
 					return e.value;
 				});*/
-				
-				/*var ctx = document.getElementById('canvas').getContext('2d');
+
+				var datasets = [];
+
+
+
+				/*[{
+					label: 'Graph Line',
+					data: [1,2,3,4]
+				}]*/
+
+				Object.values(data).map(function(item) {
+					let values = [];
+					item.values.map(function (dateValue) {
+						values.push(dateValue.value);
+					});
+					datasets.push({
+						label: item.parameterName,
+						data: values
+					});
+				});
+
+				var ctx = document.getElementById('canvas').getContext('2d');
 				var config = {
 						type: 'line',
 						data: {
-							labels: parameterNames,
-							datasets: [{
-								label: 'Graph Line',
-								data: datavalue
-							}]
+							labels: dates,
+							datasets: datasets
 						}
 				};
 			
-				var chart = new Chart(ctx, config);*/
+				var chart = new Chart(ctx, config);
 			});
 			
 		</script>

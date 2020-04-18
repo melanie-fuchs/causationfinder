@@ -41,9 +41,9 @@
 			}
 
 			document.addEventListener("DOMContentLoaded", function () {
-				var data = JSON.parse(jsonString);
+				let data = JSON.parse(jsonString);
 
-				var dates = [];
+				let dates = [];
 				
 				Object.values(data).map(function(item) {
 					item.values.map(function (dateValue) {
@@ -53,33 +53,8 @@
 					});
 				});
 
-				
-				/*var parameterNames = jsondata.map(function(e) {
-					return e.parameterName;
-				});
-				
-				var minValue = jsondata.map(function(e) {
-					return e.minValue;
-				});
-				
-				var maxValue = jsondata.map(function(e) {
-					return e.maxValue;
-				});
-				
-				var datadate = jsondata.parameterName.map(function(e) {
-					return e.date;
-				});
-				
-				var datavalue = jsondata.parameterName.map(function(e) {
-					return e.value;
-				});*/
-
-				var datasets = [];
-
-				/*[{
-					label: 'Graph Line',
-					data: [1,2,3,4]
-				}]*/
+				let datasets = [];
+				let yAxes = [];
 
 				Object.values(data).map(function(item) {
 					let values = [];
@@ -87,17 +62,30 @@
 						values.push(dateValue.value);
 					});
 					let color = getNextColor();
+					let yAxisId = 'yaxis-' + color.replace('#', '');
+
 					datasets.push({
 						label: item.parameterName,
 						data: values,
 						backgroundColor: color,
 						borderColor: color,
 						fill: false,
+						yAxisID: yAxisId,
+					});
+					yAxes.push({
+						type: 'linear',
+						display: false,
+						position: 'right',
+						id: yAxisId,
+						ticks: {
+							min: item.minValue,
+							max: item.maxValue,
+						}
 					});
 				});
 
-				var ctx = document.getElementById('canvas').getContext('2d');
-				var config = {
+				let ctx = document.getElementById('canvas').getContext('2d');
+				let config = {
 					type: 'line',
 					data: {
 						labels: dates,
@@ -106,10 +94,13 @@
 					options: {
 						responsive: true,
 						stacked: false,
+						scales: {
+							yAxes: yAxes,
+						}
 					}
 				};
-			
-				var chart = new Chart(ctx, config);
+
+				let chart = new Chart(ctx, config);
 			});
 			
 		</script>

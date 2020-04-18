@@ -12,18 +12,15 @@
 		th:object="${managecustomparameter}" method="POST">
 		
 		<h2>Manage Parameter</h2>
-	
-		
-		<br>
-		<h4>Add New Parameters</h4>
-			
+
+		<h3>Add New Parameters</h3>
 			<p>
 				You can create your own custom parameters here.
 				It's important that you keep the values in a reasonable range.
 			</p>
 			
 			<br>
-			<h5>Choose a Type *</h5>
+			<h4>Choose a Type *</h4>
 			<div>
 				<input type="radio" name="type" value="STRING" required="required" />
 				<label for="type">Text</label>
@@ -37,7 +34,7 @@
 				<label for="type">Yes/No (Boolean)</label>
 			</div>
 			
-			<br>
+
 			<div id="minMaxContainer" style="display:none">
 				Set minimum and maximum value for numeric values. These values are used to set a reasonable
 				range for the Y-Axis in the graph when analyzing your data. If not set, the lines will have a range
@@ -45,24 +42,23 @@
 				<br/>
 				<label for="minValue">Minimum value:</label>
 				<br>
-				<input type="number" name="minValue"/>
+				<input type="number" name="minValue" min="-40" step="0.01"/>
 				<br/>
 				<label for="maxValue">Maximum value:</label>
 				<br/>
-				<input type="number" name="maxValue"/>
+				<input type="number" name="maxValue" min="0" step="0.01"/>
 			</div>
 			
 			<br>
-			<h5>Write a Name *</h5>
+			<h4>Write a Name *</h4>
 			<label for="parameterName">Parameter-Name:</label>
-			<br>
+
 			<input type="text" name="parameterName" required="required"/>
 			
 			<br>
 			<br>
-			<h5>Write a Description</h5>
+			<h4>Write a Description</h4>
 			<label for="description">Parameter-Name:</label>
-			<br>
 			<textarea name="description"></textarea>
 			
 			<br>

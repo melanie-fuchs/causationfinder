@@ -63,15 +63,21 @@
 					});
 					let color = getNextColor();
 					let yAxisId = 'yaxis-' + color.replace('#', '');
-
-					datasets.push({
+					
+					datasetData = {
 						label: item.parameterName,
 						data: values,
 						backgroundColor: color,
 						borderColor: color,
 						fill: false,
 						yAxisID: yAxisId,
-					});
+					};
+					
+					if (item.isBoolean) {
+						datasetData.lineTension = 0;
+					}
+					
+					datasets.push(datasetData);
 					yAxes.push({
 						type: 'linear',
 						display: false,

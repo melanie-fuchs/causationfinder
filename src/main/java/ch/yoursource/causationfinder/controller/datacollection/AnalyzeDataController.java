@@ -1,7 +1,6 @@
 package ch.yoursource.causationfinder.controller.datacollection;
 
 
-import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -134,6 +131,7 @@ public class AnalyzeDataController {
             parameterDataDto.setParameterName(cp.getParamName());
             parameterDataDto.setMinValue(minValue);
             parameterDataDto.setMaxValue(maxValue);
+            parameterDataDto.setBoolean(cp.getType() == ParameterType.BOOLEAN);
             
             for (LocalDate date : allDates) {                
                 parameterDataDto.addDailyValue(new CustomParameterDayAnalyzeDayValueDto(

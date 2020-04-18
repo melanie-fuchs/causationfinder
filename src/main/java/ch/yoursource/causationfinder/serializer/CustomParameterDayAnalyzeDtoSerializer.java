@@ -70,6 +70,7 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
         } else {
             jgen.writeNumberField("maxValue", this.getHighestValue(value));
         }
+        jgen.writeBooleanField("isBoolean", value.isBoolean());
         jgen.writeArrayFieldStart("values");
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
             jgen.writeStartObject();

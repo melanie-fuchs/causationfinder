@@ -11,6 +11,7 @@ public class CustomParameterDayAnalyzeDto {
     private String parameterName;
     private Double minValue;
     private Double maxValue;
+    private boolean isBoolean;
     
     // The List contains objects that hold a value and a day
     private List<CustomParameterDayAnalyzeDayValueDto> dailyValues = new ArrayList<CustomParameterDayAnalyzeDayValueDto>();
@@ -37,6 +38,14 @@ public class CustomParameterDayAnalyzeDto {
     
     public void setMaxValue(Double maxValue) {
         this.maxValue = maxValue;
+    }
+    
+    public boolean isBoolean() {
+        return isBoolean;
+    }
+    
+    public void setBoolean(boolean isBoolean) {
+        this.isBoolean = isBoolean;
     }
     
     public List<CustomParameterDayAnalyzeDayValueDto> getDailyValues() {

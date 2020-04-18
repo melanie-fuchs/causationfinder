@@ -1,10 +1,12 @@
 package ch.yoursource.causationfinder.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.yoursource.causationfinder.dto.UpdateCustomParameterDto;
 import ch.yoursource.causationfinder.entity.CustomParameter;
 import ch.yoursource.causationfinder.entity.PredefinedParameter;
 import ch.yoursource.causationfinder.entity.User;
@@ -40,6 +42,20 @@ public class ParameterServiceImpl implements ParameterService {
             c.setDescription(p.getDescription());
             customParameterRepository.save(c);
         }
+    }
+    
+    public void updateParameter(UpdateCustomParameterDto updateCustomParameterDto) {
+        try {
+            CustomParameter c = customParameterRepository.findById(updateCustomParameterDto.getId()).orElseThrow();
+            c.setDescription(updateCustomParameterDto.getDescription());
+            c.setParamName(updateCustomParameterDto.getParamName());
+            c.setMinValue(updateCustomParameterDto.getMinValue());
+            c.setMaxValue(updateCustomParameterDto.getMaxValue());
+            customParameterRepository.save(c);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException(e);
+        }
+        
     }
 
 }

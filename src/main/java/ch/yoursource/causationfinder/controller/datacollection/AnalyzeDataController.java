@@ -65,17 +65,11 @@ public class AnalyzeDataController {
             @RequestParam(value="endDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             WebRequest request,
             Model model) {
-
-        System.out.println("StartDate: " + startDate + " EndDate: " + endDate);
-        
-        
         User user = this.getLoggedInUser();
-        
         
         List<ObservedDayValue> observedValuesInRange = this.observedDayValueRepository
                 .findActiveByUserInRange(this.getDateFromLocalDate(startDate), this.getDateFromLocalDate(endDate), user);
-        
-        
+
         // get all customParameters that were used between the two dates and save them in a Set to prevent double entries
         HashSet<CustomParameter> allCustomParametersSet = new HashSet<CustomParameter>();
         for (ObservedDayValue o : observedValuesInRange) {
@@ -84,10 +78,7 @@ public class AnalyzeDataController {
         // save the HashSet to a List to be able to get the index of a specific customParameter
         List<CustomParameter> allCustomParameters = new ArrayList<CustomParameter>();
         allCustomParameters.addAll(allCustomParametersSet);
-        
-        
-        System.out.println("number of customParameters: " + allCustomParameters.size());
-        
+
         // get all Dates between the two dates (add one day (plusDays(1L)) to the endDate, so the enddate itself will be analyzed as well)
         List<LocalDate> allDates = startDate.datesUntil(endDate.plusDays(1L)).collect(Collectors.toList());
 
@@ -95,6 +86,10 @@ public class AnalyzeDataController {
         double[][] valuesByParametersAndDate = new double[allCustomParameters.size()][allDates.size()];
         
         for (ObservedDayValue observedDayValue : observedValuesInRange) {
+            if (observedDayValue.getCustomParameter().getType() == ParameterType.STRING) {
+                continue;
+            }
+
             double value = 0.0;
             LocalDate date = getLocalDateFromDate(observedDayValue.getDate());
             
@@ -119,6 +114,10 @@ public class AnalyzeDataController {
         List<CustomParameterDayAnalyzeDto> data = new ArrayList<CustomParameterDayAnalyzeDto>();
         
         for (CustomParameter cp : allCustomParameters) {
+            if (cp.getType() == ParameterType.STRING) {
+                continue;
+            }
+
             Double minValue = cp.getMinValue();
             Double maxValue = cp.getMaxValue();
             
@@ -151,26 +150,13 @@ public class AnalyzeDataController {
         SimpleModule module = new SimpleModule();
         module.addSerializer(CustomParameterDayAnalyzeDto.class, new CustomParameterDayAnalyzeDtoSerializer());
         objectMapper.registerModule(module);
-       
-        
-        // --> debug purpose... Just to load the model with data to display it in the test-page
+
         try {
             model.addAttribute("data", objectMapper.writeValueAsString(data));
-            System.out.println(objectMapper.writeValueAsString(data));
-        } catch (JsonGenerationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        // <-- end of debug purpose
-   
-        
-        // TODO Display the Data and let the user hide values by unchecking the parameter.
+
         // TODO let the user analyze data in steps, like display every second day, every week etc
         return new ModelAndView("data/datacollection/show-data"); 
     }

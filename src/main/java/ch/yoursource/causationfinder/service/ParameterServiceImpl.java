@@ -40,6 +40,8 @@ public class ParameterServiceImpl implements ParameterService {
             c.setType(p.getType());
             c.setParamName(p.getParamName());
             c.setDescription(p.getDescription());
+            c.setMinValue(p.getMinValue());
+            c.setMaxValue(p.getMaxValue());
             customParameterRepository.save(c);
         }
     }

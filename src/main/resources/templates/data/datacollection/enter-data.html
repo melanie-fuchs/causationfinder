@@ -45,10 +45,10 @@
 
 		<th:block th:each="parameter : ${activeParametersString}">
 			<label th:text="${parameter.paramName}"></label>
-			<div th:text="${parameter?.description}"></div>
-			<input type="text"
-				th:name="${'string_parameter_' + parameter.id}"
-				th:value="${stringParameterMap.get(parameter.id)}" />
+			<div th:text="${parameter?.description}"></div>				
+			<textarea th:name="${'string_parameter_' + parameter.id}"
+				th:value="${stringParameterMap.get(parameter.id)}"
+				th:inline="text">[[${stringParameterMap.get(parameter.id)}]]</textarea>
 			<br>
 			<br>
 		</th:block>

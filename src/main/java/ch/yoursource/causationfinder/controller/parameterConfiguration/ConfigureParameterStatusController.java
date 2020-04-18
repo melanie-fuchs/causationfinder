@@ -65,6 +65,10 @@ public class ConfigureParameterStatusController {
         List<CustomParameter> customParameters = this.getCustomParametersByCurrentUser();    
         model.addAttribute("managecustomparameter", customParameters);
         
+        List<CustomParameter> allParameters = new ArrayList<CustomParameter>();
+        allParameters.addAll(predefinedParameters);
+        allParameters.addAll(customParameters);
+                
         List<Integer> checkedParameterIds = new ArrayList<Integer>();
         
         // make sure the status is being updated in the database even tho no params
@@ -80,17 +84,14 @@ public class ConfigureParameterStatusController {
                 checkedParameterIds.add(checkedParameterId);
             }
         }
-        
-        for (CustomParameter parameter : predefinedParameters) {
-            int parameterId = parameter.getId();
-            
+                
+        for (CustomParameter parameter : allParameters) {
+            int parameterId = parameter.getId();            
             boolean isChecked = checkedParameterIds.contains(Integer.valueOf(parameterId));
-            
             if (parameter.isActive() == isChecked) {
                 //active state of this parameter was not changed
                 continue;
-            }
-            
+            }            
             try {
                 CustomParameter c = customParameterRepository.findById(parameterId).orElseThrow();
                 c.setActive(isChecked);
@@ -99,7 +100,7 @@ public class ConfigureParameterStatusController {
                 throw new RuntimeException(e);
             }
         }
-        
+  
         return new ModelAndView("/data/parameter-configuration/configure-parameter-status");
     }
     

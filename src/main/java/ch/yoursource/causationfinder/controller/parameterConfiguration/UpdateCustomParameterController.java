@@ -87,7 +87,7 @@ public class UpdateCustomParameterController {
     private List<UpdateCustomParameterDto> getCustomParameterDtos()
     {
         // Sort the list so it always shows the same order (else it orders depending on active status or sth)
-        List<CustomParameter> parameters = this.customParameterRepository.findActiveByUserAndType(this.getLoggedInUser(), ParameterType.NUMERIC);
+        List<CustomParameter> parameters = this.customParameterRepository.findActiveByUserAndTypeExcludePredefined(this.getLoggedInUser(), ParameterType.NUMERIC);
         List<UpdateCustomParameterDto> updateCustomParameterDtos = new ArrayList<UpdateCustomParameterDto>();
         
         for(CustomParameter c : parameters) {

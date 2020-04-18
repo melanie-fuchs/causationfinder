@@ -6,10 +6,6 @@
 		<title>Analyze Data</title>
 	</head>
 	<body>
-		<form action="#" th:action="@{/data/datacollection/show-data}" method="GET">
-			
-		</form>
-	
 		<div th:insert="fragments/navigation :: navigation"></div>
 
 		<canvas id="canvas"></canvas>
@@ -21,6 +17,29 @@
 		</script>
 	
 		<script>
+			let colorIndex = 0;
+
+			const colors = ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099',
+				'#990099', '#0099c6', '#dd4477', '#66aa00', '#b82e2e',
+				'#316395', '#994499', '#22aa99', '#aaaa11', '#6633cc',
+				'#e67300', '#8b0707', '#651067', '#329262', '#5574a6',
+				'#3b3eac', '#b77322', '#16d620', '#b91383', '#f4359e',
+				'#9c5935', '#a9c413', '#2a778d', '#668d1c', '#bea413',
+				'#0c5922', '#743411'
+			];
+
+			function getNextColor() {
+				if (colorIndex > colors.length) {
+					colorIndex = 0;
+				}
+
+				let color = colors[colorIndex];
+
+				colorIndex++;
+
+				return color;
+			}
+
 			document.addEventListener("DOMContentLoaded", function () {
 				var data = JSON.parse(jsonString);
 
@@ -57,7 +76,14 @@
 
 				var datasets = [];
 
-
+				const colors = ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099',
+						       '#990099', '#0099c6', '#dd4477', '#66aa00', '#b82e2e',
+					           '#316395', '#994499', '#22aa99', '#aaaa11', '#6633cc',
+					           '#e67300', '#8b0707', '#651067', '#329262', '#5574a6',
+					           '#3b3eac', '#b77322', '#16d620', '#b91383', '#f4359e',
+					           '#9c5935', '#a9c413', '#2a778d', '#668d1c', '#bea413',
+						       '#0c5922', '#743411'
+				];
 
 				/*[{
 					label: 'Graph Line',
@@ -69,19 +95,25 @@
 					item.values.map(function (dateValue) {
 						values.push(dateValue.value);
 					});
+					let color = getNextColor();
 					datasets.push({
 						label: item.parameterName,
-						data: values
+						data: values,
+						backgroundColor: color,
+						borderColor: color,
 					});
 				});
 
 				var ctx = document.getElementById('canvas').getContext('2d');
 				var config = {
-						type: 'line',
-						data: {
-							labels: dates,
-							datasets: datasets
-						}
+					type: 'line',
+					data: {
+						labels: dates,
+						datasets: datasets
+					},
+					options: {
+
+					}
 				};
 			
 				var chart = new Chart(ctx, config);

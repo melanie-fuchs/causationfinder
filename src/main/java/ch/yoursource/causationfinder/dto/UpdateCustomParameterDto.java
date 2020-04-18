@@ -22,6 +22,12 @@ public class UpdateCustomParameterDto {
     private Double minValue;
     
     private Double maxValue;
+    
+    private Double lowestValue;
+    
+    private Double highestValue;
+    
+    
     public int getId() {
         return id;
     }
@@ -64,6 +70,22 @@ public class UpdateCustomParameterDto {
     
     public UpdateCustomParameterDto() {
         
+    }
+
+    public Double getLowestValue() {
+        return lowestValue;
+    }
+
+    public void setLowestValue(Double lowestValue) {
+        this.lowestValue = lowestValue;
+    }
+
+    public Double getHighestValue() {
+        return highestValue;
+    }
+
+    public void setHighestValue(Double highestValue) {
+        this.highestValue = highestValue;
     }
 
     public UpdateCustomParameterDto(CustomParameter customParameter) {

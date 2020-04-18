@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import ch.yoursource.causationfinder.entity.CustomParameter;
 import ch.yoursource.causationfinder.entity.ObservedDayValue;
 import ch.yoursource.causationfinder.entity.User;
 
@@ -26,5 +27,11 @@ public interface ObservedDayValueRepository extends JpaRepository<ObservedDayVal
             + "WHERE o.date BETWEEN :startDate AND :endDate "
             + "AND c.user = :user "
             + "AND c.active = true")
-    public List<ObservedDayValue> findActiveByUserInRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("user") User user); 
+    public List<ObservedDayValue> findActiveByUserInRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("user") User user);
+    
+    @Query("SELECT MIN(o.numericValue) FROM ObservedDayValue o WHERE o.customParameter = :customParameter")
+    public Double findLowestValueByCustomParameter(@Param("customParameter") CustomParameter customParameter);
+    
+    @Query("SELECT MAX(o.numericValue) FROM ObservedDayValue o WHERE o.customParameter = :customParameter")
+    public Double findHighestValueByCustomParameter(@Param("customParameter") CustomParameter customParameter);
 }

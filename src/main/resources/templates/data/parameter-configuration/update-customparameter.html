@@ -28,9 +28,9 @@
 			<label th:text="${parameter.paramName}"></label>
 			<br />
 			<label>min-value</label>			
-			<input type="number" th:max="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" />
+			<input type="number" th:max="*{updateCustomParameterDtoList[__${stat.index}__].lowestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" />
 			<label>max-value</label>
-			<input type="number" th:min="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" />
+			<input type="number" th:min="*{updateCustomParameterDtoList[__${stat.index}__].highestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" />
 			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].id}" />
 			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].paramName}" />
 			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].description}" />

@@ -23,6 +23,7 @@ import ch.yoursource.causationfinder.dto.UpdateCustomParameterDtoListWrapper;
 import ch.yoursource.causationfinder.entity.CustomParameter;
 import ch.yoursource.causationfinder.entity.User;
 import ch.yoursource.causationfinder.repository.CustomParameterRepository;
+import ch.yoursource.causationfinder.repository.ObservedDayValueRepository;
 import ch.yoursource.causationfinder.service.ParameterService;
 import ch.yoursource.causationfinder.service.UserService;
 import ch.yoursource.causationfinder.setup.ParameterType;
@@ -33,15 +34,18 @@ public class UpdateCustomParameterController {
     CustomParameterRepository customParameterRepository;
     UserService userService;
     ParameterService parameterService;
+    ObservedDayValueRepository observedDayValueRepository;
     
     @Autowired
     public UpdateCustomParameterController(
             CustomParameterRepository customParameterRepository,
             UserService userService,
-            ParameterService parameterService) {
+            ParameterService parameterService,
+            ObservedDayValueRepository observedDayValueRepository) {
         this.customParameterRepository = customParameterRepository;
         this.userService = userService;
         this.parameterService = parameterService;
+        this.observedDayValueRepository = observedDayValueRepository;
     }
 
     @GetMapping("/data/parameter-configuration/update-customparameter")
@@ -91,7 +95,10 @@ public class UpdateCustomParameterController {
         List<UpdateCustomParameterDto> updateCustomParameterDtos = new ArrayList<UpdateCustomParameterDto>();
         
         for(CustomParameter c : parameters) {
-            updateCustomParameterDtos.add(new UpdateCustomParameterDto(c));
+            UpdateCustomParameterDto updateCustomParameterDto = new UpdateCustomParameterDto(c);
+            updateCustomParameterDto.setLowestValue(observedDayValueRepository.findLowestValueByCustomParameter(c));
+            updateCustomParameterDto.setHighestValue(observedDayValueRepository.findHighestValueByCustomParameter(c));
+            updateCustomParameterDtos.add(updateCustomParameterDto);
         }
         updateCustomParameterDtos.sort(
             (UpdateCustomParameterDto a, UpdateCustomParameterDto b) -> {

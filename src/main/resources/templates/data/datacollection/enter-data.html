@@ -34,10 +34,7 @@
 		<th:block th:each="parameter : ${activeParametersNumeric}">
 			<label th:text="${parameter.paramName}"></label>
 			<div th:text="${parameter?.description}"></div>
-			<span>Value must be between </span>
-			<span th:text="${parameter?.minValue}"></span>
-			<span>and </span>
-			<span th:text="${parameter?.maxValue}"></span>
+			<span th:text="${parameter?.minValue != null} ? 'Value must be between ' + ${parameter.minValue} + ' and ' + ${parameter.maxValue} : '' "  />
 			<br>
 			<input type="number" step="0.01" th:min="${parameter?.minValue}" th:max="${parameter?.maxValue}"
 				th:name="${'numeric_parameter_' + parameter.id}"

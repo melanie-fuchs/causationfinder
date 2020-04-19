@@ -87,7 +87,7 @@ public class AnalyzeDataController {
                 continue;
             }
 
-            double value = 0.0;
+            Double value = 0.0;
             LocalDate date = getLocalDateFromDate(observedDayValue.getDate());
             
             // get position of the date and the parameter in the matrix
@@ -98,8 +98,14 @@ public class AnalyzeDataController {
                 value = observedDayValue.getNumericValue();
             }
             if(observedDayValue.getCustomParameter().getType() == ParameterType.BOOLEAN) {
-                if(observedDayValue.getBooleanValue()) {
-                    value = 1.0;
+                if (observedDayValue.getBooleanValue() == null) {
+                    value = null;
+                } else {
+                    if (observedDayValue.getBooleanValue()) {
+                        value = 1.0;
+                    } else {
+                        value = 0.0;
+                    }
                 }
             }
             

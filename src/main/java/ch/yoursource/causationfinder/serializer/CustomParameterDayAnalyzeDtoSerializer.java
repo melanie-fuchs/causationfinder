@@ -90,6 +90,9 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
     private Double getHighestValue(CustomParameterDayAnalyzeDto value) {
         HashSet<Double> valuesOfParameter = new HashSet<Double>();
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
+            if(v.getValue() == null) {
+                continue;
+            }
             valuesOfParameter.add(v.getValue());
         }
         return Collections.max(valuesOfParameter);        
@@ -99,6 +102,9 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
     private Double getLowestValue(CustomParameterDayAnalyzeDto value) {
         HashSet<Double> valuesOfParameter = new HashSet<Double>();
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
+            if(v.getValue() == null) {
+                continue;
+            }
             valuesOfParameter.add(v.getValue());
         }
         return Collections.min(valuesOfParameter);        

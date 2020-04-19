@@ -64,7 +64,6 @@
 			
 			<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="false" 
 				th:checked="${booleanParameterMap.get(parameter.id) != null} ? (${booleanParameterMap.get(parameter.id)} ? ${false} : ${true})" required="required" />
-			<div ></div>
 			<label th:for="${'boolean_parameter_' + parameter.id}">no</label>
 
 			<br>

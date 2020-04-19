@@ -58,10 +58,13 @@
 			<label th:text="${parameter.paramName}"></label>
 			<div th:text="${parameter?.description}"></div>
 			
-			<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="true" required="required" />
+			<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="true"
+				th:checked="${booleanParameterMap.get(parameter.id) != null} ? (${booleanParameterMap.get(parameter.id)} ? ${true} : ${false})" required="required" />
 			<label th:for="${'boolean_parameter_' + parameter.id}">yes</label>
 			
-			<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="false" required="required" />
+			<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="false" 
+				th:checked="${booleanParameterMap.get(parameter.id) != null} ? (${booleanParameterMap.get(parameter.id)} ? ${false} : ${true})" required="required" />
+			<div ></div>
 			<label th:for="${'boolean_parameter_' + parameter.id}">no</label>
 
 			<br>

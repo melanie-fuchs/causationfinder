@@ -62,11 +62,12 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
         anyRequest().authenticated() // any request: the user MUST be logged in! (authenticated)
         .and()
         .formLogin()
-        .defaultSuccessUrl("/userhome", false);
+        .defaultSuccessUrl("/userhome", false)
         //.loginProcessingUrl("/authenticateTheUser") // login form should POST data to this url for processing (check user IF and PW) --> NO CONTROLLER REQUEST MAPPING REQUIRED FOR THIS! SPRING MAGIC! But the name must be exactly written like that! /authenticateTheUser
         //.permitAll() // makes that everyone can see this login page (its not hidden to anyone)
-        //.and()
-        //.logout().permitAll(); // add logout support for default URL /logout
+        .and()
+        .logout().permitAll() // add logout support for default URL /logout
+        .logoutSuccessUrl("/");
     }
     
 }

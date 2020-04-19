@@ -95,8 +95,7 @@ public class EnterDataController {
         
         List<Integer> checkedBooleanParameters = new ArrayList<Integer>();        
         
-        for(String key : keySet) {
-            System.out.println(">>> FOUND REQUEST PARAMETER WITH NAME: " + key);     
+        for(String key : keySet) {   
 
             if (key.contains(numericParameterPrefix)) {
                 String[] value = request.getParameterMap().get(key);

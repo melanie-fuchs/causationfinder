@@ -102,9 +102,7 @@ public class DisplayTextsController {
             valuesByParametersAndDate[indexOfCustomParameter][indexOfDate] = value;
         }
         
-        System.out.println(Arrays.deepToString(valuesByParametersAndDate));
-        
-        // an arraylost that holds objects with a parameterName and a list of Strings
+        // an arraylist that holds objects with a parameterName and a list of Strings
         List<CustomParameterDayStringDto> data = new ArrayList<CustomParameterDayStringDto>();
         
         for (CustomParameter cp : allCustomParameters) {

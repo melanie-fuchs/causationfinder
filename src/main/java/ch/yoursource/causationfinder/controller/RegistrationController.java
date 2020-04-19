@@ -100,8 +100,6 @@ public class RegistrationController {
 		user.setEnabled(false);
         userService.save(user);
         ConfirmationToken confirmationToken = new ConfirmationToken(user);
-
-        System.out.println("TOKEN BEFORE clicked the link: " + confirmationToken);
         
         confirmationTokenRepository.save(confirmationToken);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -122,16 +120,9 @@ public class RegistrationController {
 	public ModelAndView confirmUserAccount(
 	        ModelAndView modelAndView,
 	        @RequestParam("token") String confirmationToken) {
-	    
-	    System.out.println("TOKEN after clicked the link: " + confirmationToken);
-	    
 	    ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
-
-        System.out.println("TOKEN after clicked the link: " + token);
 	    
 	    if(token != null) {
-            System.out.println(">>>>> user: " + token.getUser());
-	        System.out.println(">>>>> email: " + token.getUser().getEmail());
 	        User user = userService.findByEmail(token.getUser().getEmail());
 	        user.setEnabled(true);
 	        parameterService.activateAllPredefinedParameters(user);

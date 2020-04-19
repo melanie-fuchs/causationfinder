@@ -100,10 +100,8 @@ public class EnterDataController {
 
             if (key.contains(numericParameterPrefix)) {
                 String[] value = request.getParameterMap().get(key);
-                System.out.println(">>>>>>>>>>>>>> Value is: " + value[0]);
                 
                 int parameterId = Integer.valueOf(key.substring(numericParameterPrefix.length()));
-                System.out.println("ID of NUMERIC-Parameter is: " + parameterId);
                 
                 ObservedDayValue valueForGivenDayAndParameter = observedValuesPerParameterIdFromGivenDay.get(parameterId);
 
@@ -125,10 +123,8 @@ public class EnterDataController {
             
             if (key.contains(stringParameterPrefix)) {
                 String[] value = request.getParameterMap().get(key);
-                System.out.println(">>>>>>>>>>>>>> Value is: " + value[0]);
                 
                 int parameterId = Integer.valueOf(key.substring(stringParameterPrefix.length()));
-                System.out.println("ID of STRING-Parameter is: " + parameterId);
                 //TODO
                 
                 ObservedDayValue valueForGivenDayAndParameter = observedValuesPerParameterIdFromGivenDay.get(parameterId);
@@ -154,14 +150,8 @@ public class EnterDataController {
                 int parameterId = Integer.valueOf(key.substring(booleanParameterPrefix.length()));
                 
                 String[] value = request.getParameterMap().get(key);
-                System.out.println(">>>>>>>>>>>>>> Value is: " + value[0]);
-                
-              
-                System.out.println("ID of BOOLEAN-Parameter is: " + parameterId);
-                
                 
                 ObservedDayValue valueForGivenDayAndParameter = observedValuesPerParameterIdFromGivenDay.get(parameterId);
-                
                 
                 //what happens if we didnt find a value?
                 if (valueForGivenDayAndParameter == null) {

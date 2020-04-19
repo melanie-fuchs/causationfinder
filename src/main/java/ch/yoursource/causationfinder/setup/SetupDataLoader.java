@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,6 +29,21 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		
 	private boolean setupCompleted = false;
 	
+    @Value("${admin.password}") 
+    private String adminPassword;
+    
+    @Value("${admin.userName}") 
+    private String adminUserName;
+    
+    @Value("${admin.email}") 
+    private String adminEmail;
+    
+    @Value("${setup.roles.user}")
+    private String userRole;
+    
+    @Value("${setup.roles.admin}")
+    private String adminRole;
+	
 	@Autowired
 	public SetupDataLoader(
 		UserRepository userRepository,
@@ -48,14 +64,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			return;
 		}
 		
-		Role userRole = this.createRoleIfNotFound("ROLE_USER");
-		Role adminRole = this.createRoleIfNotFound("ROLE_ADMIN");
+		Role userRole = this.createRoleIfNotFound(this.userRole);
+		Role adminRole = this.createRoleIfNotFound(this.adminRole);
 		
 		Set<Role> userAdminRoles = new HashSet<Role>();
 		userAdminRoles.add(userRole);
 		userAdminRoles.add(adminRole);
 		
-		if (userRepository.findByUsername("admin") == null) {
+		if (userRepository.findByUsername(this.adminUserName) == null) {
 			createAdminUser(userAdminRoles);
 		}
 		
@@ -100,9 +116,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	
 	private void createAdminUser(Set<Role> roles) {
 		User user = new User();
-		user.setUsername("admin");
-		user.setPassword(passwordEncoder.encode("admin"));//TODO:read password for admin from properties
-		user.setEmail("admin@yoursource.ch");
+		user.setUsername(this.adminUserName);
+		user.setPassword(passwordEncoder.encode(this.adminPassword));
+		user.setEmail(this.adminEmail);
 		user.setRoles(roles);
 		user.setEnabled(true);
 		userRepository.save(user);

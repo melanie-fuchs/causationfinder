@@ -22,18 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-
-import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDayValueDto;
-import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDto;
 import ch.yoursource.causationfinder.dto.CustomParameterDayStringDayValueDto;
 import ch.yoursource.causationfinder.dto.CustomParameterDayStringDto;
 import ch.yoursource.causationfinder.entity.CustomParameter;
 import ch.yoursource.causationfinder.entity.ObservedDayValue;
 import ch.yoursource.causationfinder.entity.User;
 import ch.yoursource.causationfinder.repository.ObservedDayValueRepository;
-import ch.yoursource.causationfinder.serializer.CustomParameterDayAnalyzeDtoSerializer;
 import ch.yoursource.causationfinder.service.UserService;
 import ch.yoursource.causationfinder.setup.ParameterType;
 
@@ -139,19 +133,7 @@ public class DisplayTextsController {
         
         model.addAttribute("data", data);
         model.addAttribute("allDates", allDates);
-        //model.addAllAttributes(data);
-//       
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        SimpleModule module = new SimpleModule();
-//        module.addSerializer(CustomParameterDayAnalyzeDto.class, new CustomParameterDayAnalyzeDtoSerializer());
-//        objectMapper.registerModule(module);
-//
-//        try {
-//            model.addAttribute("data", objectMapper.writeValueAsString(data));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
+       
         return new ModelAndView("data/datacollection/show-texts"); 
     }
     

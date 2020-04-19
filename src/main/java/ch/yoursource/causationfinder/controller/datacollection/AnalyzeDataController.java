@@ -80,7 +80,7 @@ public class AnalyzeDataController {
         List<LocalDate> allDates = startDate.datesUntil(endDate.plusDays(1L)).collect(Collectors.toList());
 
         // create matrix, x and y axis
-        double[][] valuesByParametersAndDate = new double[allCustomParameters.size()][allDates.size()];
+        Double[][] valuesByParametersAndDate = new Double[allCustomParameters.size()][allDates.size()];
         
         for (ObservedDayValue observedDayValue : observedValuesInRange) {
             if (observedDayValue.getCustomParameter().getType() == ParameterType.STRING) {

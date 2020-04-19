@@ -75,7 +75,11 @@ public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<Custom
         for (CustomParameterDayAnalyzeDayValueDto v : value.getDailyValues()) {
             jgen.writeStartObject();
             jgen.writeStringField("date", v.getDate().toString());
-            jgen.writeNumberField("value", v.getValue());
+            if (v.getValue() != null) {
+                jgen.writeNumberField("value", v.getValue());
+            } else {
+                jgen.writeStringField("value", "NaN");
+            }
             jgen.writeEndObject();
         }
         jgen.writeEndArray();

@@ -7,6 +7,8 @@
 <body>
 	<div th:insert="fragments/navigation :: navigation"></div>
 	
+	<h2>Edit existing Data</h2>
+	
 	<form action="#" th:action="@{/data/datacollection/enter-data}" method="GET">
 		<input name="date" type="date" required="required" th:value="${date}" />
 		<input type="submit" value="Change date and reload"	/>

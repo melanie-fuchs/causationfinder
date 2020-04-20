@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>User Home</title>
+<title th:text="#{messages.userhome.title.userhome}"></title>
 </head>
 <body>
-	<h2>User Home</h2>
+	<h2 th:text="#{messages.userhome.title.userhome}"></h2>
 
 	<div>
-		Welcome, <span th:text="${#request.userPrincipal.principal.username}"></span>
+		<span th:text="#{messages.userhome.welcome}"></span>
+		<span th:text="${#request.userPrincipal.principal.username}"></span>
 	</div>
 
 	<div th:insert="fragments/navigation :: navigation"></div>

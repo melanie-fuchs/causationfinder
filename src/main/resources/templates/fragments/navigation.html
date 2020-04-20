@@ -1,29 +1,32 @@
 <div th:fragment="navigation">
 	<ul>
-		<li>Change Profile
+		<li>
+			<span th:text="#{messages.fragments.navigation.change-profile}"></span>
 			<ul>
-				<li><a href="/updateuser">Update User Info</a></li>
-				<li><a href="/changepassword">Change Password</a></li>
-			</ul>
-		</li>
-
-		<li>Manage Parameters
-			<ul>
-				<li><a href="/data/parameter-configuration/configure-parameter-status">Manage Parameter: enable / disable parameter</a></li>
-				<li><a href="/data/parameter-configuration/update-customparameter">Manage Parameter: modify custom parameters</a></li>
-				<li><a href="/data/parameter-configuration/add-parameter">Add Custom Parameter</a></li>
-			</ul>
-		</li>
-		<li>Enter and Analyze Data
-			<ul>
-				<li><a href="/data/datacollection/enter-data">Enter Daily Data</a></li>
-				<li><a href="/data/datacollection/analyze-data">Analyze Data</a></li>
-				<li><a href="/data/datacollection/display-texts">Display Texts</a></li>
+				<li><a href="/updateuser" th:text="#{messages.fragments.navigation.change-profile.update-userinfo}"></a></li>
+				<li><a href="/changepassword" th:text="#{messages.fragments.navigation.change-profile.change-password}"></a></li>
 			</ul>
 		</li>
 
 		<li>
-			<a href="/logout">Logout</a>
+			<span th:text="#{messages.fragments.navigation.manage-parameters}"></span>
+			<ul>
+				<li><a href="/data/parameter-configuration/configure-parameter-status" th:text="#{messages.fragments.navigation.manage-parameters.parameter-status}"></a></li>
+				<li><a href="/data/parameter-configuration/update-customparameter" th:text="#{messages.fragments.navigation.manage-parameters.update-customparameter}"></a></li>
+				<li><a href="/data/parameter-configuration/add-parameter" th:text="#{messages.fragments.navigation.manage-parameters.add-parameter}"></a></li>
+			</ul>
+		</li>
+		<li>
+			<span th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></span>
+			<ul>
+				<li><a href="/data/datacollection/enter-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data.enter-daily-data}"></a></li>
+				<li><a href="/data/datacollection/analyze-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data.analyze-data}"></a></li>
+				<li><a href="/data/datacollection/display-texts" th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/logout" th:text="#{messages.fragments.navigation.logout}"></a>
 		</li>
 	</ul>
 </div>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Display Texts</title>
+<title th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></title>
 </head>
 <body>
 	<div th:insert="fragments/navigation :: navigation"></div>
@@ -11,12 +11,12 @@
 	<form action="#" th:action="@{/data/datacollection/show-texts}"
 		th:object="${data}" method="GET">
 
-		<h2>Display Texts</h2>
-
+		<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}">Display Texts</h2>
+		<h3  th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></h3>
 		<table>
 			<thead>
 				<tr>
-					<th class="dont-break">Date</th>
+					<th class="dont-break" th:text="#{messages.show-texts.table-date}">Date</th>
 					<th:block th:each="parameter : ${data}">
 						<th th:text="${parameter.parameterName}"></th>			
 					</th:block>

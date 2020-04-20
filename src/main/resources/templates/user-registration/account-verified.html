@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Account Verified</title>
+<meta charset="UTF-8" />
+<title th:text="#{messages.account-verified.title}"></title>
 </head>
 <body>
-
-	<p>Success, your account has been activated. Please <a href="/userhome">login</a></p>
-
+	<h2  th:text="#{messages.account-verified.title}"></h2>
+	<div>	
+		<span th:text="#{messages.account-verified.account-activated}"></span>
+		<a href="/userhome" th:text="#{messages.account-verified.login}"></a>
+	</div>
 </body>
 </html>

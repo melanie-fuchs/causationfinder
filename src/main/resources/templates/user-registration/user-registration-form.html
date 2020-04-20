@@ -2,61 +2,42 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="ISO-8859-1">
-<title>User Registration Form</title>
+	<meta charset="UTF-8" />
+	<title th:text="#{messages.registration.title.registration}"></title>
 </head>
 <body>
-	<!-- Debug section: TODO implement multiple languages
-	<a href="registration?lang=de">de</a>
-	<a href="registration?lang=fr">fr</a>
-	<a href="registration?lang=en">en</a>
-	END OF DEBUG SECTION -->
-	
-	<h2>User Registration Form</h2>
-	
- 
+	<h2 th:text="#{messages.registration.title.registration}"></h2>
 	
 	<!-- When form is loaded, will call userRegistrationDto.getFirstName(), etc -->
 	<!-- th:action sends form data to /registration -->
 	<form action="#" th:action="@{/registration}"
 		th:object="${user}" method="POST">
 			
-		<!-- Debug section: TODO Remove later Keep as backup in case current solution is buggy-->
-		<!-- <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-	    	<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
-		</div>-->
-		<!-- >
-		<p th:each="err : ${#fields.errors('*PasswordMatches')}" th:text="${err}"></p>
-		-->		
-		
-		<!-- end of debug section -->
-		
-		
-		<label for="username">Username*:</label>
+		<label for="username" th:text="#{messages.registration.userName}"></label>
 		<input th:field="*{username}" type="text" required="required"/>
 		<br />
 		
-		<label for="firstName">First Name:</label>
+		<label for="firstName" th:text="#{messages.registration.firstName}"></label>
 		<input th:field="*{firstName}" type="text"/>
 		<br />
 		
-		<label for="lastName">Last Name:</label>
+		<label for="lastName" th:text="#{messages.registration.lastName}"></label>
 		<input th:field="*{lastName}" type="text"/>
 		<br />
 		
-		<label for="email">E-Mail*:</label>
+		<label for="email" th:text="#{messages.registration.email}"></label>
 		<input th:field="*{email}" type="text" required="required"/>
 		<br />
 		
-		<label for="birthdate">Birthdate:</label>
+		<label for="birthdate" th:text="#{messages.registration.birthdate}"></label>
 		<input th:field="*{birthdate}" type="date" />
 		<br />
 		
-		<label for="password">Password*:</label>
+		<label for="password"th:text="#{messages.registration.password}"></label>
 		<input th:field="*{password}" type="password" required="required"/>
 		<br />
 		
-		<label for="passwordConfirm">Validate password*:</label>
+		<label for="passwordConfirm"th:text="#{messages.registration.confirm-password}"></label>
 		<input th:field="*{passwordConfirm}" type="password" required="required"/>
 		<br />
 		

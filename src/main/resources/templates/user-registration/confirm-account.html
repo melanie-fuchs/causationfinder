@@ -2,14 +2,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>Confirm Account</title>
+		<title th:text="{#messages.confirm-account.title.confirm-account}"></title>
 	</head>
 	<body>
 		<div th:insert="fragments/navigation :: navigation"></div>
 	
-		<h2>Confirm Account</h2>
-		<h3>Congratulations! Your account has been activated and email is verified!</h3>
+		<h2 th:text="{#messages.confirm-account.title.confirm-account}"></h2>
+		<h3 th:text="{#messages.confirm-account.congratulation-account-verified}"></h3>
 		<p>
-		<a href="/">Back to Home</a>
+		<a href="/" th:text="{#messages.confirm-account.back-home}"></a>
 	</body>
 </html>

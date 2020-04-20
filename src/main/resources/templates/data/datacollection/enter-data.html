@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Enter Data</title>
+<title th:text="#{messages.enter-data}"></title>
 </head>
 <body>
 	<div th:insert="fragments/navigation :: navigation"></div>
 	
-	<h2>Edit existing Data</h2>
+	<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
+	<h3 th:text="#{messages.enter-data.edit-existing}"></h3>
 	
 	<form action="#" th:action="@{/data/datacollection/enter-data}" method="GET">
 		<input name="date" type="date" required="required" th:value="${date}" />
@@ -17,19 +18,18 @@
 	<form id="loadDataFromYesterdayForm" action="#" th:action="@{/data/datacollection/enter-data} + '#setTodayAfterLoad'" method="GET">
 		<input name="date" id="dateHidden" type="hidden" th:value="${date}" />
 	</form>
-	
 	<br />
 
 	<form id="actualForm" action="#" th:action="@{/data/datacollection/enter-data}"
 		th:object="${activeParametersNumeric}" method="POST">
 
-		<h2>Enter Data</h2>
+		<h3 th:text="#{messages.enter-data}"></h3>
 		
-		<button id="loadDataFromYesterday">Overwrite with data from yesterday</button>
+		<button id="loadDataFromYesterday" th:text="#{messages.enter-data.overwrite-button}"></button>
 		<br /><br />
 		
 		<!--  input type="date"-->
-		<label for="date">Date:</label>
+		<label for="date" th:text="#{messages.enter-data.date}"></label>
 		<input id="actualDate" name="date" type="date" required="required" th:value="${date}" />
 		<br /><br />
 
@@ -72,7 +72,7 @@
 			<br>
 		</th:block>
 		
-		<input type="submit" />
+		<input type="submit" th:value="#{messages.submitbutton}"/>
 
 	</form>
 	<script>

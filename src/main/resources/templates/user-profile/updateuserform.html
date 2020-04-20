@@ -3,45 +3,39 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>Update User Form</title>
+<title th:text="#{messages.updateUser}"></title>
 </head>
-<body>
-	<!-- Debug section: TODO implement multiple languages
-	<a href="registration?lang=de">de</a>
-	<a href="registration?lang=fr">fr</a>
-	<a href="registration?lang=en">en</a>
-	END OF DEBUG SECTION -->
-	
+<body>	
 	<div th:insert="fragments/navigation :: navigation"></div>
 	
-	<h2>Update User Form</h2>
+	<h2 th:text="#{messages.fragments.navigation.change-profile}"></h2>
+	<h3 th:text="#{messages.updateUser}"></h3>
 	
 
 	<form action="#" th:action="@{/updateuser}"
 		th:object="${updateUserDto}" method="POST">		
 		
-		<label for="username">Username*:</label>
+		<label for="username" th:text="#{messages.updateUser.username}"></label>
 		<input th:field="*{username}" type="text" required="required"/>
 		<br />
 		
-		<label for="firstName">First Name:</label>
+		<label for="firstName" th:text="#{messages.updateUser.firstName}"></label>
 		<input th:field="*{firstName}" type="text"/>
 		<br />
 		
-		<label for="lastName">Last Name:</label>
+		<label for="lastName" th:text="#{messages.updateUser.lastName}"></label>
 		<input th:field="*{lastName}" type="text"/>
 		<br />
 		
-		<label for="email">E-Mail*:</label>
+		<label for="email" th:text="#{messages.updateUser.email}"></label>
 		<input th:field="*{email}" type="text" required="required"/>
 		<br />
 		
-		<label for="birthdate">Birthdate:</label>
+		<label for="birthdate" th:text="#{messages.updateUser.birthdate}"></label>
 		<input th:field="*{birthdate}" type="date" />
 		<br />
 		
 		<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
-		
 		
 		<input type="submit"/>
 	</form>

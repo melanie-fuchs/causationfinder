@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Manage Parameter</title>
+<title th:text="#{messages.fragments.navigation.manage-parameters}"></title>
 
 </head>
 <body>
@@ -12,24 +12,17 @@
 		th:action="@{/data/parameter-configuration/update-customparameter}"
 		th:object="${updateCustomParameterDtoListWrapper}" method="POST">
 
-		<h2>Manage Parameter</h2>
+		<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
 
-		<h3>Attention when setting minimum and maximum value</h3>
-		<p>
-			You can set min- and max- values for your numeric parameters here. This will be used to
-			display a reasonable graph when analyzing your data. If not set, the lines will have a
-			range between the smallest and the highest of your entries.
-			
-			You cannot set a higher minimum value more than the smallest value you have ever entered
-			and you cannot set the maximum value lower than your so far highest entered value.
-		</p>
+		<h3 th:text="#{messages.update-customparameter}"></h3>
+		<p th:text="#{messages.update-customparameter.text}"></p>
 		
 		<th:block th:each="parameter, stat : *{updateCustomParameterDtoList}">
 			<label th:text="${parameter.paramName}"></label>
 			<br />
-			<label>min-value</label>			
+			<label th:text="#{messages.update-customparameter.min-value}"></label>			
 			<input type="number" th:max="*{updateCustomParameterDtoList[__${stat.index}__].lowestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" />
-			<label>max-value</label>
+			<label th:text="#{messages.update-customparameter.max-value}"></label>
 			<input type="number" th:min="*{updateCustomParameterDtoList[__${stat.index}__].highestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" />
 			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].id}" />
 			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].paramName}" />
@@ -37,7 +30,8 @@
 			<br /><br />
 		</th:block>
 
-		<br> <br> <input type="submit" />
+		<br> <br>
+		<input type="submit" th:value="#{messages.submitbutton}"/>
 
 	</form>
 

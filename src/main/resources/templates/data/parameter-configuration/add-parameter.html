@@ -2,72 +2,67 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Manage Parameter</title>
+<title th:text="#{messages.fragments.navigation.manage-parameters}"></title>
 
 </head>
 <body>
 	<div th:insert="fragments/navigation :: navigation"></div>
 
-	<form action="#" th:action="@{/data/parameter-configuration/add-parameter}"
+	<form action="#"
+		th:action="@{/data/parameter-configuration/add-parameter}"
 		th:object="${managecustomparameter}" method="POST">
-		
-		<h2>Manage Parameter</h2>
 
-		<h3>Add New Parameters</h3>
-			<p>
-				You can create your own custom parameters here.
-				It's important that you keep the values in a reasonable range.
-			</p>
-			
-			<br>
-			<h4>Choose a Type *</h4>
-			<div>
-				<input type="radio" name="type" value="STRING" required="required" />
-				<label for="type">Text</label>
-			</div>
-			<div>
-				<input type="radio" name="type" value="NUMERIC" required="required" />
-				<label for="type">Number (can be floating point number)</label>
-			</div>
-			<div>
-				<input type="radio" name="type" value="BOOLEAN" required="required" />
-				<label for="type">Yes/No (Boolean)</label>
-			</div>
-			
+		<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
 
-			<div id="minMaxContainer" style="display:none">
-				Set minimum and maximum value for numeric values. These values are used to set a reasonable
-				range for the Y-Axis in the graph when analyzing your data. If not set, the lines will have a range
-				between the smallest and the highest of your entries.
-				<br/>
-				<label for="minValue">Minimum value:</label>
-				<br>
-				<input type="number" name="minValue" min="-40" step="0.01"/>
-				<br/>
-				<label for="maxValue">Maximum value:</label>
-				<br/>
-				<input type="number" name="maxValue" min="0" step="0.01"/>
-			</div>
-			
-			<br>
-			<h4>Write a Name *</h4>
-			<label for="parameterName">Parameter-Name:</label>
+		<h3 th:text="#{messages.addParameter}"></h3>
+		<p th:text="#{messages.addParameter.create-your-parameters}"></p>
 
-			<input type="text" name="parameterName" required="required"/>
-			
-			<br>
-			<br>
-			<h4>Write a Description</h4>
-			<label for="description">Description:</label>
-			<textarea name="description"></textarea>
-			
-			<br>
-			<br>
-			
-			<input type="submit">
-			
-		</form>
-		<script>
+
+		<h4 th:text="#{messages.addParameter.choose-type}"></h4>
+		<div>
+			<input type="radio" name="type" value="STRING" required="required" />
+			<label for="type" th:text="#{messages.addParameter.choose-type.text}"></label>
+		</div>
+		<div>
+			<input type="radio" name="type" value="NUMERIC" required="required" />
+			<label for="type"
+				th:text="#{messages.addParameter.choose-type.number}"></label>
+		</div>
+		<div>
+			<input type="radio" name="type" value="BOOLEAN" required="required" />
+			<label for="type"
+				th:text="#{messages.addParameter.choose-type.boolean}"></label>
+		</div>
+
+
+		<div id="minMaxContainer" style="display: none">
+			<br /> <span
+				th:text="#{messages.addParameter.choose-type.number.min-max.text}"></span>
+			<br /> <label for="minValue"
+				th:text="#{messages.addParameter.choose-type.number.min-max.minValue}"></label>
+			<br> <input type="number" name="minValue" min="-40" step="0.01" />
+			<br /> <label for="maxValue"
+				th:text="#{messages.addParameter.choose-type.number.min-max.maxValue}"></label>
+			<br /> <input type="number" name="maxValue" min="0" step="0.01" />
+		</div>
+
+		<br>
+		<h4 th:text="#{messages.addParameter.write-param-title}"></h4>
+		<label for="parameterName"
+			th:text="#{messages.addParameter.write-param-title.parameter-name}"></label>
+
+		<input type="text" name="parameterName" required="required" /> <br>
+		<br>
+		<h4 th:text="#{messages.addParameter.write-description}"></h4>
+		<label for="description"
+			th:text="#{messages.addParameter.write-description.description}"></label>
+		<textarea name="description"></textarea>
+
+		<br> <br> <input type="submit"
+			th:value="#{messages.submitbutton}" />
+
+	</form>
+	<script>
 			document.addEventListener("DOMContentLoaded", function() {
 				var numericType = "NUMERIC";
 				
@@ -87,6 +82,6 @@
 				}
 			});
 		</script>
-		
+
 </body>
 </html>

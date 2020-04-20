@@ -26,7 +26,7 @@ public class ParameterServiceImpl implements ParameterService {
         this.predefinedParameterRepository = predefinedParameterRepository;
     }
 
-    // load all predefined parameters into customparameter for the given user and
+    // load all predefined parameters into customParameters for the given user and
     // set all parameters active
     @Override
     public void activateAllPredefinedParameters(User user) {
@@ -57,7 +57,5 @@ public class ParameterServiceImpl implements ParameterService {
         } catch (NoSuchElementException e) {
             throw new RuntimeException(e);
         }
-        
     }
-
 }

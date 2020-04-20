@@ -1,7 +1,5 @@
 package ch.yoursource.causationfinder.service;
 
-
-
 import java.util.HashSet;
 import java.util.Set;
 

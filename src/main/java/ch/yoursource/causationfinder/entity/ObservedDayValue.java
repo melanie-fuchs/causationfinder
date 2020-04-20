@@ -50,8 +50,6 @@ public class ObservedDayValue {
 		this.stringValue = stringValue;
 	}
 
-
-
 	public int getId() {
 		return id;
 	}
@@ -106,6 +104,4 @@ public class ObservedDayValue {
 				+ ", numericValue=" + numericValue + ", booleanValue=" + booleanValue + ", stringValue=" + stringValue
 				+ "]";
 	}
-
-
 }

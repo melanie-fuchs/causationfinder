@@ -13,6 +13,7 @@ import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDayValueDto;
 import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDto;
 
 public class CustomParameterDayAnalyzeDtoSerializer extends StdSerializer<CustomParameterDayAnalyzeDto> {
+    private static final long serialVersionUID = 1L;
 
     public CustomParameterDayAnalyzeDtoSerializer() {
         this(null);

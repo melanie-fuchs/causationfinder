@@ -26,13 +26,6 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
-
-//  @Bean
-//  public LocaleResolver localeResolver() {
-//      SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-//      sessionLocaleResolver.setDefaultLocale(Locale.US);
-//      return sessionLocaleResolver;
-//  }
     
     @Bean
     public LocaleResolver localeResolver() {

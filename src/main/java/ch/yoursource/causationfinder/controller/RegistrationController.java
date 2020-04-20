@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +21,11 @@ import ch.yoursource.causationfinder.entity.User;
 import ch.yoursource.causationfinder.repository.ConfirmationTokenRepository;
 import ch.yoursource.causationfinder.service.EmailSenderService;
 import ch.yoursource.causationfinder.service.ParameterService;
-import ch.yoursource.causationfinder.service.SecurityService;
 import ch.yoursource.causationfinder.service.UserService;
 
 @Controller
 public class RegistrationController {	
 	private UserService userService;
-	private SecurityService securityService;
 	private ParameterService parameterService;
 	private ConfirmationTokenRepository confirmationTokenRepository;
 	private EmailSenderService emailSenderService;
@@ -36,13 +33,11 @@ public class RegistrationController {
 	@Autowired
 	public RegistrationController(
 		UserService userService, 
-		SecurityService securityService,
 		ParameterService parameterService,
 		ConfirmationTokenRepository confirmationTokenRepository,
 		EmailSenderService emailSenderService
 	) {
 		this.userService = userService;
-		this.securityService = securityService;
 		this.parameterService = parameterService;
 		this.confirmationTokenRepository = confirmationTokenRepository;
 		this.emailSenderService = emailSenderService;
@@ -96,7 +91,6 @@ public class RegistrationController {
 		}		
 
 		// everything is fine and the user should now get an email to verify the address.
-		// TODO: Must make sure the user cannot login if he's not enabled!!
 		user.setEnabled(false);
         userService.save(user);
         ConfirmationToken confirmationToken = new ConfirmationToken(user);

@@ -1,6 +1,5 @@
 package ch.yoursource.causationfinder.controller.datacollection;
 
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;

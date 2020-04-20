@@ -30,7 +30,6 @@ public class SecurityServiceImpl implements SecurityService {
 		
 		return null;
 	}
-	
 
 	@Override
 	public void autoLogin(String username, String password) {

@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-		<title th:text="{#messages.confirm-account.title.confirm-account}"></title>
-	</head>
-	<body>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.confirm-account.title.confirm-account}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
 		<div th:insert="fragments/navigation :: navigation"></div>
-	
-		<h2 th:text="{#messages.confirm-account.title.confirm-account}"></h2>
-		<h3 th:text="{#messages.confirm-account.congratulation-account-verified}"></h3>
+	</div>
+	<div class="content">
+		<h2 th:text="#{messages.confirm-account.title.confirm-account}"></h2>
+		<h3 th:text="#{messages.confirm-account.congratulation-account-verified}"></h3>
 		<p>
-		<a href="/" th:text="{#messages.confirm-account.back-home}"></a>
-	</body>
+			<a href="/" th:text="#{messages.confirm-account.back-home}"></a>
+		</p>
+	</div>
 </html>

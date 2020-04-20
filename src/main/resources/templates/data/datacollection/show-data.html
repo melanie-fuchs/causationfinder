@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>	
-		<title th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></title>
-	</head>
-	<body>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.enter-and-analyze-data}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
 		<div th:insert="fragments/navigation :: navigation"></div>
-		
+	</div>
+	<div class="content">
 		<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
 		<h3  th:text="#{messages.fragments.navigation.enter-and-analyze-data.analyze-data}"></h3>
 		<br/>
 
 		<canvas id="canvas" style="width:100%;height:100%;min-height:300px;max-width:600px;max-height:600px;"></canvas>
-		
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 		<script th:inline="javascript">
 			/*<![CDATA[*/
-   			var jsonString = /*[[${data}]]*/ 'default';
+			var jsonString = /*[[${data}]]*/ 'default';
 			/*]]>*/
 		</script>
-	
+
 		<script>
 			let colorIndex = 0;
 
@@ -48,7 +45,7 @@
 				let data = JSON.parse(jsonString);
 
 				let dates = [];
-				
+
 				Object.values(data).map(function(item) {
 					item.values.map(function (dateValue) {
 						if (!dates.includes(dateValue.date)) {
@@ -67,7 +64,7 @@
 					});
 					let color = getNextColor();
 					let yAxisId = 'yaxis-' + color.replace('#', '');
-					
+
 					let datasetData = {
 						label: item.parameterName,
 						data: values,
@@ -76,11 +73,11 @@
 						fill: false,
 						yAxisID: yAxisId,
 					};
-					
+
 					if (item.isBoolean) {
 						datasetData.lineTension = 0;
 					}
-					
+
 					datasets.push(datasetData);
 					yAxes.push({
 						type: 'linear',
@@ -113,7 +110,6 @@
 
 				let chart = new Chart(ctx, config);
 			});
-			
 		</script>
-	</body>
+	</div>
 </html>

@@ -1,118 +1,113 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.enter-data}"></title>
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
-	
-	<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
-	<h3 th:text="#{messages.enter-data.edit-existing}"></h3>
-	
-	<form action="#" th:action="@{/data/datacollection/enter-data}" method="GET">
-		<input name="date" type="date" required="required" th:value="${date}" />
-		<input type="submit" value="Change date and reload"	/>
-	</form>
-	
-	<form id="loadDataFromYesterdayForm" action="#" th:action="@{/data/datacollection/enter-data} + '#setTodayAfterLoad'" method="GET">
-		<input name="date" id="dateHidden" type="hidden" th:value="${date}" />
-	</form>
-	<br />
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.enter-data}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
+		<h3 th:text="#{messages.enter-data.edit-existing}"></h3>
 
-	<form id="actualForm" action="#" th:action="@{/data/datacollection/enter-data}"
-		th:object="${activeParametersNumeric}" method="POST">
+		<form action="#" th:action="@{/data/datacollection/enter-data}" method="GET">
+			<input class="form-control" name="date" type="date" required="required" th:value="${date}" />
+			<input class="btn btn-secondary" type="submit" value="Change date and reload" />
+		</form>
 
-		<h3 th:text="#{messages.enter-data}"></h3>
-		
-		<button id="loadDataFromYesterday" th:text="#{messages.enter-data.overwrite-button}"></button>
-		<br /><br />
-		
-		<!--  input type="date"-->
-		<label for="date" th:text="#{messages.enter-data.date}"></label>
-		<input id="actualDate" name="date" type="date" required="required" th:value="${date}" />
-		<br /><br />
+		<form id="loadDataFromYesterdayForm" action="#" th:action="@{/data/datacollection/enter-data} + '#setTodayAfterLoad'" method="GET">
+			<input name="date" id="dateHidden" type="hidden" th:value="${date}" />
+		</form>
+		<br />
 
-		<th:block th:each="parameter : ${activeParametersNumeric}">
-			<label th:text="${parameter.paramName}"></label>
-			<div th:text="${parameter?.description}"></div>
-			<span th:text="${parameter?.minValue != null} ? 'Value must be between ' + ${parameter.minValue} + ' and ' + ${parameter.maxValue} : '' "  />
-			<br>
-			<input type="number" step="0.01" th:min="${parameter?.minValue}" th:max="${parameter?.maxValue}"
-				th:name="${'numeric_parameter_' + parameter.id}"
-				th:value="${numericParameterMap.get(parameter.id)}"
-				required="required" />
-			<br>
-			<br>
-		</th:block>
+		<form id="actualForm" action="#" th:action="@{/data/datacollection/enter-data}"
+			  th:object="${activeParametersNumeric}" method="POST">
 
-		<th:block th:each="parameter : ${activeParametersString}">
-			<label th:text="${parameter.paramName}"></label>
-			<div th:text="${parameter?.description}"></div>				
-			<textarea th:name="${'string_parameter_' + parameter.id}"
-				th:value="${stringParameterMap.get(parameter.id)}"
-				th:inline="text">[[${stringParameterMap.get(parameter.id)}]]</textarea>
-			<br>
-			<br>
-		</th:block>
+			<h3 th:text="#{messages.enter-data}"></h3>
 
-		<th:block th:each="parameter : ${activeParametersBoolean}">
-			<label th:text="${parameter.paramName}"></label>
-			<div th:text="${parameter?.description}"></div>
-			
-			<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="true"
-				th:checked="${booleanParameterMap.get(parameter.id) != null} ? (${booleanParameterMap.get(parameter.id)} ? ${true} : ${false})" required="required" />
-			<label th:for="${'boolean_parameter_' + parameter.id}">yes</label>
-			
-			<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="false" 
-				th:checked="${booleanParameterMap.get(parameter.id) != null} ? (${booleanParameterMap.get(parameter.id)} ? ${false} : ${true})" required="required" />
-			<label th:for="${'boolean_parameter_' + parameter.id}">no</label>
+			<button class="btn btn-secondary" id="loadDataFromYesterday" th:text="#{messages.enter-data.overwrite-button}"></button>
+			<br /><br />
 
-			<br>
-			<br>
-		</th:block>
-		
-		<input type="submit" th:value="#{messages.submitbutton}"/>
+			<!--  input type="date"-->
+			<label for="date" th:text="#{messages.enter-data.date}"></label>
+			<input class="form-control" id="actualDate" name="date" type="date" required="required" th:value="${date}" />
+			<br /><br />
 
-	</form>
-	<script>
-	
-		function zeroPad(number, width){
-			 width -= number.toString().length;
-			  if ( width > 0 )
-			  {
-			    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
-			  }
-			  return number + ""; // always return a string
-		}
-	
-		function getToday() {
-			var today = new Date();
-			return today.getFullYear()+'-'+(zeroPad(today.getMonth()+1, 2))+'-'+zeroPad(today.getDate(), 2);
-		}
-		
-		function getYesterday() {
-			var date = new Date();
-			date.setDate(date.getDate() - 1);
-			return date.getFullYear()+'-'+(zeroPad(date.getMonth()+1, 2))+'-'+zeroPad(date.getDate(), 2);			
-		}
-	
-		document.addEventListener("DOMContentLoaded", function() {
-			var button = document.getElementById("loadDataFromYesterday").addEventListener("click", function (e) {
-				e.preventDefault();
-				var date = document.getElementById("dateHidden");
-				date.value = getYesterday();
-				
-				var form = document.getElementById("loadDataFromYesterdayForm");
-				form.submit();
-			});
-			
-			if (window.location.hash == "#setTodayAfterLoad") {
-				var form = document.getElementById("actualForm");
-				var date = document.getElementById("actualDate");
-				date.value = getToday();
+			<th:block th:each="parameter : ${activeParametersNumeric}">
+				<label th:text="${parameter.paramName}"></label>
+				<div th:text="${parameter?.description}"></div>
+				<span th:text="${parameter?.minValue != null} ? 'Value must be between ' + ${parameter.minValue} + ' and ' + ${parameter.maxValue} : '' "  />
+				<br>
+				<input class="form-control" type="number" step="0.01" th:min="${parameter?.minValue}" th:max="${parameter?.maxValue}"
+					   th:name="${'numeric_parameter_' + parameter.id}"
+					   th:value="${numericParameterMap.get(parameter.id)}"
+					   required="required" />
+				<br>
+			</th:block>
+
+			<th:block th:each="parameter : ${activeParametersString}">
+				<label th:text="${parameter.paramName}"></label>
+				<div th:text="${parameter?.description}"></div>
+				<textarea class="form-control"
+						  th:name="${'string_parameter_' + parameter.id}"
+						  th:value="${stringParameterMap.get(parameter.id)}"
+						  th:inline="text">[[${stringParameterMap.get(parameter.id)}]]</textarea>
+				<br>
+			</th:block>
+
+			<th:block th:each="parameter : ${activeParametersBoolean}">
+				<label th:text="${parameter.paramName}"></label>
+				<div th:text="${parameter?.description}"></div>
+
+				<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="true"
+					   th:checked="${booleanParameterMap.get(parameter.id) != null} ? (${booleanParameterMap.get(parameter.id)} ? ${true} : ${false})" required="required" />
+				<label th:for="${'boolean_parameter_' + parameter.id}">yes</label>
+
+				<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="false"
+					   th:checked="${booleanParameterMap.get(parameter.id) != null} ? (${booleanParameterMap.get(parameter.id)} ? ${false} : ${true})" required="required" />
+				<label th:for="${'boolean_parameter_' + parameter.id}">no</label>
+
+				<br>
+			</th:block>
+
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
+
+		</form>
+		<script>
+
+			function zeroPad(number, width){
+				width -= number.toString().length;
+				if ( width > 0 )
+				{
+					return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+				}
+				return number + ""; // always return a string
 			}
-		});
-	</script>
-</body>
+
+			function getToday() {
+				var today = new Date();
+				return today.getFullYear()+'-'+(zeroPad(today.getMonth()+1, 2))+'-'+zeroPad(today.getDate(), 2);
+			}
+
+			function getYesterday() {
+				var date = new Date();
+				date.setDate(date.getDate() - 1);
+				return date.getFullYear()+'-'+(zeroPad(date.getMonth()+1, 2))+'-'+zeroPad(date.getDate(), 2);
+			}
+
+			document.addEventListener("DOMContentLoaded", function() {
+				var button = document.getElementById("loadDataFromYesterday").addEventListener("click", function (e) {
+					e.preventDefault();
+					var date = document.getElementById("dateHidden");
+					date.value = getYesterday();
+
+					var form = document.getElementById("loadDataFromYesterdayForm");
+					form.submit();
+				});
+
+				if (window.location.hash == "#setTodayAfterLoad") {
+					var form = document.getElementById("actualForm");
+					var date = document.getElementById("actualDate");
+					date.value = getToday();
+				}
+			});
+		</script>
+	</div>
 </html>

@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.registration.title.registration}, _, ~{ :: .content})">
+	<div class="content">
+		<h2 th:text="#{messages.registration.title.registration}"></h2>
 
-<head>
-	<meta charset="UTF-8" />
-	<title th:text="#{messages.registration.title.registration}"></title>
-</head>
-<body>
-	<h2 th:text="#{messages.registration.title.registration}"></h2>
-	
-	<!-- When form is loaded, will call userRegistrationDto.getFirstName(), etc -->
-	<!-- th:action sends form data to /registration -->
-	<form action="#" th:action="@{/registration}"
-		th:object="${user}" method="POST">
-			
-		<label for="username" th:text="#{messages.registration.userName}"></label>
-		<input th:field="*{username}" type="text" required="required"/>
-		<br />
-		
-		<label for="firstName" th:text="#{messages.registration.firstName}"></label>
-		<input th:field="*{firstName}" type="text"/>
-		<br />
-		
-		<label for="lastName" th:text="#{messages.registration.lastName}"></label>
-		<input th:field="*{lastName}" type="text"/>
-		<br />
-		
-		<label for="email" th:text="#{messages.registration.email}"></label>
-		<input th:field="*{email}" type="text" required="required"/>
-		<br />
-		
-		<label for="birthdate" th:text="#{messages.registration.birthdate}"></label>
-		<input th:field="*{birthdate}" type="date" />
-		<br />
-		
-		<label for="password"th:text="#{messages.registration.password}"></label>
-		<input th:field="*{password}" type="password" required="required"/>
-		<br />
-		
-		<label for="passwordConfirm"th:text="#{messages.registration.confirm-password}"></label>
-		<input th:field="*{passwordConfirm}" type="password" required="required"/>
-		<br />
-		
-		<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
+		<!-- When form is loaded, will call userRegistrationDto.getFirstName(), etc -->
+		<!-- th:action sends form data to /registration -->
+		<form action="#" th:action="@{/registration}"
+			  th:object="${user}" method="POST">
 
-		<input type="submit"/>
-	</form>
-</body>
+			<label for="username" th:text="#{messages.registration.userName}"></label>
+			<input class="form-control" th:field="*{username}" type="text" required="required"/>
+			<br />
+
+			<div class="row">
+				<div class="col-sm-6">
+					<label for="firstName" th:text="#{messages.registration.firstName}"></label>
+					<input class="form-control" th:field="*{firstName}" type="text"/>
+				</div>
+				<div class="col-sm-6">
+					<label for="lastName" th:text="#{messages.registration.lastName}"></label>
+					<input class="form-control" th:field="*{lastName}" type="text"/>
+				</div>
+			</div>
+
+			<br />
+
+			<label for="email" th:text="#{messages.registration.email}"></label>
+			<input class="form-control" th:field="*{email}" type="text" required="required"/>
+			<br />
+
+			<label for="birthdate" th:text="#{messages.registration.birthdate}"></label>
+			<input class="form-control" th:field="*{birthdate}" type="date" />
+			<br />
+
+			<label for="password"th:text="#{messages.registration.password}"></label>
+			<input class="form-control" th:field="*{password}" type="password" required="required"/>
+			<br />
+
+			<label for="passwordConfirm"th:text="#{messages.registration.confirm-password}"></label>
+			<input class="form-control" th:field="*{passwordConfirm}" type="password" required="required"/>
+			<br />
+
+			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
+
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
+		</form>
+	</div>
 </html>
 

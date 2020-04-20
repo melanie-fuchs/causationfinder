@@ -1,33 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.userhome.title.userhome}"></title>
-</head>
-<body>
-	<h2 th:text="#{messages.userhome.title.userhome}"></h2>
-
-	<div>
-		<span th:text="#{messages.userhome.welcome}"></span>
-		<span th:text="${#request.userPrincipal.principal.username}"></span>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.userhome.title.userhome}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
 	</div>
+	<div class="content">
+		<h2 th:text="#{messages.userhome.title.userhome}"></h2>
 
-	<div th:insert="fragments/navigation :: navigation"></div>
-
-	<!--  old stuff
-		
-	<a href="/data/customparameter/manage">manage custom parameters</a>
-	<a href="/data/today/enter">enter data for today</a>
-	<a href="/data/yesterday/enter">enter data for yesterday</a>
-	<a href="/data/date/enter">enter data for specific date</a>
-	
-	
-
-	<br>
-	<a href="/updateuser">Update User Info</a>
-	<br>
-	<a href="/changepassword">Change Password</a>
-	<br>
-	-->
-</body>
+		<div>
+			<span th:text="#{messages.userhome.welcome}"></span>
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+		</div>
+	</div>
 </html>

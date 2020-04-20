@@ -1,75 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.fragments.navigation.manage-parameters}"></title>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.manage-parameters}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<form action="#"
+			  th:action="@{/data/parameter-configuration/add-parameter}"
+			  th:object="${managecustomparameter}" method="POST">
 
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
+			<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
 
-	<form action="#"
-		th:action="@{/data/parameter-configuration/add-parameter}"
-		th:object="${managecustomparameter}" method="POST">
-
-		<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
-
-		<h3 th:text="#{messages.addParameter}"></h3>
-		<p th:text="#{messages.addParameter.create-your-parameters}"></p>
+			<h3 th:text="#{messages.addParameter}"></h3>
+			<p th:text="#{messages.addParameter.create-your-parameters}"></p>
 
 
-		<h4 th:text="#{messages.addParameter.choose-type}"></h4>
-		<div>
-			<input type="radio" name="type" value="STRING" required="required" />
-			<label for="type" th:text="#{messages.addParameter.choose-type.text}"></label>
-		</div>
-		<div>
-			<input type="radio" name="type" value="NUMERIC" required="required" />
-			<label for="type"
-				th:text="#{messages.addParameter.choose-type.number}"></label>
-		</div>
-		<div>
-			<input type="radio" name="type" value="BOOLEAN" required="required" />
-			<label for="type"
-				th:text="#{messages.addParameter.choose-type.boolean}"></label>
-		</div>
+			<h4 th:text="#{messages.addParameter.choose-type}"></h4>
+			<div>
+				<input type="radio" name="type" value="STRING" required="required" />
+				<label for="type" th:text="#{messages.addParameter.choose-type.text}"></label>
+			</div>
+			<div>
+				<input type="radio" name="type" value="NUMERIC" required="required" />
+				<label for="type"
+					   th:text="#{messages.addParameter.choose-type.number}"></label>
+			</div>
+			<div>
+				<input type="radio" name="type" value="BOOLEAN" required="required" />
+				<label for="type"
+					   th:text="#{messages.addParameter.choose-type.boolean}"></label>
+			</div>
 
 
-		<div id="minMaxContainer" style="display: none">
-			<br /> <span
-				th:text="#{messages.addParameter.choose-type.number.min-max.text}"></span>
-			<br /> <label for="minValue"
-				th:text="#{messages.addParameter.choose-type.number.min-max.minValue}"></label>
-			<br> <input type="number" name="minValue" min="-40" step="0.01" />
-			<br /> <label for="maxValue"
-				th:text="#{messages.addParameter.choose-type.number.min-max.maxValue}"></label>
-			<br /> <input type="number" name="maxValue" min="0" step="0.01" />
-		</div>
+			<div id="minMaxContainer" style="display: none">
+				<br />
+				<span th:text="#{messages.addParameter.choose-type.number.min-max.text}"></span>
+				<br />
+				<label for="minValue" th:text="#{messages.addParameter.choose-type.number.min-max.minValue}"></label>
+				<br />
+				<input class="form-control" type="number" name="minValue" min="-40" step="0.01" />
+				<br />
+				<label for="maxValue" th:text="#{messages.addParameter.choose-type.number.min-max.maxValue}"></label>
+				<br />
+				<input class="form-control" type="number" name="maxValue" min="0" step="0.01" />
+			</div>
+			<h4 th:text="#{messages.addParameter.write-param-title}"></h4>
+			<label for="parameterName"
+				   th:text="#{messages.addParameter.write-param-title.parameter-name}"></label>
 
-		<br>
-		<h4 th:text="#{messages.addParameter.write-param-title}"></h4>
-		<label for="parameterName"
-			th:text="#{messages.addParameter.write-param-title.parameter-name}"></label>
-
-		<input type="text" name="parameterName" required="required" /> <br>
-		<br>
-		<h4 th:text="#{messages.addParameter.write-description}"></h4>
-		<label for="description"
-			th:text="#{messages.addParameter.write-description.description}"></label>
-		<textarea name="description"></textarea>
-
-		<br> <br> <input type="submit"
-			th:value="#{messages.submitbutton}" />
-
-	</form>
-	<script>
+			<input class="form-control" type="text" name="parameterName" required="required" />
+			<br>
+			<h4 th:text="#{messages.addParameter.write-description}"></h4>
+			<label for="description"
+				   th:text="#{messages.addParameter.write-description.description}"></label>
+			<textarea class="form-control" name="description"></textarea>
+			<br>
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}" />
+		</form>
+		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 				var numericType = "NUMERIC";
-				
+
 				var minMaxContainer = document.getElementById("minMaxContainer");
-				
+
 				var types = document.getElementsByName("type");
-				
+
 				for (var i = 0; i < types.length; i++) {
 					var type = types[i];
 					type.addEventListener("change", function (e) {
@@ -82,6 +76,5 @@
 				}
 			});
 		</script>
-
-</body>
+	</div>
 </html>

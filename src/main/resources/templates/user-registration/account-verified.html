@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.account-verified.title}, ~{ :: .navigation}, ~{ :: .content})">
-	<div class="navigation">
-		<div th:insert="fragments/navigation :: navigation"></div>
-	</div>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.account-verified.title}, _, ~{ :: .content})">
 	<div class="content">
 		<h2 th:text="#{messages.account-verified.title}"></h2>
 		<div>

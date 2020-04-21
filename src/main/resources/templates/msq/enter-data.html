@@ -10,8 +10,14 @@
 	<h2>Medical Symptoms Questionnaire</h2>
 	<h3>Enter Data</h3>
 
+	<form action="#" th:action="@{/msq/enter-data}" method="GET"
+			th:object="${msq}">
+	</form>
 
-
+	<div th:text="*{msq}"></div>
+	helo
+	<th:block th:each="m :${msq}">
+	</th:block>
 
 </body>
 </html>

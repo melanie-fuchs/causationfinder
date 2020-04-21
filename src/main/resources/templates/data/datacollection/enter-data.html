@@ -8,8 +8,14 @@
 		<h3 th:text="#{messages.enter-data.edit-existing}"></h3>
 
 		<form action="#" th:action="@{/data/datacollection/enter-data}" method="GET">
-			<input class="form-control" name="date" type="date" required="required" th:value="${date}" />
-			<input class="btn btn-secondary" type="submit" value="Change date and reload" />
+			<div class="row">
+				<div class="col-sm-6">
+					<input class="form-control" name="date" type="date" required="required" th:value="${date}" />					
+				</div>
+				<div class="col-sm-6">
+					<input class="btn btn-secondary" type="submit" value="Change date and reload" />					
+				</div>
+			</div>
 		</form>
 
 		<form id="loadDataFromYesterdayForm" action="#" th:action="@{/data/datacollection/enter-data} + '#setTodayAfterLoad'" method="GET">

@@ -1,26 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.displaytexts}"></title>
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
-
-	<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
-	<h3 th:text="#{messages.displaytexts}"></h3>
-	<br />
-	<form action="#" th:action="@{/data/datacollection/display-texts}"
-		method="POST">
-		<label for="startDate" th:text="#{messages.displaytexts.start}"></label> <br /> <input
-			name="startDate" type="date" required="required"
-			th:value="${startDate}" /> <br />
-		<br /> <label for="endDate" th:text="#{messages.displaytexts.end}"></label> <br /> <input
-			name="endDate" type="date" required="required" th:value="${endDate}" />
-
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.displaytexts}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
+		<h3 th:text="#{messages.displaytexts}"></h3>
 		<br />
-		<br />
-		<input type="submit" th:value="#{messages.submitbutton}"/>
-	</form>
-</body>
+		<form action="#" th:action="@{/data/datacollection/display-texts}"
+			  method="POST">
+			<label for="startDate" th:text="#{messages.displaytexts.start}"></label> <br /> <input
+				name="startDate" type="date" required="required"
+				th:value="${startDate}" /> <br />
+			<br /> <label for="endDate" th:text="#{messages.displaytexts.end}"></label> <br /> <input
+				name="endDate" type="date" required="required" th:value="${endDate}" />
+
+			<br />
+			<br />
+			<input type="submit" th:value="#{messages.submitbutton}"/>
+		</form>
+	</div>
 </html>

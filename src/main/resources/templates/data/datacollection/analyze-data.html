@@ -1,51 +1,23 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.analyze-data}"></title>
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
-	
-	<h2  th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
-	<h3 th:text="#{messages.analyze-data}"></h3>
-	<br/>
-	<form action="#" th:action="@{/data/datacollection/analyze-data}" method="POST">
-		<label for="startDate" th:text="#{messages.analyze-data.start}"></label>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.analyze-data}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<h2  th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
+		<h3 th:text="#{messages.analyze-data}"></h3>
 		<br/>
-		<input name="startDate" type="date" required="required" th:value="${startDate}" />
-		<br/><br/>
-		<label for="endDate" th:text="#{messages.analyze-data.end}"></label>
-		<br/>
-		<input name="endDate" type="date" required="required" th:value="${endDate}" />
-		
-		<br/><br/>
-		<input type="submit" th:value="#{messages.submitbutton}"/>
-	</form>
-	
-	
-	<!-- 
-		<script>
-			var data = 'hier Json ausgeben'; // { 
-			     {
-			     	id: 79
-			     	minValue: null,
-			     	maxVlaue: null,
-			     	data: [1,2,3,4,5],
-			     },			     
-			     {			     
-			     
-			     
-			     }
-			
-			}
-			
-			
-			magicGraphicLibrary.show(data);
-		
-		</script>	
-	 -->
-	
+		<form action="#" th:action="@{/data/datacollection/analyze-data}" method="POST">
+			<label for="startDate" th:text="#{messages.analyze-data.start}"></label>
+			<br/>
+			<input name="startDate" type="date" required="required" th:value="${startDate}" />
+			<br/><br/>
+			<label for="endDate" th:text="#{messages.analyze-data.end}"></label>
+			<br/>
+			<input name="endDate" type="date" required="required" th:value="${endDate}" />
 
-</body>
+			<br/><br/>
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
+		</form>
+	</div>
 </html>

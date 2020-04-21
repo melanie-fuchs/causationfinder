@@ -1,45 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.fragments.navigation.manage-parameters}"></title>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.manage-parameters}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<form action="#" th:action="@{/data/parameter-configuration/configure-parameter-status}"
+			  th:object="${managepredefinedparameter}" method="POST">
 
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
+			<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
 
-	<form action="#" th:action="@{/data/parameter-configuration/configure-parameter-status}"
-		th:object="${managepredefinedparameter}" method="POST">
+			<p th:text="#{messages.configure-parameter-status.text}"></p>
 
-		<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
-		
-		<p th:text="#{messages.configure-parameter-status.text}"></p>
+			<h3 th:text="#{messages.configure-parameter-status.title.predefinedParameters}"></h3>
+			<th:block th:each="parameter : ${managepredefinedparameter}">
+				<input type="checkbox" th:name="checkedPredefinedParameters[]"
+					   th:value="${parameter.id}"
+					   th:checked="${parameter.active} ? ${true}: ${false}" />
+				<label class="font-weight-bold" th:text="${parameter.paramName}"></label>
+				<div th:text="${parameter?.description}"></div>
+				<br>
+			</th:block>
 
-		<h3 th:text="#{messages.configure-parameter-status.title.predefinedParameters}"></h3>
-		<th:block th:each="parameter : ${managepredefinedparameter}">
-			<input type="checkbox" th:name="checkedPredefinedParameters[]"
-				th:value="${parameter.id}"
-				th:checked="${parameter.active} ? ${true}: ${false}" />
-			<label th:text="${parameter.paramName}"></label>
-			<div th:text="${parameter?.description}"></div>
 			<br>
-		</th:block>
+			<h3 th:text="#{messages.configure-parameter-status.title.customParameters}"></h3>
+			<th:block th:each="parameter : ${managecustomparameter}">
+				<input type="checkbox" th:name="checkedCustomParameters[]"
+					   th:value="${parameter.id}"
+					   th:checked="${parameter.active} ? ${true}: ${false}" />
+				<label th:text="${parameter.paramName}"></label>
+				<br>
+			</th:block>
 
-		<br>
-		<h3 th:text="#{messages.configure-parameter-status.title.customParameters}"></h3>
-		<th:block th:each="parameter : ${managecustomparameter}">
-			<input type="checkbox" th:name="checkedCustomParameters[]"
-				th:value="${parameter.id}"
-				th:checked="${parameter.active} ? ${true}: ${false}" />
-			<label th:text="${parameter.paramName}"></label>
-			<br>
-		</th:block>
+			<br> <br>
 
-		<br> <br>
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
 
-		<input type="submit" th:value="#{messages.submitbutton}"/>
-
-	</form>
-
-</body>
+		</form>
+	</div>
 </html>

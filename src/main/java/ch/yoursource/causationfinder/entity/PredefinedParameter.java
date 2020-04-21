@@ -28,11 +28,18 @@ public class PredefinedParameter {
 	private ParameterType type;
 	
 	@NotNull
-	@Column(name = "param_name")
-	private String paramName;
+	@Column(name = "param_name_de")
+	private String paramNameDe;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "description_de")
+    private String descriptionDe;
+    
+    @NotNull
+    @Column(name = "param_name_en")
+    private String paramNameEn;
+
+    @Column(name = "description_en")
+    private String descriptionEn;
     
     @Column(name="min_value")
     private Double minValue;
@@ -42,10 +49,19 @@ public class PredefinedParameter {
 
 	public PredefinedParameter() {}
 
-	public PredefinedParameter(@NotNull ParameterType type, @NotNull String paramName, String description, Double minValue, Double maxValue) {
+	public PredefinedParameter(
+	        @NotNull ParameterType type,
+	        @NotNull String paramNameDe,
+	        String descriptionDe,
+	        @NotNull String paramNameEn,
+	        String descriptionEn,
+	        Double minValue,
+	        Double maxValue) {
 		this.type = type;
-		this.paramName = paramName;
-		this.description = description;
+		this.paramNameDe = paramNameDe;
+		this.descriptionDe = descriptionDe;
+        this.paramNameEn = paramNameEn;
+        this.descriptionEn = descriptionEn;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
 	}
@@ -66,21 +82,38 @@ public class PredefinedParameter {
 		this.type = type;
 	}
 
-	public String getParamName() {
-		return paramName;
+	public String getParamNameDe() {
+		return paramNameDe;
 	}
 
-	public void setParamName(String paramName) {
-		this.paramName = paramName;
+	public void setParamNameDe(String paramNameDe) {
+		this.paramNameDe = paramNameDe;
 	}
 
-	public String getDescription() {
-        return description;
+	public String getDescriptionDe() {
+        return descriptionDe;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionDe(String descriptionDe) {
+        this.descriptionDe = descriptionDe;
     }
+
+    public String getParamNameEn() {
+        return paramNameEn;
+    }
+
+    public void setParamNameEn(String paramNameEn) {
+        this.paramNameEn = paramNameEn;
+    }
+
+    public String getDescriptionEn() {
+        return descriptionEn;
+    }
+
+    public void setDescriptionEn(String descriptionEn) {
+        this.descriptionEn = descriptionEn;
+    }
+    
     
     public Double getMinValue() {
         return minValue;
@@ -100,7 +133,7 @@ public class PredefinedParameter {
 
     @Override
     public String toString() {
-        return "PredefinedParameter [id=" + id + ", type=" + type + ", paramName=" + paramName + ", description="
-                + description + ", minValue=" + minValue + ", maxValue=" + maxValue + "]";
+        return "PredefinedParameter [id=" + id + ", type=" + type + ", paramName=" + paramNameEn + ", description="
+                + descriptionEn + ", minValue=" + minValue + ", maxValue=" + maxValue + "]";
     }
 }

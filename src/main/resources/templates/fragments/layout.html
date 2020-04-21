@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, navigation, content)">
+    <head th:replace="fragments/html_head :: html_head (title=${title})"></head>
+    <body>
+        <div class="container">
+            <div class="row header-row">
+                <div class="col-12 header-logo">
+                    <!-- background image set by css -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div th:replace="${navigation}">
+                        <a href="/login">Login</a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div th:replace="${content}">
+                        Content
+                    </div>
+                </div>
+            </div>
+
+            <div class="row footer">
+                <div class="col-12">
+                    <span>&copy; 2020 yoursource.ch</span>
+                    <!-- will the footer content change based on the page content or always be the same? -->
+                </div>
+            </div>
+        </div>
+
+    </body>
+    <style>
+        div.header-row {
+            margin-bottom: 15px;
+        }
+
+        div.header-logo {
+            height: 95px;
+
+            background-image:url("/causationfinder.png");
+            background-size: auto 80px;
+            background-repeat: no-repeat;
+            background-position-y: 15px;
+            background-position-x: 15px;
+        }
+
+        div.footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        li.nav-item {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</html>

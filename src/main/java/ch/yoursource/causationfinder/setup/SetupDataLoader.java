@@ -3,12 +3,15 @@ package ch.yoursource.causationfinder.setup;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.MessageSource;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +29,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	private RoleRepository roleRepository;
 	private PredefinedParameterRepository predefinedParameterRepository;
 	private BCryptPasswordEncoder passwordEncoder;
-		
+	private MessageSource messageSource;
+	
 	private boolean setupCompleted = false;
 	
     @Value("${admin.password}") 
@@ -49,12 +53,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		UserRepository userRepository,
 		RoleRepository roleRepository,
 		PredefinedParameterRepository predefinedParameterRepository,
-		BCryptPasswordEncoder passwordEncoder
+		BCryptPasswordEncoder passwordEncoder,
+		MessageSource messageSource
 	) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.predefinedParameterRepository = predefinedParameterRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.messageSource = messageSource;
 	}
 	
 	
@@ -86,16 +92,96 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         
         if(tableSize == 0) {
             List<PredefinedParameter> predefinedParameters = new ArrayList<PredefinedParameter>();
-            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Hours Slept Per Night", "Number of hours slept last night", 0.0, 24.0));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Quality Of Sleep", "The quality of my sleep last night", 0.0, 10.0));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.NUMERIC, "Happiness", "My happiness today", 0.0, 10.0));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Gluten Eaten", "Did I eat anything that contains gluten today? Like Bread, Pasta, etc?", null, null));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Processed Sweets Eaten", "Did I eat any processed sweets like chocolate, lollipops, cookies etc today?", null, null));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.BOOLEAN, "Did Sports", "Did I do some kind of sports today?", null, null));
-            predefinedParameters.add(new PredefinedParameter(ParameterType.STRING, "Diary", "Anything I want to share with my diary ^^", null, null));
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.NUMERIC,
+                    this.getGermanMessage("messages.predefined.hoursSlept.name"),
+                    this.getGermanMessage("messages.predefined.hoursSlept.description"),
+                    this.getEnglishMessage("messages.predefined.hoursSlept.name"),
+                    this.getEnglishMessage("messages.predefined.hoursSlept.description"),
+                    0.0,
+                    24.0
+            ));
+            
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.NUMERIC,
+                    this.getGermanMessage("messages.predefined.quality.name"),
+                    this.getGermanMessage("messages.predefined.quality.description"),
+                    this.getEnglishMessage("messages.predefined.quality.name"),
+                    this.getEnglishMessage("messages.predefined.quality.description"),
+                    0.0,
+                    10.0
+            ));
 
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.NUMERIC,
+                    this.getGermanMessage("messages.predefined.happiness.name"),
+                    this.getGermanMessage("messages.predefined.happiness.description"),
+                    this.getEnglishMessage("messages.predefined.happiness.name"),
+                    this.getEnglishMessage("messages.predefined.happiness.description"),
+                    0.0,
+                    10.0
+            ));
+
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.BOOLEAN,
+                    this.getGermanMessage("messages.predefined.gluten.name"),
+                    this.getGermanMessage("messages.predefined.gluten.description"),
+                    this.getEnglishMessage("messages.predefined.gluten.name"),
+                    this.getEnglishMessage("messages.predefined.gluten.description"),
+                    null,
+                    null
+            ));
+
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.BOOLEAN,
+                    this.getGermanMessage("messages.predefined.sweets.name"),
+                    this.getGermanMessage("messages.predefined.sweets.description"),
+                    this.getEnglishMessage("messages.predefined.sweets.name"),
+                    this.getEnglishMessage("messages.predefined.sweets.description"),
+                    null,
+                    null
+            ));
+
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.BOOLEAN,
+                    this.getGermanMessage("messages.predefined.sports.name"),
+                    this.getGermanMessage("messages.predefined.sports.description"),
+                    this.getEnglishMessage("messages.predefined.sports.name"),
+                    this.getEnglishMessage("messages.predefined.sports.description"),
+                    null,
+                    null
+            ));
+
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.BOOLEAN,
+                    this.getGermanMessage("messages.predefined.dairy.name"),
+                    this.getGermanMessage("messages.predefined.dairy.description"),
+                    this.getEnglishMessage("messages.predefined.dairy.name"),
+                    this.getEnglishMessage("messages.predefined.dairy.description"),
+                    null,
+                    null
+            ));
+
+            predefinedParameters.add(new PredefinedParameter(
+                    ParameterType.STRING,
+                    this.getGermanMessage("messages.predefined.diary.name"),
+                    this.getGermanMessage("messages.predefined.diary.description"),
+                    this.getEnglishMessage("messages.predefined.diary.name"),
+                    this.getEnglishMessage("messages.predefined.diary.description"),
+                    null,
+                    null
+            ));           
+            
             predefinedParameterRepository.saveAll((Iterable<PredefinedParameter>)predefinedParameters);
         }
+    }
+    
+    private String getGermanMessage(String key) {
+        return this.messageSource.getMessage(new DefaultMessageSourceResolvable(key), Locale.GERMAN);
+    }
+    
+    private String getEnglishMessage(String key) {
+        return this.messageSource.getMessage(new DefaultMessageSourceResolvable(key), Locale.ENGLISH);
     }
 
     private Role createRoleIfNotFound(String name) {

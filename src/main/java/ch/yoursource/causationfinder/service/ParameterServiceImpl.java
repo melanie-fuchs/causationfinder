@@ -1,6 +1,7 @@
 package ch.yoursource.causationfinder.service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ParameterServiceImpl implements ParameterService {
     // load all predefined parameters into customParameters for the given user and
     // set all parameters active
     @Override
-    public void activateAllPredefinedParameters(User user) {
+    public void activateAllPredefinedParameters(User user, Locale locale) {
         List<PredefinedParameter> predefinedParameters = predefinedParameterRepository.findAll();
         
         for (PredefinedParameter p : predefinedParameters) {
@@ -38,10 +39,15 @@ public class ParameterServiceImpl implements ParameterService {
             c.setPredefinedParam(p);
             c.setUser(user);
             c.setType(p.getType());
-            c.setParamName(p.getParamName());
-            c.setDescription(p.getDescription());
             c.setMinValue(p.getMinValue());
             c.setMaxValue(p.getMaxValue());
+            if (locale == Locale.GERMAN || locale == Locale.GERMANY) {
+                c.setParamName(p.getParamNameDe());
+                c.setDescription(p.getDescriptionDe());
+            } else {
+                c.setParamName(p.getParamNameEn());
+                c.setDescription(p.getDescriptionEn());
+            }
             customParameterRepository.save(c);
         }
     }

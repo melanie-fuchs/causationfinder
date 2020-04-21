@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.fragments.navigation.manage-parameters}"></title>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.manage-parameters}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<form action="#"
+			  th:action="@{/data/parameter-configuration/update-customparameter}"
+			  th:object="${updateCustomParameterDtoListWrapper}" method="POST">
 
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
+			<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
 
-	<form action="#"
-		th:action="@{/data/parameter-configuration/update-customparameter}"
-		th:object="${updateCustomParameterDtoListWrapper}" method="POST">
+			<h3 th:text="#{messages.update-customparameter}"></h3>
+			<p th:text="#{messages.update-customparameter.text}"></p>
 
-		<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
+			<th:block th:each="parameter, stat : *{updateCustomParameterDtoList}">
+				<label class="font-weight-bold" th:text="${parameter.paramName}"></label>
+				<br />
+				<div class="row">
+					<div class="col-md-6">
+						<label th:text="#{messages.update-customparameter.min-value}"></label>
+						<input class="form-control" type="number" th:max="*{updateCustomParameterDtoList[__${stat.index}__].lowestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" />
+					</div>
+					<div class="col-md-6">
+						<label th:text="#{messages.update-customparameter.max-value}"></label>
+						<input class="form-control" type="number" th:min="*{updateCustomParameterDtoList[__${stat.index}__].highestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" />
+					</div>
+				</div>
+				<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].id}" />
+				<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].paramName}" />
+				<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].description}" />
+				<br /><br />
+			</th:block>
 
-		<h3 th:text="#{messages.update-customparameter}"></h3>
-		<p th:text="#{messages.update-customparameter.text}"></p>
-		
-		<th:block th:each="parameter, stat : *{updateCustomParameterDtoList}">
-			<label th:text="${parameter.paramName}"></label>
-			<br />
-			<label th:text="#{messages.update-customparameter.min-value}"></label>			
-			<input type="number" th:max="*{updateCustomParameterDtoList[__${stat.index}__].lowestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" />
-			<label th:text="#{messages.update-customparameter.max-value}"></label>
-			<input type="number" th:min="*{updateCustomParameterDtoList[__${stat.index}__].highestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" />
-			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].id}" />
-			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].paramName}" />
-			<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].description}" />
-			<br /><br />
-		</th:block>
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
 
-		<br> <br>
-		<input type="submit" th:value="#{messages.submitbutton}"/>
-
-	</form>
-
-</body>
+		</form>
+	</div>
 </html>

@@ -1,38 +1,38 @@
 <div th:fragment="navigation">
-	<ul>
-		<li>
-			<span th:text="#{messages.fragments.navigation.change-profile}"></span>
+	<ul class="navigation nav">
+		<li class="nav-item">
+			<strong th:text="#{messages.fragments.navigation.change-profile}"></strong>
 			<ul>
 				<li><a href="/updateuser" th:text="#{messages.fragments.navigation.change-profile.update-userinfo}"></a></li>
 				<li><a href="/changepassword" th:text="#{messages.fragments.navigation.change-profile.change-password}"></a></li>
 			</ul>
 		</li>
 
-		<li>
-			<span th:text="#{messages.fragments.navigation.manage-parameters}"></span>
+		<li class="nav-item">
+			<strong th:text="#{messages.fragments.navigation.manage-parameters}"></strong>
 			<ul>
 				<li><a href="/data/parameter-configuration/configure-parameter-status" th:text="#{messages.fragments.navigation.manage-parameters.parameter-status}"></a></li>
 				<li><a href="/data/parameter-configuration/update-customparameter" th:text="#{messages.fragments.navigation.manage-parameters.update-customparameter}"></a></li>
 				<li><a href="/data/parameter-configuration/add-parameter" th:text="#{messages.fragments.navigation.manage-parameters.add-parameter}"></a></li>
 			</ul>
 		</li>
-		<li>
-			<span th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></span>
+		<li class="nav-item">
+			<strong th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></strong>
 			<ul>
 				<li><a href="/data/datacollection/enter-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data.enter-daily-data}"></a></li>
 				<li><a href="/data/datacollection/analyze-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data.analyze-data}"></a></li>
 				<li><a href="/data/datacollection/display-texts" th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Medical Symptoms Questionnaire MSQ</span>
+		<li class="nav-item">>
+			<strong>Medical Symptoms Questionnaire MSQ</strong>
 			<ul>
 				<li><a href="/msq/enter-data">Enter Data</a></li>
 				<li><a href="/msq/analyze-data">Analyze Data</a></li>
 			</ul>
 		</li>
-		<li>
-			<a href="/logout" th:text="#{messages.fragments.navigation.logout}"></a>
+		<li class="nav-item">
+			<strong><a href="/logout" th:text="#{messages.fragments.navigation.logout}"></a></strong>
 		</li>
 	</ul>
 </div>

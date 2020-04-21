@@ -1,6 +1,6 @@
 <div th:fragment="navigation">
-	<ul>
-		<li>
+	<ul class="navigation nav">
+		<li class="nav-item">
 			<span th:text="#{messages.fragments.navigation.change-profile}"></span>
 			<ul>
 				<li><a href="/updateuser" th:text="#{messages.fragments.navigation.change-profile.update-userinfo}"></a></li>
@@ -8,7 +8,7 @@
 			</ul>
 		</li>
 
-		<li>
+		<li class="nav-item">
 			<span th:text="#{messages.fragments.navigation.manage-parameters}"></span>
 			<ul>
 				<li><a href="/data/parameter-configuration/configure-parameter-status" th:text="#{messages.fragments.navigation.manage-parameters.parameter-status}"></a></li>
@@ -16,7 +16,7 @@
 				<li><a href="/data/parameter-configuration/add-parameter" th:text="#{messages.fragments.navigation.manage-parameters.add-parameter}"></a></li>
 			</ul>
 		</li>
-		<li>
+		<li class="nav-item">
 			<span th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></span>
 			<ul>
 				<li><a href="/data/datacollection/enter-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data.enter-daily-data}"></a></li>
@@ -24,8 +24,7 @@
 				<li><a href="/data/datacollection/display-texts" th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></a></li>
 			</ul>
 		</li>
-
-		<li>
+		<li class="nav-item">
 			<a href="/logout" th:text="#{messages.fragments.navigation.logout}"></a>
 		</li>
 	</ul>

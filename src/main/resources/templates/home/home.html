@@ -1,51 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.home.title.welcome}"></title>
-</head>
-<body>
-
-	<h2 th:text="#{messages.home.title.welcome}"></h2>
-
-
-	<div sec:authorize="isAuthenticated()">
-		<div>
-			<span th:text="#{messages.home.hello}"></span>
-			<span th:text="${#authentication.name}"></span>
-		</div>
-		<div>
-			<span th:text="#{messages.home.already-logged-in}"></span>
-			<a href="/userhome" th:text="#{messages.home.userhome}"></a>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="fragments/layout :: layout(#{messages.home.title.welcome}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div sec:authorize="isAuthenticated()">
+			<div th:insert="fragments/navigation :: navigation"></div>
 		</div>
 	</div>
-
-	<div sec:authorize="!isAuthenticated()">
-		<div>
-			<span th:text="#{messages.home.do-you-have-an-account}"></span>
-			<a href="/userhome" th:text="#{messages.home.login}"></a>
+	<div class="content">
+		<div sec:authorize="isAuthenticated()">
+			<div>
+				<span th:text="#{messages.home.hello}"></span>
+				<span th:text="${#authentication.name}"></span>
+			</div>
+			<div>
+				<span th:text="#{messages.home.already-logged-in}"></span>
+				<a href="/userhome" th:text="#{messages.home.userhome}"></a>
+			</div>
 		</div>
 
-		<div>
-			<span th:text="#{messages.home.do-you-want-to-sign-up}"></span>
-			<a href="/registration"	th:text="#{messages.home.register}"></a>
+		<div sec:authorize="!isAuthenticated()">
+			<div>
+				<span th:text="#{messages.home.do-you-have-an-account}"></span>
+				<a href="/userhome" th:text="#{messages.home.login}"></a>
+			</div>
+
+			<div>
+				<span th:text="#{messages.home.do-you-want-to-sign-up}"></span>
+				<a href="/registration"	th:text="#{messages.home.register}"></a>
+			</div>
 		</div>
 	</div>
-
-
-
-	<!-- 
-	<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-  		Du bisch de admin!!!!
-	</div>
-	
-	<div th:if="${!#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-  		Du bisch ned de admin!!!!
-	</div>
-	-->
-
-	<div th:insert="fragments/footer :: footer"></div>
-
-</body>
 </html>

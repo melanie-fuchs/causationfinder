@@ -1,71 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></title>
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
-
-
-	<form action="#" th:action="@{/data/datacollection/show-texts}"
-		th:object="${data}" method="GET">
-
-		<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}">Display Texts</h2>
-		<h3  th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></h3>
-		<table>
-			<thead>
-				<tr>
-					<th class="dont-break" th:text="#{messages.show-texts.table-date}">Date</th>
-					<th:block th:each="parameter : ${data}">
-						<th th:text="${parameter.parameterName}"></th>			
-					</th:block>
-				</tr>
-				<th:block th:each="date, dayIndex : ${allDates}">
-					<tr>
-						<td th:text="${date}"></td>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.enter-and-analyze-data}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<form action="#" th:action="@{/data/datacollection/show-texts}"
+			  th:object="${data}" method="GET">
+			<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}">Display Texts</h2>
+			<h3 th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></h3>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr class="table-primary">
+						<th class="dont-break" th:text="#{messages.show-texts.table-date}">Date</th>
 						<th:block th:each="parameter : ${data}">
-							<td th:text="${parameter.dailyValues[dayIndex.index].value}"></td>
+							<th th:text="${parameter.parameterName}"></th>
 						</th:block>
 					</tr>
-				</th:block>
-			</thead>
-		</table>
-		<style type="text/css">
-			th.dont-break {
-				min-width: 85px;
-			}
-			
-			th:first-child {
-			    text-align: left;
-			}
-			
-			th, td {
-				border: 1px solid black;
-			}
-			
-			td {
-				border-right: 0;
-			}
-			
-			td:last-child {
-				border-right: 1px solid black;
-			}
-			
-			th {
-				border-right: 0;
-			}
-			
-			th:last-child {
-				border-right: 1px solid black;
-			}
-			
-			table {
-				border-spacing: 0;
-			}
-		</style>
-
-
-	</form>
-</body>
+					<th:block th:each="date, dayIndex : ${allDates}">
+						<tr>
+							<td th:text="${date}"></td>
+							<th:block th:each="parameter : ${data}">
+								<td th:text="${parameter.dailyValues[dayIndex.index].value}"></td>
+							</th:block>
+						</tr>
+					</th:block>
+				</thead>
+			</table>
+		</form>
+	</div>
 </html>

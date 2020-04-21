@@ -1,8 +1,13 @@
 package ch.yoursource.causationfinder.controller;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -29,18 +34,24 @@ public class RegistrationController {
 	private ParameterService parameterService;
 	private ConfirmationTokenRepository confirmationTokenRepository;
 	private EmailSenderService emailSenderService;
+	private MessageSource messageSource;
+	
+	@Value("${registration.emailadress}")
+	private String emailAddress;
 	
 	@Autowired
 	public RegistrationController(
 		UserService userService, 
 		ParameterService parameterService,
 		ConfirmationTokenRepository confirmationTokenRepository,
-		EmailSenderService emailSenderService
+		EmailSenderService emailSenderService,
+		MessageSource messageSource
 	) {
 		this.userService = userService;
 		this.parameterService = parameterService;
 		this.confirmationTokenRepository = confirmationTokenRepository;
 		this.emailSenderService = emailSenderService;
+		this.messageSource = messageSource;
 	}
 
 	@GetMapping("/registration")
@@ -60,7 +71,8 @@ public class RegistrationController {
 			BindingResult result,
 			WebRequest request,
 			Errors errors,
-			ModelAndView modelAndView) {		
+			ModelAndView modelAndView,
+			Locale locale) {		
 		boolean hasErrors = false;
 		
 		if (result.hasErrors()) {
@@ -98,9 +110,17 @@ public class RegistrationController {
         confirmationTokenRepository.save(confirmationToken);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Complete Registration");
-        mailMessage.setFrom("registration@yoursource.ch");
-        mailMessage.setText("To confirm your account, please click here: " +
+        String emailSubject = this.messageSource.getMessage(
+                new DefaultMessageSourceResolvable("messages.registration.subject"),
+                locale
+        );
+        mailMessage.setSubject(emailSubject);
+        mailMessage.setFrom(emailAddress);
+        String emailText = this.messageSource.getMessage(
+                new DefaultMessageSourceResolvable("messages.registration.mailmessage"),
+                locale
+        );
+        mailMessage.setText(emailText + ": " +
                 "http://localhost:8080/user-registration/confirm-account?token="+confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(mailMessage);
         modelAndView.addObject("email", user.getEmail());
@@ -113,13 +133,14 @@ public class RegistrationController {
 	@RequestMapping(value="/user-registration/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView confirmUserAccount(
 	        ModelAndView modelAndView,
-	        @RequestParam("token") String confirmationToken) {
+	        @RequestParam("token") String confirmationToken,
+	        Locale locale) {
 	    ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 	    
 	    if(token != null) {
 	        User user = userService.findByEmail(token.getUser().getEmail());
 	        user.setEnabled(true);
-	        parameterService.activateAllPredefinedParameters(user);
+	        parameterService.activateAllPredefinedParameters(user, locale);
 	        userService.update(user);
 	        modelAndView.setViewName("user-registration/account-verified");
 	    } else {

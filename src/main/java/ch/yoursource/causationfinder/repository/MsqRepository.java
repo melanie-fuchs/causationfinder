@@ -17,6 +17,6 @@ public interface MsqRepository extends JpaRepository<MedicalSymptomsQuestionnair
     public MedicalSymptomsQuestionnaire findByUserAndDate(@Param("user") User user, @Param("date") Date date);
 
     // find all msq form a given user in a given date-range
-    @Query("SELECT m FROM MedicalSymptomsQuestionnaire m WHERE m.user = :user AND m.date BETWEEN :startDate AND :endDate")
+    @Query("SELECT m FROM MedicalSymptomsQuestionnaire m WHERE m.user = :user AND m.date BETWEEN :startDate AND :endDate ORDER BY m.date ASC")
     public List<MedicalSymptomsQuestionnaire> findByUserInRange(@Param("user") User user, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

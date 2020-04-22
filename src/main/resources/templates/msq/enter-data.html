@@ -28,8 +28,16 @@
 			<strong th:text="#{messages.msq.enterdata.head}"></strong>
 			<br/>
 
-			<input class="form-control" th:field="*{headHeadaches}" type="number" required="required" th:name="headHeadaches" min=0 max=4/>
-			<label for="headHeadaches" th:text="#{messages.msq.enterdata.head.headaches}"></label><br/>
+			<div class="row">
+				<div class="col-sm-3">
+					<input class="form-control" th:field="*{headHeadaches}" type="number" required="required" th:name="headHeadaches" min=0 max=4/>
+				</div>
+				<div class="col-sm-9">
+					<label for="headHeadaches" th:text="#{messages.msq.enterdata.head.headaches}"></label>
+				</div>			
+			</div>
+			<br/>
+			
 						
 			<input th:field="*{headFaintness}" type="number" required="required" th:name="headFaintness" min=0 max=4/>
 			<label for="headFaintness" th:text="#{messages.msq.enterdata.head.faintness}"></label><br/>
@@ -249,8 +257,7 @@
 			<label for="energyHyperactivity">Hyperactivity</label><br/>
 			
 			<input th:field="*{energyRestlessness}" type="number" required="required" th:name="energyRestlessness" min=0 max=4/>
-			<label for="energyRestlessness">Restlessness</label><br/>	
-			<label for="weightUnderweight">Underweight</label><br/>
+			<label for="energyRestlessness">Restlessness</label><br/>
 															
 			
 			<br/>

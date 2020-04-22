@@ -6,11 +6,14 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import ch.yoursource.causationfinder.entity.MedicalSymptomsQuestionnaire;
 import ch.yoursource.causationfinder.entity.User;
-import ch.yoursource.causationfinder.entity.msq.MedicalSymptomsQuestionnaire;
 
 public class MedicalSymptomsQuestionnaireDto {
 
+    
+    // TODO set min and max
+    
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date date;

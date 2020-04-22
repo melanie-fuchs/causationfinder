@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -18,8 +20,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.yoursource.causationfinder.dto.MedicalSymptomsQuestionnaireDto;
+import ch.yoursource.causationfinder.entity.MedicalSymptomsQuestionnaire;
 import ch.yoursource.causationfinder.entity.User;
-import ch.yoursource.causationfinder.entity.msq.MedicalSymptomsQuestionnaire;
 import ch.yoursource.causationfinder.repository.MsqRepository;
 import ch.yoursource.causationfinder.service.UserService;
 
@@ -46,21 +48,16 @@ public class MsqEnterDataController {
         LocalDate givenDay = date != null ? date : LocalDate.now();
         User user = this.getLoggedInUser();
 
-        System.out.println("> User id: " + user.getId() + "    Date = " + givenDay);
         MedicalSymptomsQuestionnaireDto medicalSymptomsQuestionnaireDto;
         if ((msqRepository.findByUserAndDate(user, getDateFromLocalDate(givenDay)) != null)) {
             MedicalSymptomsQuestionnaire msq = msqRepository.findByUserAndDate(user, getDateFromLocalDate(givenDay));
             medicalSymptomsQuestionnaireDto = new MedicalSymptomsQuestionnaireDto(msq);
-            System.out.println("WITHIHN IF");
         } else {
             medicalSymptomsQuestionnaireDto = new MedicalSymptomsQuestionnaireDto();
 
         }
-        System.out.println("> msqDto: Exyebags:  " + medicalSymptomsQuestionnaireDto.getEyesBags());
         model.addAttribute("date", givenDay);
         model.addAttribute("medicalSymptomsQuestionnaireDto", medicalSymptomsQuestionnaireDto);
-
-        System.out.println(">>>>>>>>>>>> END OF GET");
         
         return "msq/enter-data";
     }
@@ -72,8 +69,6 @@ public class MsqEnterDataController {
         WebRequest request,
         ModelAndView modelAndView) {
 
-        System.out.println(">>>>>>>>>>>> date: " + date);
-
         LocalDate givenDay = date;
         User user = getLoggedInUser();
 
@@ -82,19 +77,11 @@ public class MsqEnterDataController {
         // update its data
         if (msqRepository.findByUserAndDate(getLoggedInUser(),
                 getDateFromLocalDate(date)) != null) {
-            System.out.println("WITHIN IF IN POSTMAPING");
             msq = msqRepository.findByUserAndDate(getLoggedInUser(),
                     getDateFromLocalDate(date));
-
-            // else, use the msq that was passed
-
-            System.out.println(">>>>>>>> OBJECT ALREADY EXISTED");
         } else {
             msq = new MedicalSymptomsQuestionnaire();
         }
-
-        System.out.println("   >> MSQ EYES BAGS = " + msq.getEyesBags());
-        System.out.println("   >> MSQ DTO EYES BAGS = " + medicalSymptomsQuestionnaireDto.getEyesBags());
        
         msq.setDate(getDateFromLocalDate(givenDay));
         msq.setUser(user);

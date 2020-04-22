@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.entity.msq;
+package ch.yoursource.causationfinder.entity;
 
 import java.util.Date;
 
@@ -13,14 +13,15 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import ch.yoursource.causationfinder.entity.User;
-
 /*
  * This class represents the MSQ itself and contains objects
  * of the single points of the msq
  */
 @Entity
 public class MedicalSymptomsQuestionnaire {
+    
+    
+    // set min and max
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,7 +88,6 @@ public class MedicalSymptomsQuestionnaire {
         this.eyesBags = eyesBags;
         this.eyesBlurred = eyesBlurred;
     }
-
 
 
     public int getId() {

@@ -257,6 +257,7 @@ public class MedicalSymptomsQuestionnaireDto {
         this.mouthCoughing = msq.getMouthCoughing();
         this.mouthGagging = msq.getMouthGagging();
         this.mouthSwollen = msq.getMouthSwollen();
+        this.mouthSore=msq.getMouthSore();
         this.mouthCanker = msq.getMouthCanker();
         this.skinAcne = msq.getSkinAcne();
         this.skinHives = msq.getSkinHives();

@@ -8,9 +8,22 @@
 		<h2>Medical Symptoms Questionnaire</h2>
 		<h3>Enter Data</h3>
 	
+		<span>
+			Rate each of the following symptoms based upon your typical health profile.
+		</span>
+		<br>
+		<strong>     Point Scale</strong><br>
+		<span>0 - Never or almost never have the symptom</span><br>
+		<span>1 - Occasionally have it, effect is not severe</span><br>
+		<span>2 - Occasionally have it, effect is severe</span><br>
+		<span>3 - Frequently have it, effect is not severe</span><br>
+		<span>4 - Frequently have it, effect is severe</span><br><br>
+	
+	
 		<form action="#" th:action="@{/msq/enter-data}" method="POST"
 				th:object="${medicalSymptomsQuestionnaireDto}">
 				
+			
 			<label for="date">Date: </label>
 			<input id="date" type="date" name="date" required="required" th:value="${date}" /><br/>
 			
@@ -30,6 +43,7 @@
 			<input th:field="*{headInsomnia}" type="number" required="required" th:name="headInsomnia" min=0 max=4/>
 			<label for="headInsomnia">Insomnia</label><br/>
 			
+			
 			<br/>
 			<strong>Eyes</strong>
 			<br/>
@@ -46,6 +60,262 @@
 			<input th:field="*{eyesBlurred}" type="number" required="required" th:name="eyesBlurred" min=0 max=4/>
 			<label for="eyesBlurred">Blurred or tunnel vision (does not include near- or farseightness)</label><br/>
 
+
+			<br/>
+			<strong>Ears</strong>
+			<br/>
+			
+			<input th:field="*{earsItchy}" type="number" required="required" th:name="earsItchy" min=0 max=4/>
+			<label for="earsItchy">Itchy ears</label><br/>
+			
+			<input th:field="*{earsEaraches}" type="number" required="required" th:name="earsEaraches" min=0 max=4/>
+			<label for="earsEaraches">Earaches, ear infections</label><br/>
+			
+			<input th:field="*{earsDrainage}" type="number" required="required" th:name="earsDrainage" min=0 max=4/>
+			<label for="earsDrainage">Drainage from ear</label><br/>
+			
+			<input th:field="*{earsRinging}" type="number" required="required" th:name="earsRinging" min=0 max=4/>
+			<label for="earsRinging">Ringing in ears, hearing loss</label><br/>
+
+
+			<br/>
+			<strong>Nose</strong>
+			<br/>
+			
+			<input th:field="*{noseStuffy}" type="number" required="required" th:name="noseStuffy" min=0 max=4/>
+			<label for="noseStuffy">Stuffy nose</label><br/>
+			
+			<input th:field="*{noseSinus}" type="number" required="required" th:name="noseSinus" min=0 max=4/>
+			<label for="noseSinus">Sinus problemss</label><br/>
+			
+			<input th:field="*{noseHay}" type="number" required="required" th:name="noseHay" min=0 max=4/>
+			<label for="noseHay">Hay fever</label><br/>
+			
+			<input th:field="*{noseSneezing}" type="number" required="required" th:name="noseSneezing" min=0 max=4/>
+			<label for="noseSneezing">Sneezing attacks</label><br/>	
+					
+			<input th:field="*{noseMucus}" type="number" required="required" th:name="noseMucus" min=0 max=4/>
+			<label for="noseMucus">Excessive musus formation</label><br/>
+			
+			
+			<br/>
+			<strong>Mouth / Throat</strong>
+			<br/>
+			
+			<input th:field="*{mouthCoughing}" type="number" required="required" th:name="mouthCoughing" min=0 max=4/>
+			<label for="mouthCoughing">Chronic coughing</label><br/>
+			
+			<input th:field="*{mouthGagging}" type="number" required="required" th:name="mouthGagging" min=0 max=4/>
+			<label for="mouthGagging">Gagging, frequent need to clear throat</label><br/>
+			
+			<input th:field="*{mouthSore}" type="number" required="required" th:name="mouthSore" min=0 max=4/>
+			<label for="mouthSore">Sore throat, hoarseness, loss of voice</label><br/>
+			
+			<input th:field="*{mouthSwollen}" type="number" required="required" th:name="mouthSwollen" min=0 max=4/>
+			<label for="mouthSwollen">Swollen or discolored tongue, gums, lips</label><br/>	
+					
+			<input th:field="*{mouthCanker}" type="number" required="required" th:name="mouthCanker" min=0 max=4/>
+			<label for="mouthCanker">Canker sores</label><br/>
+						
+			
+			<br/>
+			<strong>Skin</strong>
+			<br/>
+			
+			<input th:field="*{skinAcne}" type="number" required="required" th:name="skinAcne" min=0 max=4/>
+			<label for="skinAcne">Acne</label><br/>
+			
+			<input th:field="*{skinHives}" type="number" required="required" th:name="skinHives" min=0 max=4/>
+			<label for="skinHives">Hives, rashes, dry skin</label><br/>
+			
+			<input th:field="*{skinHairloss}" type="number" required="required" th:name="skinHairloss" min=0 max=4/>
+			<label for="skinHairloss">Hairloss</label><br/>
+			
+			<input th:field="*{skinFlushing}" type="number" required="required" th:name="skinFlushing" min=0 max=4/>
+			<label for="skinFlushing">Flushing, hot flashes</label><br/>	
+					
+			<input th:field="*{skinSweating}" type="number" required="required" th:name="skinSweating" min=0 max=4/>
+			<label for="skinSweating">Excessice sweating</label><br/>
+						
+			
+			<br/>
+			<strong>Heart</strong>
+			<br/>
+			
+			<input th:field="*{heartIrregular}" type="number" required="required" th:name="heartIrregular" min=0 max=4/>
+			<label for="heartIrregular">Irregular or skipped heartbeat</label><br/>
+			
+			<input th:field="*{heartRapid}" type="number" required="required" th:name="heartRapid" min=0 max=4/>
+			<label for="heartRapid">Rapid or pounding heartbeat</label><br/>
+			
+			<input th:field="*{heartChestpain}" type="number" required="required" th:name="heartChestpain" min=0 max=4/>
+			<label for="heartChestpain">Chest pain</label><br/>
+									
+			
+			<br/>
+			<strong>Lungs</strong>
+			<br/>
+			
+			<input th:field="*{lungsCongestion}" type="number" required="required" th:name="lungsCongestion" min=0 max=4/>
+			<label for="lungsCongestion">Chest congestions</label><br/>
+			
+			<input th:field="*{lungsAsthma}" type="number" required="required" th:name="lungsAsthma" min=0 max=4/>
+			<label for="lungsAsthma">Asthma, bronchitis</label><br/>
+			
+			<input th:field="*{lungsShortness}" type="number" required="required" th:name="lungsShortness" min=0 max=4/>
+			<label for="lungsShortness">Shortness of breath</label><br/>
+			
+			<input th:field="*{lungsDifficulty}" type="number" required="required" th:name="lungsDifficulty" min=0 max=4/>
+			<label for="lungsDifficulty">Difficulty breathing</label><br/>	
+									
+			
+			<br/>
+			<strong>Digestive Tract</strong>
+			<br/>
+			
+			<input th:field="*{digestiveNausea}" type="number" required="required" th:name="digestiveNausea" min=0 max=4/>
+			<label for="digestiveNausea">Nausea, vomiting</label><br/>
+			
+			<input th:field="*{digestiveDiarrhea}" type="number" required="required" th:name="digestiveDiarrhea" min=0 max=4/>
+			<label for="digestiveDiarrhea">Diarrhea</label><br/>
+			
+			<input th:field="*{digestiveConstipation}" type="number" required="required" th:name="digestiveConstipation" min=0 max=4/>
+			<label for="digestiveConstipation">Constipation</label><br/>
+			
+			<input th:field="*{digestiveBloated}" type="number" required="required" th:name="digestiveBloated" min=0 max=4/>
+			<label for="digestiveBloated">Bloated feeling</label><br/>	
+			
+			<input th:field="*{digestiveBelching}" type="number" required="required" th:name="digestiveBelching" min=0 max=4/>
+			<label for="digestiveBelching">Belching, passing gas</label><br/>
+			
+			<input th:field="*{digestiveHeartburn}" type="number" required="required" th:name="digestiveHeartburn" min=0 max=4/>
+			<label for="digestiveHeartburn">Heartburn</label><br/>
+			
+			<input th:field="*{digestivePain}" type="number" required="required" th:name="digestivePain" min=0 max=4/>
+			<label for="digestivePain">Intestinal / stomach pain</label><br/>
+									
+			
+			<br/>
+			<strong>Joints / Muscles</strong>
+			<br/>
+			
+			<input th:field="*{jointsPain}" type="number" required="required" th:name="jointsPain" min=0 max=4/>
+			<label for="jointsPain">Pain or aches in joints</label><br/>
+			
+			<input th:field="*{jointsArthritis}" type="number" required="required" th:name="jointsArthritis" min=0 max=4/>
+			<label for="jointsArthritis">Arthritis</label><br/>
+			
+			<input th:field="*{jointsStiffness}" type="number" required="required" th:name="jointsStiffness" min=0 max=4/>
+			<label for="jointsStiffness">Stiffness or limitation of movement</label><br/>
+			
+			<input th:field="*{jointsMusclepain}" type="number" required="required" th:name="jointsMusclepain" min=0 max=4/>
+			<label for="jointsMusclepain">Pain or aches in muscles</label><br/>	
+			
+			<input th:field="*{jointsWeakness}" type="number" required="required" th:name="jointsWeakness" min=0 max=4/>
+			<label for="jointsWeakness">Feeling of weakness or tiredness</label><br/>
+												
+			
+			<br/>
+			<strong>Weight</strong>
+			<br/>
+			
+			<input th:field="*{weightBinge}" type="number" required="required" th:name="weightBinge" min=0 max=4/>
+			<label for="weightBinge">Binge eating / drinking</label><br/>
+			
+			<input th:field="*{weightCraving}" type="number" required="required" th:name="weightCraving" min=0 max=4/>
+			<label for="weightCraving">Craving certain foods</label><br/>
+			
+			<input th:field="*{weightExcessive}" type="number" required="required" th:name="weightExcessive" min=0 max=4/>
+			<label for="weightExcessive">Excessive weight</label><br/>
+						
+			<input th:field="*{weightCompulsive}" type="number" required="required" th:name="weightCompulsive" min=0 max=4/>
+			<label for="weightCompulsive">Compulsive eating</label><br/>	
+			
+			<input th:field="*{weightWater}" type="number" required="required" th:name="weightWater" min=0 max=4/>
+			<label for="weightWater">Water retention</label><br/>	
+			
+			<input th:field="*{weightUnderweight}" type="number" required="required" th:name="weightUnderweight" min=0 max=4/>
+			<label for="weightUnderweight">Underweight</label><br/>
+															
+			
+			<br/>
+			<strong>Energy / Activity</strong>
+			<br/>
+			
+			<input th:field="*{energyFatigue}" type="number" required="required" th:name="energyFatigue" min=0 max=4/>
+			<label for="energyFatigue">Fatigue, sluggishness</label><br/>
+			
+			<input th:field="*{energyApathy}" type="number" required="required" th:name="energyApathy" min=0 max=4/>
+			<label for="energyApathy">Apathy, lethargy</label><br/>
+			
+			<input th:field="*{energyHyperactivity}" type="number" required="required" th:name="energyHyperactivity" min=0 max=4/>
+			<label for="energyHyperactivity">Hyperactivity</label><br/>
+			
+			<input th:field="*{energyRestlessness}" type="number" required="required" th:name="energyRestlessness" min=0 max=4/>
+			<label for="energyRestlessness">Restlessness</label><br/>	
+			<label for="weightUnderweight">Underweight</label><br/>
+															
+			
+			<br/>
+			<strong>Mind</strong>
+			<br/>
+			
+			<input th:field="*{mindMemory}" type="number" required="required" th:name="mindMemory" min=0 max=4/>
+			<label for="mindMemory">Poor memory</label><br/>
+			
+			<input th:field="*{mindConfusion}" type="number" required="required" th:name="mindConfusion" min=0 max=4/>
+			<label for="mindConfusion">Confusion, poor comprehension</label><br/>
+			
+			<input th:field="*{mindConcentration}" type="number" required="required" th:name="mindConcentration" min=0 max=4/>
+			<label for="mindConcentration">Poor concentration</label><br/>
+			
+			<input th:field="*{mindCoordination}" type="number" required="required" th:name="mindCoordination" min=0 max=4/>
+			<label for="mindCoordination">Poor physical coordination</label><br/>	
+			
+			<input th:field="*{mindDecisions}" type="number" required="required" th:name="mindDecisions" min=0 max=4/>
+			<label for="mindDecisions">Difficulty in making decisions</label><br/>
+			
+			<input th:field="*{mindStuttering}" type="number" required="required" th:name="mindStuttering" min=0 max=4/>
+			<label for="mindStuttering">Stuttering or stammering</label><br/>	
+						
+			<input th:field="*{mindSlurred}" type="number" required="required" th:name="mindSlurred" min=0 max=4/>
+			<label for="mindSlurred">Slurred speech</label><br/>
+			
+			<input th:field="*{mindLearning}" type="number" required="required" th:name="mindLearning" min=0 max=4/>
+			<label for="mindLearning">Learning disabilities</label><br/>	
+															
+			
+			<br/>
+			<strong>Emotions</strong>
+			<br/>
+			
+			<input th:field="*{emotionsSwings}" type="number" required="required" th:name="emotionsSwings" min=0 max=4/>
+			<label for="emotionsSwings">Mood swings</label><br/>
+			
+			<input th:field="*{emotionsAnxiety}" type="number" required="required" th:name="emotionsAnxiety" min=0 max=4/>
+			<label for="emotionsAnxiety">Anxiety, fear, nervousness</label><br/>
+			
+			<input th:field="*{emotionsAnger}" type="number" required="required" th:name="emotionsAnger" min=0 max=4/>
+			<label for="emotionsAnger">Anger, irritability, aggressiveness</label><br/>
+			
+			<input th:field="*{emotionsDepression}" type="number" required="required" th:name="emotionsDepression" min=0 max=4/>
+			<label for="emotionsDepression">Depression</label><br/>	
+															
+			
+			<br/>
+			<strong>Other</strong>
+			<br/>
+			
+			<input th:field="*{otherIllness}" type="number" required="required" th:name="otherIllness" min=0 max=4/>
+			<label for="otherIllness">Frequent illness</label><br/>
+			
+			<input th:field="*{otherUrination}" type="number" required="required" th:name="otherUrination" min=0 max=4/>
+			<label for="otherUrination">Frequent or urgent urination</label><br/>
+			
+			<input th:field="*{otherGenital}" type="number" required="required" th:name="otherGenital" min=0 max=4/>
+			<label for="otherGenital">Genital itch or discharge</label><br/>
+			<br/>
+			
 			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
 
 			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>

@@ -1,23 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="utf-8">
-	<title>Medical Symptoms Questionnaire</title>
-</head>
-<body>
-	<div th:insert="fragments/navigation :: navigation"></div>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout('Medical Symptoms Questionnaire', ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<!-- TODO: translate 'Medical Symptoms Questionnaire' at the top, replace with #{messages.translation_key} -->
+		<h2>Medical Symptoms Questionnaire</h2>
+		<h3>Enter Data</h3>
+	
+		<form action="#" th:action="@{/msq/enter-data}" method="POST"
+				th:object="${medicalSymptomsQuestionnaireDto}">
+				
+			<label for="date">Date: </label>
+			<input id="date" type="date" name="date" required="required" th:value="${date}" /><br/>
+			
+			<br/>
+			<strong>Head</strong>
+			<br/>
+			
+			<label for="headHeadaches">Headaches</label>
+			<input th:field="*{headHeadaches}" type="number" required="required" th:name="headHeadaches"/><br/>
+			
+			<label for="headFaintness">Faintness</label>
+			<input th:field="*{headFaintness}" type="number" required="required" th:name="headFaintness"/><br/>
+			
+			<label for="headDizziness">Dizziness</label>
+			<input th:field="*{headDizziness}" type="number" required="required" th:name="headDizziness"/><br/>
+			
+			<label for="headInsomnia">Insomnia</label>
+			<input th:field="*{headInsomnia}" type="number" required="required" th:name="headInsomnia"/><br/>
+			
+			<br/>
+			<strong>Eyes</strong>
+			<br/>
+			
+			<label for="eyesWatery">Watery or itchy eyes</label>
+			<input th:field="*{eyesWatery}" type="number" required="required" th:name="eyesWatery"/><br/>
+			
+			<label for="eyesSwollen">Swollen, reddened or sticky eyelids</label>
+			<input th:field="*{eyesSwollen}" type="number" required="required" th:name="eyesSwollen"/><br/>
+			
+			<label for="eyesBags">Bags or dark circles under eyes</label>
+			<input th:field="*{eyesBags}" type="number" required="required" th:name="eyesBags"/><br/>
+			
+			<label for="eyesBlurred">Blurred or tunnel vision (does not include near- or farseightness)</label>
+			<input th:field="*{eyesBlurred}" type="number" required="required" th:name="eyesBlurred"/><br/>
 
-	<h2>Medical Symptoms Questionnaire</h2>
-	<h3>Enter Data</h3>
+			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
 
-	<form action="#" th:action="@{/msq/enter-data}" method="GET"
-			th:object="${msq}">
-	</form>
-
-	<div th:text="*{msq}"></div>
-	helo
-	<th:block th:each="m :${msq}">
-	</th:block>
-
-</body>
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
+			
+		</form>
+	
+		<div th:text="*{medicalSymptomsQuestionnaireDto}"></div>
+		<span th:text="${medicalSymptomsQuestionnaireDto.eyesWatery}"></span>
+		</th:block>
+	</div>
 </html>

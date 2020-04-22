@@ -62,13 +62,15 @@ public class MsqDisplayDataController {
         
         User user = this.getLoggedInUser();
         
-        // get all Dates between the two dates (add one day (plusDays(1L)) to the endDate, so the enddate itself will be analyzed as well)
+        // get all Dates between the two dates (add one day (plusDays(1L)) to the endDate,
+        // so the enddate itself will be analyzed as well)
         List<LocalDate> allDates = startDate.datesUntil(endDate.plusDays(1L)).collect(Collectors.toList());
         
-        // get a list of all the msq-entries within date-range
+        // get a list, ordered by date ASC, of all the msq-entries within date-range
         List<MedicalSymptomsQuestionnaire> allMsq = this.msqRepository.findByUserInRange(user, this.getDateFromLocalDate(startDate), this.getDateFromLocalDate(endDate));
-        //TODO: sort allMsq by date ascending
         
+        // creating a list with the parameter-names to have the wanted order
+        // when retrieving the data and display it
         List<String> msqFields = new ArrayList<String>();
         msqFields.add("headHeadaches");
         msqFields.add("headFaintness");
@@ -142,11 +144,18 @@ public class MsqDisplayDataController {
         msqFields.add("otherUrination");
         msqFields.add("otherGenital");
         
+        // array that contains the sum of each parameter per day
         int[] sumByDate = new int[allDates.size()];
+        
+        /*      ------------MAP fieldValuesByDate-------------
+         *      
+         *      DATE (as String)    , ----- MAP fieldValues -----
+         *                           field (eg earsitchy),  value
+         */ 
         Map<String, Map<String, Integer>> fieldValuesByDate = new HashMap<String, Map<String, Integer>>();
         for (LocalDate date : allDates) {
             Map<String, Integer> fieldValues = new HashMap<String, Integer>();
-            
+            // filling the inner map with field-names and null-value
             for (String field : msqFields) {
                 fieldValues.put(field, null);
             }
@@ -154,6 +163,9 @@ public class MsqDisplayDataController {
             fieldValuesByDate.put(date.toString(), fieldValues);
         }
 
+        // the method retrieves every msq's date and makes a String from it.
+        // Then, it retrieves the value for each of the fields and puts the date,
+        // the fieldname and the value into the nested map
         for (MedicalSymptomsQuestionnaire msq : allMsq) {
             String dateString = this.getLocalDateFromDate(msq.getDate()).toString();
             
@@ -164,9 +176,14 @@ public class MsqDisplayDataController {
             }
         }
         
+        // The array tableData is the matrix. It requires two  more rows: one for
+        // the title and one to display the totals. It also needs one more column to
+        // display the field-names
         String[][] tableData = new String[msqFields.size() + 2][allDates.size() + 1];
+        // set value for the top left corner
         tableData[0][0] = "Parameter";
         
+        // setting the column-titles (date)
         for (int i = 0; i < allDates.size(); i++) {            
             String dateString = allDates.get(i).toString();
             
@@ -174,12 +191,14 @@ public class MsqDisplayDataController {
             tableData[0][i + 1] = dateString;
         }
                 
+        // setting the row-titles and fill in the "table"
         for (int j = 0; j < msqFields.size(); j ++) {
             String msqField = msqFields.get(j);
             
-            // add column for field name
+            // setting the values for the left column
             tableData[j+1][0] = msqField;
             
+            // filling data row by row
             for (int i = 0; i < allDates.size(); i++) {
                 String dateString = allDates.get(i).toString();
                 
@@ -194,9 +213,10 @@ public class MsqDisplayDataController {
             }
         }
         
-        
+        // setting the title "total" in the bottom left corner
         tableData[tableData.length - 1][0] = "Total";
         for (int i = 0; i < sumByDate.length; i++) {
+            // adding all the sums for each column
             tableData[tableData.length - 1][i + 1] = String.valueOf(sumByDate[i]);
         }
         
@@ -205,11 +225,13 @@ public class MsqDisplayDataController {
         return new ModelAndView("msq/show-data"); 
     }
     
+    // method to return a value of a class (msq) for a specific field, using BeanInfo
     private Integer getValueByFieldname(MedicalSymptomsQuestionnaire msq, String fieldName) {
         BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(msq.getClass());
             for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+                // returns every field as a String of the class
                 String propertyName = propertyDescriptor.getName();
                 
                 if (propertyName.equals(fieldName)) {

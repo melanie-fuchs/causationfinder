@@ -17,34 +17,34 @@
 			<br/>
 			<strong>Head</strong>
 			<br/>
+
+			<input th:field="*{headHeadaches}" type="number" required="required" th:name="headHeadaches" min=0 max=4/>
+			<label for="headHeadaches">Headaches</label><br/>
+						
+			<input th:field="*{headFaintness}" type="number" required="required" th:name="headFaintness" min=0 max=4/>
+			<label for="headFaintness">Faintness</label><br/>
+		
+			<input th:field="*{headDizziness}" type="number" required="required" th:name="headDizziness" min=0 max=4/>
+			<label for="headDizziness">Dizziness</label><br/>
 			
-			<label for="headHeadaches">Headaches</label>
-			<input th:field="*{headHeadaches}" type="number" required="required" th:name="headHeadaches"/><br/>
-			
-			<label for="headFaintness">Faintness</label>
-			<input th:field="*{headFaintness}" type="number" required="required" th:name="headFaintness"/><br/>
-			
-			<label for="headDizziness">Dizziness</label>
-			<input th:field="*{headDizziness}" type="number" required="required" th:name="headDizziness"/><br/>
-			
-			<label for="headInsomnia">Insomnia</label>
-			<input th:field="*{headInsomnia}" type="number" required="required" th:name="headInsomnia"/><br/>
+			<input th:field="*{headInsomnia}" type="number" required="required" th:name="headInsomnia" min=0 max=4/>
+			<label for="headInsomnia">Insomnia</label><br/>
 			
 			<br/>
 			<strong>Eyes</strong>
 			<br/>
 			
-			<label for="eyesWatery">Watery or itchy eyes</label>
-			<input th:field="*{eyesWatery}" type="number" required="required" th:name="eyesWatery"/><br/>
+			<input th:field="*{eyesWatery}" type="number" required="required" th:name="eyesWatery" min=0 max=4/>
+			<label for="eyesWatery">Watery or itchy eyes</label><br/>
 			
-			<label for="eyesSwollen">Swollen, reddened or sticky eyelids</label>
-			<input th:field="*{eyesSwollen}" type="number" required="required" th:name="eyesSwollen"/><br/>
+			<input th:field="*{eyesSwollen}" type="number" required="required" th:name="eyesSwollen" min=0 max=4/>
+			<label for="eyesSwollen">Swollen, reddened or sticky eyelids</label><br/>
 			
-			<label for="eyesBags">Bags or dark circles under eyes</label>
-			<input th:field="*{eyesBags}" type="number" required="required" th:name="eyesBags"/><br/>
+			<input th:field="*{eyesBags}" type="number" required="required" th:name="eyesBags" min=0 max=4/>
+			<label for="eyesBags">Bags or dark circles under eyes</label><br/>
 			
-			<label for="eyesBlurred">Blurred or tunnel vision (does not include near- or farseightness)</label>
-			<input th:field="*{eyesBlurred}" type="number" required="required" th:name="eyesBlurred"/><br/>
+			<input th:field="*{eyesBlurred}" type="number" required="required" th:name="eyesBlurred" min=0 max=4/>
+			<label for="eyesBlurred">Blurred or tunnel vision (does not include near- or farseightness)</label><br/>
 
 			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
 

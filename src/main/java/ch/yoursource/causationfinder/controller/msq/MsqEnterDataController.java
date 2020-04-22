@@ -3,9 +3,6 @@ package ch.yoursource.causationfinder.controller.msq;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Set;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -62,36 +59,6 @@ public class MsqEnterDataController {
         System.out.println("> msqDto: Exyebags:  " + medicalSymptomsQuestionnaireDto.getEyesBags());
         model.addAttribute("date", givenDay);
         model.addAttribute("medicalSymptomsQuestionnaireDto", medicalSymptomsQuestionnaireDto);
-        
-//        System.out.println("ALLES GAGGI");
-//        // set date to date in form if one was set, else set date to today
-//        LocalDate givenDay = date != null ? date : LocalDate.now();
-//
-//        // get the current user
-//        User user = this.getLoggedInUser();
-//
-//        MedicalSymptomsQuestionnaire msq = new MedicalSymptomsQuestionnaire();
-//        if((msqRepository.findByUserAndDate(user, getDateFromLocalDate(givenDay)) != null)) {
-//            msq = msqRepository.findByUserAndDate(user, getDateFromLocalDate(givenDay));
-//            System.out.println(">>>>>>>> OBJECT FOUND");
-//        } else {
-//            msq.setDate(getDateFromLocalDate(givenDay));
-//            msq.setUser(user);
-//            msq.setEyesBags(0);
-//            msq.setEyesBlurred(0);
-//            msq.setEyesSwollen(0);
-//            msq.setEyesWatery(0);
-//            msq.setHeadDizziness(0);
-//            msq.setHeadFaintness(0);
-//            msq.setHeadHeadaches(0);
-//            msq.setHeadInsomnia(500);
-//        }
-//        
-//  
-//        
-//        model.addAttribute("date", givenDay);
-//        model.addAttribute("msq", msq);
-//        
 
         System.out.println(">>>>>>>>>>>> END OF GET");
         
@@ -109,11 +76,6 @@ public class MsqEnterDataController {
 
         LocalDate givenDay = date;
         User user = getLoggedInUser();
-
-//        Set<String> keySet = request.getParameterMap().keySet();
-//
-//        System.out.println(">>>>>>>>>>>> keyset-size: " + keySet.size());
-        ////////////////////// new below
 
         MedicalSymptomsQuestionnaire msq;
         // if the MSQ of this user and date is already in database, then load it an
@@ -133,7 +95,9 @@ public class MsqEnterDataController {
 
         System.out.println("   >> MSQ EYES BAGS = " + msq.getEyesBags());
         System.out.println("   >> MSQ DTO EYES BAGS = " + medicalSymptomsQuestionnaireDto.getEyesBags());
-        
+       
+        msq.setDate(getDateFromLocalDate(givenDay));
+        msq.setUser(user);
         msq.setEyesBags(medicalSymptomsQuestionnaireDto.getEyesBags());
         msq.setEyesBlurred(medicalSymptomsQuestionnaireDto.getEyesBlurred());
         msq.setEyesSwollen(medicalSymptomsQuestionnaireDto.getEyesSwollen());
@@ -142,45 +106,6 @@ public class MsqEnterDataController {
         msq.setHeadFaintness(medicalSymptomsQuestionnaireDto.getHeadFaintness());
         msq.setHeadHeadaches(medicalSymptomsQuestionnaireDto.getHeadHeadaches());
         msq.setHeadInsomnia(medicalSymptomsQuestionnaireDto.getHeadInsomnia());
-        
-//        for (String key : keySet) {
-//            String[] value = request.getParameterMap().get(key);
-//            if (key.contains("headHeadaches")) {
-//                msq.setHeadHeadaches(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>>headHeadaches 2");
-//            }
-//            if (key.contains("headDizziness")) {
-//                msq.setHeadDizziness(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>>headDizziness 2");
-//            }
-//            if (key.contains("headFaintness")) {
-//                msq.setHeadFaintness(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>>headFaintness 2");
-//            }
-//            if (key.contains("headInsomnia")) {
-//                msq.setHeadInsomnia(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>> headInsomnia2");
-//            }
-//            if (key.contains("eyesBags")) {
-//                msq.setEyesBags(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>> eyesBags2");
-//            }
-//            if (key.contains("eyesBlurred")) {
-//                msq.setEyesBlurred(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>>eyesBlurred 2");
-//            }
-//            if (key.contains("eyesSwollen")) {
-//                msq.setEyesSwollen(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>> eyesSwollen2");
-//            }
-//            if (key.contains("eyesWatery")) {
-//                msq.setEyesWatery(Integer.parseInt(value[0]));
-//                System.out.println(">>>>>>>>eyesWatery 2");
-//            }
-//        }
-
-        msq.setDate(getDateFromLocalDate(givenDay));
-        msq.setUser(user);
 
         msqRepository.save(msq);
 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.msq.enterdata}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<table class="table table-bordered table-striped">
+			<th:block th:each="row : ${tableData}">
+				<tr>
+					<th:block th:each="column : ${row}">
+						<td th:text="${column}"></td>
+					</th:block>
+				</tr>
+			</th:block>
+		</table>
+	</div>
+</html>

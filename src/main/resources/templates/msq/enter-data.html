@@ -1,81 +1,78 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout('Medical Symptoms Questionnaire', ~{ :: .navigation}, ~{ :: .content})">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.msq.enterdata}, ~{ :: .navigation}, ~{ :: .content})">
 	<div class="navigation">
 		<div th:insert="fragments/navigation :: navigation"></div>
 	</div>
 	<div class="content">
-		<!-- TODO: translate 'Medical Symptoms Questionnaire' at the top, replace with #{messages.translation_key} -->
-		<h2>Medical Symptoms Questionnaire</h2>
-		<h3>Enter Data</h3>
+		<h2 th:text="#{messages.msq.enterdata}"></h2>
+		<h3 th:text="#{messages.msq.enterdata.enterdata}"></h3>
 	
-		<span>
-			Rate each of the following symptoms based upon your typical health profile.
-		</span>
+		<span th:text="#{messages.msq.enterdata.description}">.</span>
 		<br>
-		<strong>     Point Scale</strong><br>
-		<span>0 - Never or almost never have the symptom</span><br>
-		<span>1 - Occasionally have it, effect is not severe</span><br>
-		<span>2 - Occasionally have it, effect is severe</span><br>
-		<span>3 - Frequently have it, effect is not severe</span><br>
-		<span>4 - Frequently have it, effect is severe</span><br><br>
+		<strong th:text="#{messages.msq.enterdata.point-scale}"></strong><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-0}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-1}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-2}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-3}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-4}"></span><br><br>
 	
 	
 		<form action="#" th:action="@{/msq/enter-data}" method="POST"
 				th:object="${medicalSymptomsQuestionnaireDto}">
 				
 			
-			<label for="date">Date: </label>
+			<label for="date" th:text="#{messages.msq.enterdata.date}"></label>
 			<input id="date" type="date" name="date" required="required" th:value="${date}" /><br/>
 			
 			<br/>
-			<strong>Head</strong>
+			<strong th:text="#{messages.msq.enterdata.head}"></strong>
 			<br/>
 
 			<input class="form-control" th:field="*{headHeadaches}" type="number" required="required" th:name="headHeadaches" min=0 max=4/>
-			<label for="headHeadaches">Headaches</label><br/>
+			<label for="headHeadaches" th:text="#{messages.msq.enterdata.head.headaches}"></label><br/>
 						
 			<input th:field="*{headFaintness}" type="number" required="required" th:name="headFaintness" min=0 max=4/>
-			<label for="headFaintness">Faintness</label><br/>
+			<label for="headFaintness" th:text="#{messages.msq.enterdata.head.faintness}"></label><br/>
 		
 			<input th:field="*{headDizziness}" type="number" required="required" th:name="headDizziness" min=0 max=4/>
-			<label for="headDizziness">Dizziness</label><br/>
+			<label for="headDizziness" th:text="#{messages.msq.enterdata.head.dizzyness}"></label><br/>
 			
 			<input th:field="*{headInsomnia}" type="number" required="required" th:name="headInsomnia" min=0 max=4/>
-			<label for="headInsomnia">Insomnia</label><br/>
+			<label for="headInsomnia" th:text="#{messages.msq.enterdata.head.insomnia}"></label><br/>
 			
 			
 			<br/>
-			<strong>Eyes</strong>
+			<strong th:text="#{messages.msq.enterdata.eyes}"></strong>
 			<br/>
 			
 			<input th:field="*{eyesWatery}" type="number" required="required" th:name="eyesWatery" min=0 max=4/>
-			<label for="eyesWatery">Watery or itchy eyes</label><br/>
+			<label for="eyesWatery" th:text="#{messages.msq.enterdata.eyes.watery}"></label><br/>
 			
 			<input th:field="*{eyesSwollen}" type="number" required="required" th:name="eyesSwollen" min=0 max=4/>
-			<label for="eyesSwollen">Swollen, reddened or sticky eyelids</label><br/>
+			<label for="eyesSwollen" th:text="#{messages.msq.enterdata.eyes.swollen}"></label><br/>
 			
 			<input th:field="*{eyesBags}" type="number" required="required" th:name="eyesBags" min=0 max=4/>
-			<label for="eyesBags">Bags or dark circles under eyes</label><br/>
+			<label for="eyesBags" th:text="#{messages.msq.enterdata.eyes.bags}"></label><br/>
 			
 			<input th:field="*{eyesBlurred}" type="number" required="required" th:name="eyesBlurred" min=0 max=4/>
-			<label for="eyesBlurred">Blurred or tunnel vision (does not include near- or farseightness)</label><br/>
+			<label for="eyesBlurred" th:text="#{messages.msq.enterdata.eyes.blurred}"></label><br/>
 
 
 			<br/>
-			<strong>Ears</strong>
+			<strong th:text="#{messages.msq.enterdata.ears}"></strong>
 			<br/>
 			
 			<input th:field="*{earsItchy}" type="number" required="required" th:name="earsItchy" min=0 max=4/>
-			<label for="earsItchy">Itchy ears</label><br/>
+			<label for="earsItchy" th:text="#{messages.msq.enterdata.ears.itchy}"></label><br/>
 			
 			<input th:field="*{earsEaraches}" type="number" required="required" th:name="earsEaraches" min=0 max=4/>
-			<label for="earsEaraches">Earaches, ear infections</label><br/>
+			<label for="earsEaraches" th:text="#{messages.msq.enterdata.ears.earaches}"></label><br/>
 			
 			<input th:field="*{earsDrainage}" type="number" required="required" th:name="earsDrainage" min=0 max=4/>
-			<label for="earsDrainage">Drainage from ear</label><br/>
+			<label for="earsDrainage" th:text="#{messages.msq.enterdata.ears.drainage}"></label><br/>
 			
 			<input th:field="*{earsRinging}" type="number" required="required" th:name="earsRinging" min=0 max=4/>
-			<label for="earsRinging">Ringing in ears, hearing loss</label><br/>
+			<label for="earsRinging" th:text="#{messages.msq.enterdata.ears.ringing}"></label><br/>
 
 
 			<br/>

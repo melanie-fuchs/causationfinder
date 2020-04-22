@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,7 +36,7 @@ public class DisplayTextsController {
     private UserService userService;
     private ObservedDayValueRepository observedDayValueRepository;
     
-    
+    @Autowired
     public DisplayTextsController(
             UserService userService,
             ObservedDayValueRepository observedDayValueRepository) {

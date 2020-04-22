@@ -16,6 +16,10 @@ public class MsqHead {
     @Column(name="id")
     private int id;
     
+//    @NotNull
+//    @Column(name="")
+//    TODO irgendwas wollte ich hier. aber wa? who knows. who cares
+    
     @NotNull
     @Column(name="headaches")
     private int headaches;
@@ -32,6 +36,13 @@ public class MsqHead {
     @Column(name="insomnia")
     private int insomnia;
 
+    public MsqHead() {
+        this.setDizziness(0);
+        this.setFaintness(0);
+        this.setHeadaches(0);
+        this.setInsomnia(0);
+    }
+    
     public MsqHead(@NotNull int headaches, @NotNull int faintness, @NotNull int dizziness, @NotNull int insomnia) {
         this.headaches = headaches;
         this.faintness = faintness;

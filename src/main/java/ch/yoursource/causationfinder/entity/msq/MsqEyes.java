@@ -31,6 +31,14 @@ public class MsqEyes {
     @Column(name="blurred")
     private int blurred;
 
+    public MsqEyes() {
+        this.setBags(0);
+        this.setBlurred(0);
+        this.setWatery(0);
+        this.setSwollen(0);
+    }
+    
+    
     public MsqEyes(@NotNull int watery, @NotNull int swollen, @NotNull int bags, @NotNull int blurred) {
         this.watery = watery;
         this.swollen = swollen;

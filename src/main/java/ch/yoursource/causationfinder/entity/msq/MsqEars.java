@@ -32,6 +32,12 @@ public class MsqEars {
     @Column(name="ringing")
     private int ringing;
 
+    public MsqEars() {
+        this.setDrainage(5);
+        this.setEarchaes(5);
+        this.setItchy(5);
+        this.setRinging(5);
+    }
     
     public int getId() {
         return id;

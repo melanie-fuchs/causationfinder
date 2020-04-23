@@ -8,7 +8,7 @@
 		<h3 th:text="#{messages.msq.enterdata.enterdata}"></h3>
 	
 		<span th:text="#{messages.msq.enterdata.description}">.</span>
-		<br>
+		<br><br>
 		<strong th:text="#{messages.msq.enterdata.point-scale}"></strong><br>
 		<span th:text="#{messages.msq.enterdata.point-scale-0}"></span><br>
 		<span th:text="#{messages.msq.enterdata.point-scale-1}"></span><br>
@@ -20,8 +20,8 @@
 		<form action="#" th:action="@{/msq/enter-data}" method="POST"
 				th:object="${medicalSymptomsQuestionnaireDto}">
 				
-			
-			<label for="date" th:text="#{messages.msq.enterdata.date}"></label>
+			<br/>
+			<strong for="date" th:text="#{messages.msq.enterdata.date}"></strong><br>
 			<input id="date" type="date" name="date" required="required" th:value="${date}" /><br/>
 			
 			<br/>

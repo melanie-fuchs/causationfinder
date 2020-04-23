@@ -9,10 +9,10 @@
 		<br />
 		<form action="#" th:action="@{/data/datacollection/display-texts}"
 			  method="POST">
-			<label for="startDate" th:text="#{messages.displaytexts.start}"></label> <br /> <input
+			<label for="startDate" th:text="#{messages.displaytexts.start} +':'"></label> <br /> <input
 				name="startDate" type="date" required="required"
 				th:value="${startDate}" /> <br />
-			<br /> <label for="endDate" th:text="#{messages.displaytexts.end}"></label> <br /> <input
+			<br /> <label for="endDate" th:text="#{messages.displaytexts.end} +':'"></label> <br /> <input
 				name="endDate" type="date" required="required" th:value="${endDate}" />
 
 			<br />

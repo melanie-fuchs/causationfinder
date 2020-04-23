@@ -9,28 +9,28 @@
 
 		<form action="#" th:action="@{/updateuser}"
 			  th:object="${updateUserDto}" method="POST">
-
-			<label for="username" th:text="#{messages.updateUser.username}"></label>
+			<br>
+			<label for="username" th:text="#{messages.updateUser.username} +'*:'"></label>
 			<input class="form-control" th:field="*{username}" type="text" required="required"/>
 			<br />
 
 			<div class="row">
 				<div class="col-sm-6">
-					<label for="firstName" th:text="#{messages.updateUser.firstName}"></label>
+					<label for="firstName" th:text="#{messages.updateUser.firstName} +':'"></label>
 					<input class="form-control" th:field="*{firstName}" type="text"/>
 				</div>
 				<div class="col-sm-6">
-					<label for="lastName" th:text="#{messages.updateUser.lastName}"></label>
+					<label for="lastName" th:text="#{messages.updateUser.lastName} +':'"></label>
 					<input class="form-control" th:field="*{lastName}" type="text"/>
 				</div>
 			</div>
 			<br />
 
-			<label for="email" th:text="#{messages.updateUser.email}"></label>
+			<label for="email" th:text="#{messages.updateUser.email} +'*:'"></label>
 			<input class="form-control" th:field="*{email}" type="text" required="required"/>
 			<br />
 
-			<label for="birthdate" th:text="#{messages.updateUser.birthdate}"></label>
+			<label for="birthdate" th:text="#{messages.updateUser.birthdate} +':'"></label>
 			<input class="form-control" th:field="*{birthdate}" type="date" />
 			<br />
 

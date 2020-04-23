@@ -32,12 +32,12 @@
 			<br /><br />
 
 			<!--  input type="date"-->
-			<label for="date" th:text="#{messages.enter-data.date}"></label>
+			<strong for="date" th:text="#{messages.enter-data.date} +':'"></strong>
 			<input class="form-control" id="actualDate" name="date" type="date" required="required" th:value="${date}" />
 			<br /><br />
 
 			<th:block th:each="parameter : ${activeParametersNumeric}">
-				<label th:text="${parameter.paramName}"></label>
+				<strong th:text="${parameter.paramName}"></strong>
 				<div th:text="${parameter?.description}"></div>
 				<span th:text="${parameter?.minValue != null} ? 'Value must be between ' + ${parameter.minValue} + ' and ' + ${parameter.maxValue} : '' "  />
 				<br>
@@ -49,7 +49,7 @@
 			</th:block>
 
 			<th:block th:each="parameter : ${activeParametersString}">
-				<label th:text="${parameter.paramName}"></label>
+				<strong th:text="${parameter.paramName}"></strong>
 				<div th:text="${parameter?.description}"></div>
 				<textarea class="form-control"
 						  th:name="${'string_parameter_' + parameter.id}"
@@ -59,7 +59,7 @@
 			</th:block>
 
 			<th:block th:each="parameter : ${activeParametersBoolean}">
-				<label th:text="${parameter.paramName}"></label>
+				<strong th:text="${parameter.paramName}"></strong>
 				<div th:text="${parameter?.description}"></div>
 
 				<input type="radio" th:name="${'boolean_parameter_' + parameter.id}" value="true"

@@ -7,7 +7,7 @@
 		<h2 th:text="#{messages.userhome.title.userhome}"></h2>
 
 		<div>
-			<span th:text="#{messages.userhome.welcome}"></span>
+			<span th:text="#{messages.userhome.welcome} +', '"></span>
 			<span th:text="${#request.userPrincipal.principal.username}"></span>
 		</div>
 	</div>

@@ -14,7 +14,7 @@
 			<p th:text="#{messages.addParameter.create-your-parameters}"></p>
 
 
-			<h4 th:text="#{messages.addParameter.choose-type}"></h4>
+			<h4 th:text="#{messages.addParameter.choose-type} +'*'"></h4>
 			<div>
 				<input type="radio" name="type" value="STRING" required="required" />
 				<label for="type" th:text="#{messages.addParameter.choose-type.text}"></label>
@@ -22,7 +22,7 @@
 			<div>
 				<input type="radio" name="type" value="NUMERIC" required="required" />
 				<label for="type"
-					   th:text="#{messages.addParameter.choose-type.number}"></label>
+					   th:text="#{messages.addParameter.choose-type.number} +':'"></label>
 			</div>
 			<div>
 				<input type="radio" name="type" value="BOOLEAN" required="required" />
@@ -43,15 +43,15 @@
 				<br />
 				<input class="form-control" type="number" name="maxValue" min="0" step="0.01" />
 			</div>
-			<h4 th:text="#{messages.addParameter.write-param-title}"></h4>
+			<h4 th:text="#{messages.addParameter.write-param-title} +'*'"></h4>
 			<label for="parameterName"
-				   th:text="#{messages.addParameter.write-param-title.parameter-name}"></label>
+				   th:text="#{messages.addParameter.write-param-title.parameter-name} +':'"></label>
 
 			<input class="form-control" type="text" name="parameterName" required="required" />
 			<br>
 			<h4 th:text="#{messages.addParameter.write-description}"></h4>
 			<label for="description"
-				   th:text="#{messages.addParameter.write-description.description}"></label>
+				   th:text="#{messages.addParameter.write-description.description} +':'"></label>
 			<textarea class="form-control" name="description"></textarea>
 			<br>
 			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}" />

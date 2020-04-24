@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.msq.enterdata}, ~{ :: .navigation}, ~{ :: .content})">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.msq}, ~{ :: .navigation}, ~{ :: .content})">
 	<div class="navigation">
 		<div th:insert="fragments/navigation :: navigation"></div>
 	</div>
 	<div class="content">
-		<h2 th:text="#{messages.msq.enterdata}"></h2>
-		<h3 th:text="#{messages.msq.enterdata.enterdata}"></h3>
+		<h2 th:text="#{messages.fragments.navigation.msq}"></h2>
+		<h3 th:text="#{messages.fragments.navigation.msq.enter-data}"></h3>
 	
 		<span th:text="#{messages.msq.enterdata.description}">.</span>
 		<br><br>

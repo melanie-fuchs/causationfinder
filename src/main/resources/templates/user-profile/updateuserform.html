@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.user-home}, ~{ :: .navigation}, ~{ :: .content})">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.user-home}, ~{ :: .navigation}, ~{ :: .content})">
 	<div class="navigation">
 		<div th:insert="fragments/navigation :: navigation"></div>
 	</div>
 	<div class="content">
 		<h2 th:text="#{messages.fragments.navigation.user-home}"></h2>
-		<h3 th:text="#{messages.updateUser}"></h3>
+		<h3 th:text="#{messages.fragments.navigation.change-profile.update-userinfo}"></h3>
 
 		<form action="#" th:action="@{/updateuser}"
 			  th:object="${updateUserDto}" method="POST">

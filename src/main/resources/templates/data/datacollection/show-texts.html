@@ -8,24 +8,29 @@
 			  th:object="${data}" method="GET">
 			<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
 			<h3 th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></h3>
-			<table class="table table-bordered table-striped">
-				<thead>
-					<tr class="table-primary">
-						<th class="dont-break" th:text="#{messages.show-texts.table-date}"></th>
-						<th:block th:each="parameter : ${data}">
-							<th th:text="${parameter.parameterName}"></th>
-						</th:block>
-					</tr>
-					<th:block th:each="date, dayIndex : ${allDates}">
-						<tr>
-							<td th:text="${date}"></td>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<colgroup>
+						<col width="125" />
+					</colgroup>
+					<thead>
+						<tr class="table-primary">
+							<th th:text="#{messages.show-texts.table-date}"></th>
 							<th:block th:each="parameter : ${data}">
-								<td th:text="${parameter.dailyValues[dayIndex.index].value}"></td>
+								<th th:text="${parameter.parameterName}"></th>
 							</th:block>
 						</tr>
-					</th:block>
-				</thead>
-			</table>
+						<th:block th:each="date, dayIndex : ${allDates}">
+							<tr>
+								<td th:text="${#temporals.format(date, 'dd.MM.yyyy')}"></td>
+								<th:block th:each="parameter : ${data}">
+									<td th:text="${parameter.dailyValues[dayIndex.index].value}"></td>
+								</th:block>
+							</tr>
+						</th:block>
+					</thead>
+				</table>
+			</div>
 		</form>
 	</div>
 </html>

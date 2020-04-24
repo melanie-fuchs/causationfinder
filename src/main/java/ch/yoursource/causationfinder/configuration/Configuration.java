@@ -50,7 +50,7 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(). // restrict access based on the HttpServletRequest
-        antMatchers("/", "/causationfinder.png").permitAll().
+        antMatchers("/", "/causationfinder.png", "/favicon.ico").permitAll().
         antMatchers("/registration", "/user-registration/confirm-account").anonymous().
         anyRequest().authenticated() // any request: the user MUST be logged in! (authenticated)
         .and()

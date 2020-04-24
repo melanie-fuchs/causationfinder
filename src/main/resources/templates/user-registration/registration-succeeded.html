@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.registration-succeeded.title.registration-succeeded}, _, ~{ :: .content})">
 	<div class="content">
 		<h2 th:text="#{messages.registration-succeeded.title.registration-succeeded}"></h2>
-		<h3 th:text="#{messages.registration-succeeded.check-mails}"></h3>
+		<span th:text="#{messages.registration-succeeded.check-mails}"></span>
 		<p>
 			<a href="/" th:text="#{messages.registration-succeeded.back-home}"></a>
 		</p>

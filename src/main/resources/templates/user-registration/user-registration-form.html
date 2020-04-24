@@ -8,36 +8,36 @@
 		<form action="#" th:action="@{/registration}"
 			  th:object="${user}" method="POST">
 
-			<label for="username" th:text="#{messages.registration.userName}"></label>
+			<label for="username" th:text="#{messages.registration.userName} + '*:'"></label>
 			<input class="form-control" th:field="*{username}" type="text" required="required"/>
 			<br />
 
 			<div class="row">
 				<div class="col-sm-6">
-					<label for="firstName" th:text="#{messages.registration.firstName}"></label>
+					<label for="firstName" th:text="#{messages.registration.firstName} + ':'"></label>
 					<input class="form-control" th:field="*{firstName}" type="text"/>
 				</div>
 				<div class="col-sm-6">
-					<label for="lastName" th:text="#{messages.registration.lastName}"></label>
+					<label for="lastName" th:text="#{messages.registration.lastName} + ':'"></label>
 					<input class="form-control" th:field="*{lastName}" type="text"/>
 				</div>
 			</div>
 
 			<br />
 
-			<label for="email" th:text="#{messages.registration.email}"></label>
+			<label for="email" th:text="#{messages.registration.email} + '*:'"></label>
 			<input class="form-control" th:field="*{email}" type="text" required="required"/>
 			<br />
 
-			<label for="birthdate" th:text="#{messages.registration.birthdate}"></label>
+			<label for="birthdate" th:text="#{messages.registration.birthdate} + ':'"></label>
 			<input class="form-control" th:field="*{birthdate}" type="date" />
 			<br />
 
-			<label for="password"th:text="#{messages.registration.password}"></label>
+			<label for="password"th:text="#{messages.registration.password} + '*:'"></label>
 			<input class="form-control" th:field="*{password}" type="password" required="required"/>
 			<br />
 
-			<label for="passwordConfirm"th:text="#{messages.registration.confirm-password}"></label>
+			<label for="passwordConfirm"th:text="#{messages.registration.confirm-password} + '*:'"></label>
 			<input class="form-control" th:field="*{passwordConfirm}" type="password" required="required"/>
 			<br />
 

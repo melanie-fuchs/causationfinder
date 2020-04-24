@@ -13,19 +13,19 @@
 			</div>
 			<div>
 				<span th:text="#{messages.home.already-logged-in}"></span>
-				<a href="/userhome" th:text="#{messages.home.userhome}"></a>
+				<strong><a href="/userhome" th:text="#{messages.home.userhome}"></a></strong>
 			</div>
 		</div>
 
 		<div sec:authorize="!isAuthenticated()">
 			<div>
 				<span th:text="#{messages.home.do-you-have-an-account}"></span>
-				<a href="/userhome" th:text="#{messages.home.login}"></a>
+				<strong><a href="/userhome" th:text="#{messages.home.login}"></a></strong>
 			</div>
 
 			<div>
 				<span th:text="#{messages.home.do-you-want-to-sign-up}"></span>
-				<a href="/registration"	th:text="#{messages.home.register}"></a>
+				<strong><a href="/registration"	th:text="#{messages.home.register}"></a></strong>
 			</div>
 		</div>
 	</div>

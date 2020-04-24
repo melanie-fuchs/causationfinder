@@ -21,4 +21,13 @@ public class CustomParameterDayAnalyzeDayValueDto {
     public Double getValue() {
         return value;
     }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+    
 }

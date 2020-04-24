@@ -1,12 +1,21 @@
 package ch.yoursource.causationfinder.controller.datacollection;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,14 +29,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonSetter.Value;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDayValueDto;
 import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDto;
 import ch.yoursource.causationfinder.entity.CustomParameter;
+import ch.yoursource.causationfinder.entity.MedicalSymptomsQuestionnaire;
 import ch.yoursource.causationfinder.entity.ObservedDayValue;
 import ch.yoursource.causationfinder.entity.User;
+import ch.yoursource.causationfinder.repository.MsqRepository;
 import ch.yoursource.causationfinder.repository.ObservedDayValueRepository;
 import ch.yoursource.causationfinder.serializer.CustomParameterDayAnalyzeDtoSerializer;
 import ch.yoursource.causationfinder.service.UserService;
@@ -38,13 +50,16 @@ public class AnalyzeDataController {
     
     private UserService userService;
     private ObservedDayValueRepository observedDayValueRepository;
+    private MsqRepository msqRepository;
     
     
     public AnalyzeDataController(
             UserService userService,
-            ObservedDayValueRepository observedDayValueRepository) {
+            ObservedDayValueRepository observedDayValueRepository,
+            MsqRepository msqRepository) {
         this.userService = userService;
         this.observedDayValueRepository = observedDayValueRepository;
+        this.msqRepository = msqRepository;
     }
     
     @GetMapping("/data/datacollection/analyze-data")
@@ -131,7 +146,6 @@ public class AnalyzeDataController {
             
             int indexOfCustomParameter = allCustomParameters.indexOf(cp);
             
-            // create a parameterDTO and add it to the list of TODO
             CustomParameterDayAnalyzeDto parameterDataDto = new CustomParameterDayAnalyzeDto();
             parameterDataDto.setParameterName(cp.getParamName());
             parameterDataDto.setMinValue(minValue);
@@ -146,7 +160,11 @@ public class AnalyzeDataController {
             }
                         
             data.add(parameterDataDto);
-        }
+        }        
+        
+
+        // adding MSQ-data to the list of Data, if the user has any data in the daterange
+        this.addMsqDataIfAvailable(data, startDate, endDate, user, allDates);
         
        
         ObjectMapper objectMapper = new ObjectMapper();
@@ -155,15 +173,109 @@ public class AnalyzeDataController {
         objectMapper.registerModule(module);
 
         try {
+            // writeValueAsString will kick off the method serialize() in the serializer and write the json
             model.addAttribute("data", objectMapper.writeValueAsString(data));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // TODO let the user analyze data in steps, like display every second day, every week etc
         return new ModelAndView("data/datacollection/show-data"); 
     }
     
+
+    /*
+     * The method checks if the user has entered MSQ-data in the timerange. If not,
+     * MSQ will not be analyzed at all.
+     * If there is data, there will be created a new CustomParameterDayAnalyzeDto which
+     * will be added to "data" in the end.
+     * If there's no data available on one day, the method will create a
+     * CustomParameterDayAnalyzeDayValueDto, containing the date and null as value.
+     * If there is data, the method retrieves it by looping over all the fields in the
+     * class (using BeanInfo) and summing it up to the day's value.
+     */
+    private void addMsqDataIfAvailable(
+            List<CustomParameterDayAnalyzeDto> data,
+            LocalDate startDate,
+            LocalDate endDate,
+            User user,
+            List<LocalDate> allDates) {
+        
+        // get a List of MedicalSymptomsQuestionnaire within the daterange
+        List<MedicalSymptomsQuestionnaire> msqData = msqRepository.findByUserInRange(
+                    user,
+                    getDateFromLocalDate(startDate),
+                    getDateFromLocalDate(endDate));
+        
+        // if there's no data entered within the daterange, MSQ will not be displayed at
+        // all and the method ends here
+        if(msqData.size() == 0) {
+            return;
+        }
+        
+        /*
+         * Creating an instance of CustomParameterDayAnalyzeDto and setting the data
+         */
+        CustomParameterDayAnalyzeDto msqCustomParameter = new CustomParameterDayAnalyzeDto();
+        msqCustomParameter.setBoolean(true); // will make the line curved or straight
+        msqCustomParameter.setMinValue(0.0);
+        msqCustomParameter.setMaxValue(284.0); // 71 params * max 4 per Value = 284
+        msqCustomParameter.setParameterName("MSQ");
+
+        // Creating a list of all dates. Will be used to loop over and find dates that
+        // do not have data available in the database
+        List<LocalDate> msqDates = new ArrayList<LocalDate>();
+        for(MedicalSymptomsQuestionnaire m : msqData) {
+            msqDates.add(getLocalDateFromDate(m.getDate()));
+        }
+        
+        /*
+         *  Creating a map of MedicalSymptomsQuestionnaire, where the key is the msq's date
+         *  This is needed so BeanInfo can access it when usinf the date (as String) as a key
+         *  to have access to the MedicalSymptomsQuestionnaire-object
+         */        
+        Map<String, MedicalSymptomsQuestionnaire> map = new HashMap<String, MedicalSymptomsQuestionnaire>();
+        
+        /*
+         * Filling the map wth all the found MedicalSymptomsQuestionnaire's from DB
+         */
+        for(MedicalSymptomsQuestionnaire m : msqData) {
+            map.put(getLocalDateFromDate(m.getDate()).toString(), m);
+        }
+        
+        for (LocalDate d : allDates) {
+            CustomParameterDayAnalyzeDayValueDto msqDay;
+            if (!msqDates.contains(d)) {
+                msqDay = new CustomParameterDayAnalyzeDayValueDto(d, null);
+            } else {
+                Double dailyTotal = 0.0;
+                MedicalSymptomsQuestionnaire m = map.get(d.toString());
+                try {
+                    BeanInfo beanInfo = Introspector.getBeanInfo(m.getClass());
+                    for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+                        String propertyNameee = propertyDescriptor.getName();
+                        if (!propertyNameee.equals("date") && !propertyNameee.equals("user")
+                                && !propertyNameee.equals("class") && !propertyNameee.equals("id")) {
+                            try {
+                                Object value = propertyDescriptor.getReadMethod().invoke(m);
+                                Double val = Double.valueOf(String.valueOf(value));
+                                dailyTotal += val;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                msqDay = new CustomParameterDayAnalyzeDayValueDto(d, dailyTotal);
+            }
+            msqCustomParameter.addDailyValue(msqDay);
+        }   
+        // adding the CustomParameter-object that contains all the daily values
+        data.add(msqCustomParameter);
+    }
+    
+
     private User getLoggedInUser()
     {        
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();

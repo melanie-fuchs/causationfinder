@@ -5,14 +5,14 @@
 	</div>
 	<div class="content">
 		<h2  th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
-		<h3 th:text="#{messages.analyze-data}"></h3>
+		<h3 th:text="#{messages.fragments.navigation.enter-and-analyze-data.analyze-data}"></h3>
 		<br/>
 		<form action="#" th:action="@{/data/datacollection/analyze-data}" method="POST">
-			<label for="startDate" th:text="#{messages.analyze-data.start}"></label>
+			<strong><label for="startDate" th:text="#{messages.analyze-data.start} +':'"></label></strong>
 			<br/>
 			<input name="startDate" type="date" required="required" th:value="${startDate}" />
 			<br/><br/>
-			<label for="endDate" th:text="#{messages.analyze-data.end}"></label>
+			<strong><label for="endDate" th:text="#{messages.analyze-data.end} +':'"></label></strong>
 			<br/>
 			<input name="endDate" type="date" required="required" th:value="${endDate}" />
 

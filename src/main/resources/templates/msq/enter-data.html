@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.msq}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<h2 th:text="#{messages.fragments.navigation.msq}"></h2>
+		<h3 th:text="#{messages.fragments.navigation.msq.enter-data}"></h3>
+	
+		<span th:text="#{messages.msq.enterdata.description}">.</span>
+		<br><br>
+		<strong th:text="#{messages.msq.enterdata.point-scale}"></strong><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-0}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-1}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-2}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-3}"></span><br>
+		<span th:text="#{messages.msq.enterdata.point-scale-4}"></span><br><br>
+	
+	
+		<form action="#" th:action="@{/msq/enter-data}" method="POST"
+				th:object="${medicalSymptomsQuestionnaireDto}">
+				
+			<br/>
+			<strong for="date" th:text="#{messages.msq.enterdata.date}"></strong><br>
+			<input id="date" type="date" name="date" required="required" th:value="${date}" /><br/>
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.head}"></strong>
+			<br/>
+
+			<div class="row">
+				<div class="col-sm-3">
+					<input class="form-control" th:field="*{headHeadaches}" type="number" required="required" th:name="headHeadaches" min=0 max=4/>
+				</div>
+				<div class="col-sm-9">
+					<label for="headHeadaches" th:text="#{messages.msq.enterdata.head.headaches}"></label>
+				</div>			
+			</div>
+			<br/>
+			
+						
+			<input th:field="*{headFaintness}" type="number" required="required" th:name="headFaintness" min=0 max=4/>
+			<label for="headFaintness" th:text="#{messages.msq.enterdata.head.faintness}"></label><br/>
+		
+			<input th:field="*{headDizziness}" type="number" required="required" th:name="headDizziness" min=0 max=4/>
+			<label for="headDizziness" th:text="#{messages.msq.enterdata.head.dizzyness}"></label><br/>
+			
+			<input th:field="*{headInsomnia}" type="number" required="required" th:name="headInsomnia" min=0 max=4/>
+			<label for="headInsomnia" th:text="#{messages.msq.enterdata.head.insomnia}"></label><br/>
+			
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.eyes}"></strong>
+			<br/>
+			
+			<input th:field="*{eyesWatery}" type="number" required="required" th:name="eyesWatery" min=0 max=4/>
+			<label for="eyesWatery" th:text="#{messages.msq.enterdata.eyes.watery}"></label><br/>
+			
+			<input th:field="*{eyesSwollen}" type="number" required="required" th:name="eyesSwollen" min=0 max=4/>
+			<label for="eyesSwollen" th:text="#{messages.msq.enterdata.eyes.swollen}"></label><br/>
+			
+			<input th:field="*{eyesBags}" type="number" required="required" th:name="eyesBags" min=0 max=4/>
+			<label for="eyesBags" th:text="#{messages.msq.enterdata.eyes.bags}"></label><br/>
+			
+			<input th:field="*{eyesBlurred}" type="number" required="required" th:name="eyesBlurred" min=0 max=4/>
+			<label for="eyesBlurred" th:text="#{messages.msq.enterdata.eyes.blurred}"></label><br/>
+
+
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.ears}"></strong>
+			<br/>
+			
+			<input th:field="*{earsItchy}" type="number" required="required" th:name="earsItchy" min=0 max=4/>
+			<label for="earsItchy" th:text="#{messages.msq.enterdata.ears.itchy}"></label><br/>
+			
+			<input th:field="*{earsEaraches}" type="number" required="required" th:name="earsEaraches" min=0 max=4/>
+			<label for="earsEaraches" th:text="#{messages.msq.enterdata.ears.earaches}"></label><br/>
+			
+			<input th:field="*{earsDrainage}" type="number" required="required" th:name="earsDrainage" min=0 max=4/>
+			<label for="earsDrainage" th:text="#{messages.msq.enterdata.ears.drainage}"></label><br/>
+			
+			<input th:field="*{earsRinging}" type="number" required="required" th:name="earsRinging" min=0 max=4/>
+			<label for="earsRinging" th:text="#{messages.msq.enterdata.ears.ringing}"></label><br/>
+
+
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.nose}"></strong>
+			<br/>
+			
+			<input th:field="*{noseStuffy}" type="number" required="required" th:name="noseStuffy" min=0 max=4/>
+			<label for="noseStuffy" th:text="#{messages.msq.enterdata.nose.stuffy}"></label><br/>
+			
+			<input th:field="*{noseSinus}" type="number" required="required" th:name="noseSinus" min=0 max=4/>
+			<label for="noseSinus" th:text="#{messages.msq.enterdata.nose.sinus}"></label><br/>
+			
+			<input th:field="*{noseHay}" type="number" required="required" th:name="noseHay" min=0 max=4/>
+			<label for="noseHay" th:text="#{messages.msq.enterdata.nose.hay}"></label><br/>
+			
+			<input th:field="*{noseSneezing}" type="number" required="required" th:name="noseSneezing" min=0 max=4/>
+			<label for="noseSneezing" th:text="#{messages.msq.enterdata.nose.sneezing}"></label><br/>	
+					
+			<input th:field="*{noseMucus}" type="number" required="required" th:name="noseMucus" min=0 max=4/>
+			<label for="noseMucus" th:text="#{messages.msq.enterdata.nose.musus}"></label><br/>
+			
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.mouth}"></strong>
+			<br/>
+			
+			<input th:field="*{mouthCoughing}" type="number" required="required" th:name="mouthCoughing" min=0 max=4/>
+			<label for="mouthCoughing" th:text="#{messages.msq.enterdata.mouth.coughing}"></label><br/>
+			
+			<input th:field="*{mouthGagging}" type="number" required="required" th:name="mouthGagging" min=0 max=4/>
+			<label for="mouthGagging" th:text="#{messages.msq.enterdata.mouth.gagging}"></label><br/>
+			
+			<input th:field="*{mouthSore}" type="number" required="required" th:name="mouthSore" min=0 max=4/>
+			<label for="mouthSore" th:text="#{messages.msq.enterdata.mouth.sore}"></label><br/>
+			
+			<input th:field="*{mouthSwollen}" type="number" required="required" th:name="mouthSwollen" min=0 max=4/>
+			<label for="mouthSwollen" th:text="#{messages.msq.enterdata.mouth.swollen}"></label><br/>	
+					
+			<input th:field="*{mouthCanker}" type="number" required="required" th:name="mouthCanker" min=0 max=4/>
+			<label for="mouthCanker" th:text="#{messages.msq.enterdata.mouth.canker}"></label><br/>
+						
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.skin}"></strong>
+			<br/>
+			
+			<input th:field="*{skinAcne}" type="number" required="required" th:name="skinAcne" min=0 max=4/>
+			<label for="skinAcne" th:text="#{messages.msq.enterdata.skin.acne}"></label><br/>
+			
+			<input th:field="*{skinHives}" type="number" required="required" th:name="skinHives" min=0 max=4/>
+			<label for="skinHives" th:text="#{messages.msq.enterdata.skin.hives}"></label><br/>
+			
+			<input th:field="*{skinHairloss}" type="number" required="required" th:name="skinHairloss" min=0 max=4/>
+			<label for="skinHairloss" th:text="#{messages.msq.enterdata.skin.hairloss}"></label><br/>
+			
+			<input th:field="*{skinFlushing}" type="number" required="required" th:name="skinFlushing" min=0 max=4/>
+			<label for="skinFlushing" th:text="#{messages.msq.enterdata.skin.flushing}"></label><br/>	
+					
+			<input th:field="*{skinSweating}" type="number" required="required" th:name="skinSweating" min=0 max=4/>
+			<label for="skinSweating" th:text="#{messages.msq.enterdata.skin.sweating}"></label><br/>
+						
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.heart}"></strong>
+			<br/>
+			
+			<input th:field="*{heartIrregular}" type="number" required="required" th:name="heartIrregular" min=0 max=4/>
+			<label for="heartIrregular" th:text="#{messages.msq.enterdata.heart.irregular}"></label><br/>
+			
+			<input th:field="*{heartRapid}" type="number" required="required" th:name="heartRapid" min=0 max=4/>
+			<label for="heartRapid" th:text="#{messages.msq.enterdata.heart.rapid}"></label><br/>
+			
+			<input th:field="*{heartChestpain}" type="number" required="required" th:name="heartChestpain" min=0 max=4/>
+			<label for="heartChestpain" th:text="#{messages.msq.enterdata.heart.chestpain}"></label><br/>
+									
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.lungs}"></strong>
+			<br/>
+			
+			<input th:field="*{lungsCongestion}" type="number" required="required" th:name="lungsCongestion" min=0 max=4/>
+			<label for="lungsCongestion" th:text="#{messages.msq.enterdata.lungs.congestions}"></label><br/>
+			
+			<input th:field="*{lungsAsthma}" type="number" required="required" th:name="lungsAsthma" min=0 max=4/>
+			<label for="lungsAsthma" th:text="#{messages.msq.enterdata.lungs.asthma}"></label><br/>
+			
+			<input th:field="*{lungsShortness}" type="number" required="required" th:name="lungsShortness" min=0 max=4/>
+			<label for="lungsShortness" th:text="#{messages.msq.enterdata.lungs.shortness}"></label><br/>
+			
+			<input th:field="*{lungsDifficulty}" type="number" required="required" th:name="lungsDifficulty" min=0 max=4/>
+			<label for="lungsDifficulty" th:text="#{messages.msq.enterdata.lungs.difficulty}"></label><br/>	
+									
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.digestive}"></strong>
+			<br/>
+			
+			<input th:field="*{digestiveNausea}" type="number" required="required" th:name="digestiveNausea" min=0 max=4/>
+			<label for="digestiveNausea" th:text="#{messages.msq.enterdata.digestive.nausea}"></label><br/>
+			
+			<input th:field="*{digestiveDiarrhea}" type="number" required="required" th:name="digestiveDiarrhea" min=0 max=4/>
+			<label for="digestiveDiarrhea" th:text="#{messages.msq.enterdata.digestive.diarrhea}"></label><br/>
+			
+			<input th:field="*{digestiveConstipation}" type="number" required="required" th:name="digestiveConstipation" min=0 max=4/>
+			<label for="digestiveConstipation" th:text="#{messages.msq.enterdata.digestive.constipation}"></label><br/>
+			
+			<input th:field="*{digestiveBloated}" type="number" required="required" th:name="digestiveBloated" min=0 max=4/>
+			<label for="digestiveBloated" th:text="#{messages.msq.enterdata.digestive.bloated}"></label><br/>	
+			
+			<input th:field="*{digestiveBelching}" type="number" required="required" th:name="digestiveBelching" min=0 max=4/>
+			<label for="digestiveBelching" th:text="#{messages.msq.enterdata.digestive.belching}"></label><br/>
+			
+			<input th:field="*{digestiveHeartburn}" type="number" required="required" th:name="digestiveHeartburn" min=0 max=4/>
+			<label for="digestiveHeartburn" th:text="#{messages.msq.enterdata.digestive.heartburn}"></label><br/>
+			
+			<input th:field="*{digestivePain}" type="number" required="required" th:name="digestivePain" min=0 max=4/>
+			<label for="digestivePain" th:text="#{messages.msq.enterdata.digestive.pain}"></label><br/>
+									
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.joints}"></strong>
+			<br/>
+			
+			<input th:field="*{jointsPain}" type="number" required="required" th:name="jointsPain" min=0 max=4/>
+			<label for="jointsPain" th:text="#{messages.msq.enterdata.joints.pain}"></label><br/>
+			
+			<input th:field="*{jointsArthritis}" type="number" required="required" th:name="jointsArthritis" min=0 max=4/>
+			<label for="jointsArthritis" th:text="#{messages.msq.enterdata.joints.arthritis}"></label><br/>
+			
+			<input th:field="*{jointsStiffness}" type="number" required="required" th:name="jointsStiffness" min=0 max=4/>
+			<label for="jointsStiffness" th:text="#{messages.msq.enterdata.joints.stiffness}"></label><br/>
+			
+			<input th:field="*{jointsMusclepain}" type="number" required="required" th:name="jointsMusclepain" min=0 max=4/>
+			<label for="jointsMusclepain" th:text="#{messages.msq.enterdata.joints.musclepain}"></label><br/>	
+			
+			<input th:field="*{jointsWeakness}" type="number" required="required" th:name="jointsWeakness" min=0 max=4/>
+			<label for="jointsWeakness" th:text="#{messages.msq.enterdata.joints.weakness}"></label><br/>
+												
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.weight}"></strong>
+			<br/>
+			
+			<input th:field="*{weightBinge}" type="number" required="required" th:name="weightBinge" min=0 max=4/>
+			<label for="weightBinge" th:text="#{messages.msq.enterdata.weight.binge}"></label><br/>
+			
+			<input th:field="*{weightCraving}" type="number" required="required" th:name="weightCraving" min=0 max=4/>
+			<label for="weightCraving" th:text="#{messages.msq.enterdata.weight.craving}"></label><br/>
+			
+			<input th:field="*{weightExcessive}" type="number" required="required" th:name="weightExcessive" min=0 max=4/>
+			<label for="weightExcessive" th:text="#{messages.msq.enterdata.weight.excessive}"></label><br/>
+						
+			<input th:field="*{weightCompulsive}" type="number" required="required" th:name="weightCompulsive" min=0 max=4/>
+			<label for="weightCompulsive" th:text="#{messages.msq.enterdata.weight.compulsive}"></label><br/>	
+			
+			<input th:field="*{weightWater}" type="number" required="required" th:name="weightWater" min=0 max=4/>
+			<label for="weightWater" th:text="#{messages.msq.enterdata.weight.water}"></label><br/>	
+			
+			<input th:field="*{weightUnderweight}" type="number" required="required" th:name="weightUnderweight" min=0 max=4/>
+			<label for="weightUnderweight" th:text="#{messages.msq.enterdata.weight.underweight}"></label><br/>
+															
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.energy}"></strong>
+			<br/>
+			
+			<input th:field="*{energyFatigue}" type="number" required="required" th:name="energyFatigue" min=0 max=4/>
+			<label for="energyFatigue" th:text="#{messages.msq.enterdata.energy.fatigue}"></label><br/>
+			
+			<input th:field="*{energyApathy}" type="number" required="required" th:name="energyApathy" min=0 max=4/>
+			<label for="energyApathy" th:text="#{messages.msq.enterdata.energy.apathy}"></label><br/>
+			
+			<input th:field="*{energyHyperactivity}" type="number" required="required" th:name="energyHyperactivity" min=0 max=4/>
+			<label for="energyHyperactivity" th:text="#{messages.msq.enterdata.energy.hyperactivity}"></label><br/>
+			
+			<input th:field="*{energyRestlessness}" type="number" required="required" th:name="energyRestlessness" min=0 max=4/>
+			<label for="energyRestlessness" th:text="#{messages.msq.enterdata.energy.restlessness}"></label><br/>
+															
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.mind}"></strong>
+			<br/>
+			
+			<input th:field="*{mindMemory}" type="number" required="required" th:name="mindMemory" min=0 max=4/>
+			<label for="mindMemory" th:text="#{messages.msq.enterdata.mind.memory}"></label><br/>
+			
+			<input th:field="*{mindConfusion}" type="number" required="required" th:name="mindConfusion" min=0 max=4/>
+			<label for="mindConfusion" th:text="#{messages.msq.enterdata.mind.confusion}"></label><br/>
+			
+			<input th:field="*{mindConcentration}" type="number" required="required" th:name="mindConcentration" min=0 max=4/>
+			<label for="mindConcentration" th:text="#{messages.msq.enterdata.mind.concentration}"></label><br/>
+			
+			<input th:field="*{mindCoordination}" type="number" required="required" th:name="mindCoordination" min=0 max=4/>
+			<label for="mindCoordination" th:text="#{messages.msq.enterdata.mind.coordination}"></label><br/>	
+			
+			<input th:field="*{mindDecisions}" type="number" required="required" th:name="mindDecisions" min=0 max=4/>
+			<label for="mindDecisions" th:text="#{messages.msq.enterdata.mind.decisions}"></label><br/>
+			
+			<input th:field="*{mindStuttering}" type="number" required="required" th:name="mindStuttering" min=0 max=4/>
+			<label for="mindStuttering" th:text="#{messages.msq.enterdata.mind.stuttering}"></label><br/>	
+						
+			<input th:field="*{mindSlurred}" type="number" required="required" th:name="mindSlurred" min=0 max=4/>
+			<label for="mindSlurred" th:text="#{messages.msq.enterdata.mind.slurred}"></label><br/>
+			
+			<input th:field="*{mindLearning}" type="number" required="required" th:name="mindLearning" min=0 max=4/>
+			<label for="mindLearning" th:text="#{messages.msq.enterdata.mind.learnung}"></label><br/>	
+															
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdata.emotions}"></strong>
+			<br/>
+			
+			<input th:field="*{emotionsSwings}" type="number" required="required" th:name="emotionsSwings" min=0 max=4/>
+			<label for="emotionsSwings" th:text="#{messages.msq.enterdata.emotions.mood}"></label><br/>
+			
+			<input th:field="*{emotionsAnxiety}" type="number" required="required" th:name="emotionsAnxiety" min=0 max=4/>
+			<label for="emotionsAnxiety" th:text="#{messages.msq.enterdata.emotions.anxiety}"></label><br/>
+			
+			<input th:field="*{emotionsAnger}" type="number" required="required" th:name="emotionsAnger" min=0 max=4/>
+			<label for="emotionsAnger" th:text="#{messages.msq.enterdata.emotions.anger}"></label><br/>
+			
+			<input th:field="*{emotionsDepression}" type="number" required="required" th:name="emotionsDepression" min=0 max=4/>
+			<label for="emotionsDepression" th:text="#{messages.msq.enterdata.emotions.depression}"></label><br/>	
+															
+			
+			<br/>
+			<strong th:text="#{messages.msq.enterdataother}"></strong>
+			<br/>
+			
+			<input th:field="*{otherIllness}" type="number" required="required" th:name="otherIllness" min=0 max=4/>
+			<label for="otherIllness" th:text="#{messages.msq.enterdataother.illness}"></label><br/>
+			
+			<input th:field="*{otherUrination}" type="number" required="required" th:name="otherUrination" min=0 max=4/>
+			<label for="otherUrination" th:text="#{messages.msq.enterdataother.urination}"></label><br/>
+			
+			<input th:field="*{otherGenital}" type="number" required="required" th:name="otherGenital" min=0 max=4/>
+			<label for="otherGenital" th:text="#{messages.msq.enterdataother.genital}"></label><br/>
+			<br/>
+			
+			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
+
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
+			
+		</form>
+	
+		</th:block>
+	</div>
+</html>

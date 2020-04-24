@@ -1,7 +1,7 @@
 <div th:fragment="navigation">
 	<ul class="navigation nav">
 		<li class="nav-item">
-			<strong th:text="#{messages.fragments.navigation.change-profile}"></strong>
+			<strong><a href="/userhome" th:text="#{messages.fragments.navigation.user-home}"></a></strong>
 			<ul>
 				<li><a href="/updateuser" th:text="#{messages.fragments.navigation.change-profile.update-userinfo}"></a></li>
 				<li><a href="/changepassword" th:text="#{messages.fragments.navigation.change-profile.change-password}"></a></li>
@@ -9,7 +9,7 @@
 		</li>
 
 		<li class="nav-item">
-			<strong th:text="#{messages.fragments.navigation.manage-parameters}"></strong>
+			<strong><a href="/data/parameter-configuration/manage-parameters" th:text="#{messages.fragments.navigation.manage-parameters}"></a></strong>
 			<ul>
 				<li><a href="/data/parameter-configuration/configure-parameter-status" th:text="#{messages.fragments.navigation.manage-parameters.parameter-status}"></a></li>
 				<li><a href="/data/parameter-configuration/update-customparameter" th:text="#{messages.fragments.navigation.manage-parameters.update-customparameter}"></a></li>
@@ -17,11 +17,18 @@
 			</ul>
 		</li>
 		<li class="nav-item">
-			<strong th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></strong>
+			<strong><a href="/data/datacollection/enter-and-analyze-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></a></strong>
 			<ul>
 				<li><a href="/data/datacollection/enter-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data.enter-daily-data}"></a></li>
 				<li><a href="/data/datacollection/analyze-data" th:text="#{messages.fragments.navigation.enter-and-analyze-data.analyze-data}"></a></li>
 				<li><a href="/data/datacollection/display-texts" th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></a></li>
+			</ul>
+		</li>
+		<li class="nav-item">
+			<strong><a href="/msq" th:text="#{messages.fragments.navigation.msq}"></a></strong>
+			<ul>
+				<li><a href="/msq/enter-data" th:text="#{messages.fragments.navigation.msq.enter-data}"></a></li>
+				<li><a href="/msq/display-data" th:text="#{messages.fragments.navigation.msq.display-data}"></a></li>
 			</ul>
 		</li>
 		<li class="nav-item">

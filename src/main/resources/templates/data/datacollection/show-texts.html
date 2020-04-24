@@ -6,12 +6,12 @@
 	<div class="content">
 		<form action="#" th:action="@{/data/datacollection/show-texts}"
 			  th:object="${data}" method="GET">
-			<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}">Display Texts</h2>
+			<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
 			<h3 th:text="#{messages.fragments.navigation.enter-and-analyze-data.display-texts}"></h3>
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr class="table-primary">
-						<th class="dont-break" th:text="#{messages.show-texts.table-date}">Date</th>
+						<th class="dont-break" th:text="#{messages.show-texts.table-date}"></th>
 						<th:block th:each="parameter : ${data}">
 							<th th:text="${parameter.parameterName}"></th>
 						</th:block>

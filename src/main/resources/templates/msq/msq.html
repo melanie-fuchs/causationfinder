@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(#{messages.fragments.navigation.msq}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+		<div th:insert="fragments/navigation :: navigation"></div>
+	</div>
+	<div class="content">
+		<h2 th:text="#{messages.fragments.navigation.msq}"></h2>
+
+		<div>
+			<span th:text="#{messages.msq.text}"></span>
+		</div>
+	</div>
+</html>

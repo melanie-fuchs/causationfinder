@@ -10,13 +10,14 @@
 		
 		<form action="#" th:action="@{/msq/display-data}"
 			  method="POST">
-			<strong><label for="startDate" th:text="#{messages.msq.display-data.start} + ':'"></label></strong> <br /> <input
+			<strong><label for="startDate" th:text="#{messages.msq.display-data.start} + ':'"></label></strong> <br />
+			<input class="form-control"
 				name="startDate" type="date" required="required"
 				th:value="${startDate}" /> <br />
 			<br />
 			<strong><label for="endDate" th:text="#{messages.msq.display-data.end} + ':'"></label></strong>
 			<br/>
-			<input
+			<input class="form-control"
 				name="endDate" type="date" required="required" th:value="${endDate}" />
 
 			<br />

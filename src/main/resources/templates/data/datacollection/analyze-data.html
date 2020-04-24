@@ -10,12 +10,22 @@
 		<form action="#" th:action="@{/data/datacollection/analyze-data}" method="POST">
 			<strong><label for="startDate" th:text="#{messages.analyze-data.start} +':'"></label></strong>
 			<br/>
-			<input name="startDate" type="date" required="required" th:value="${startDate}" />
-			<br/><br/>
+			<div class="row">
+				<div class="col-6 col-lg-5">
+					<input class="form-control" name="startDate" type="date" required="required" th:value="${startDate}" />
+				</div>
+			</div>
+			
+			<br/>
 			<strong><label for="endDate" th:text="#{messages.analyze-data.end} +':'"></label></strong>
 			<br/>
-			<input name="endDate" type="date" required="required" th:value="${endDate}" />
-
+			
+			<div class="row">
+				<div class="col-6 col-lg-5">
+					<input class="form-control" name="endDate" type="date" required="required" th:value="${endDate}" />
+				</div>
+			</div>
+			
 			<br/><br/>
 			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
 		</form>

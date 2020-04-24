@@ -131,7 +131,6 @@ public class AnalyzeDataController {
             
             int indexOfCustomParameter = allCustomParameters.indexOf(cp);
             
-            // create a parameterDTO and add it to the list of TODO
             CustomParameterDayAnalyzeDto parameterDataDto = new CustomParameterDayAnalyzeDto();
             parameterDataDto.setParameterName(cp.getParamName());
             parameterDataDto.setMinValue(minValue);
@@ -146,8 +145,7 @@ public class AnalyzeDataController {
             }
                         
             data.add(parameterDataDto);
-        }
-        
+        }        
        
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
@@ -155,12 +153,12 @@ public class AnalyzeDataController {
         objectMapper.registerModule(module);
 
         try {
+            // writeValueAsString will kick off the method serialize() in the serializer and write the json
             model.addAttribute("data", objectMapper.writeValueAsString(data));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // TODO let the user analyze data in steps, like display every second day, every week etc
         return new ModelAndView("data/datacollection/show-data"); 
     }
     

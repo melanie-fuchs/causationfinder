@@ -26,7 +26,7 @@
 		<form id="actualForm" action="#" th:action="@{/data/datacollection/enter-data}"
 			  th:object="${activeParametersNumeric}" method="POST">
 
-			<h3 th:text="#{messages.enter-data}"></h3>
+			<h3 th:text="#{messages.enter-data.title}"></h3>
 
 			<button class="btn btn-secondary" id="loadDataFromYesterday" th:text="#{messages.enter-data.overwrite-button}"></button>
 			<br /><br />

@@ -8,8 +8,13 @@
 		<h3 th:text="#{messages.fragments.navigation.msq.display-data}"></h3>
 		
 		<table class="table table-bordered table-striped">
-			<th:block th:each="row : ${tableData}">
-				<tr>
+			<th:block th:each="row, loop : ${tableData}">
+				<tr th:if="${loop.index} < 1">
+					<th:block th:each="column : ${row}">
+						<th th:text="${column}"></th>
+					</th:block>
+				</tr>
+				<tr th:if="${loop.index} > 0">
 					<th:block th:each="column : ${row}">
 						<td th:text="${column}"></td>
 					</th:block>

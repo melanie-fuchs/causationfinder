@@ -7,6 +7,7 @@ uml.dia
 build/
 !gradle/wrapper/gradle-wrapper.jar
 src/main/resources/application.properties
+src/main/resources/application-prod.properties
 !**/src/test/**
 
 ### STS ###

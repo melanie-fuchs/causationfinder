@@ -15,7 +15,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.yoursource.causationfinder.dto.CustomParameterDayStringDayValueDto;
 import ch.yoursource.causationfinder.dto.CustomParameterDayStringDto;
+import ch.yoursource.causationfinder.dto.StartEndDateDto;
 import ch.yoursource.causationfinder.entity.CustomParameter;
 import ch.yoursource.causationfinder.entity.ObservedDayValue;
 import ch.yoursource.causationfinder.entity.User;
@@ -49,16 +53,41 @@ public class DisplayTextsController {
             WebRequest request,
             Model model) {
         
+        StartEndDateDto startEndDateDto = new StartEndDateDto();
+        
+        model.addAttribute(startEndDateDto);
+        
         return "/data/datacollection/display-texts";
     }
 
     @PostMapping("/data/datacollection/display-texts")
     public ModelAndView analyzeData(
-            @RequestParam(value="startDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(value="endDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @ModelAttribute("startEndDateDto") StartEndDateDto startEndDateDto,
+//            @RequestParam(value="startDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+//            @RequestParam(value="endDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            BindingResult result,
             WebRequest request,
+            Errors errors,
             Model model) {
+        
         User user = this.getLoggedInUser();
+        LocalDate startDate = startEndDateDto.getStartDate();
+        LocalDate endDate = startEndDateDto.getEndDate();
+        
+        boolean hasErrors = false;
+        
+        if(result.hasErrors()) {
+            hasErrors = true;
+        }
+        
+        if(startDate.isAfter(endDate)) {
+            errors.rejectValue("startDate", "messages.validation.start-end-invalid");
+            hasErrors = true;
+        }
+        
+        if(hasErrors) {
+            return new ModelAndView("data/datacollection/display-texts", "startEndDateDto", startEndDateDto);
+        }
         
         List<ObservedDayValue> observedValuesInRange = this.observedDayValueRepository
                 .findActiveByUserInRange(this.getDateFromLocalDate(startDate), this.getDateFromLocalDate(endDate), user);

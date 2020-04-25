@@ -1,11 +1,8 @@
 package ch.yoursource.causationfinder.controller.datacollection;
 
 import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,7 +12,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,18 +19,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonSetter.Value;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDayValueDto;
 import ch.yoursource.causationfinder.dto.CustomParameterDayAnalyzeDto;
+import ch.yoursource.causationfinder.dto.StartEndDateDto;
 import ch.yoursource.causationfinder.entity.CustomParameter;
 import ch.yoursource.causationfinder.entity.MedicalSymptomsQuestionnaire;
 import ch.yoursource.causationfinder.entity.ObservedDayValue;
@@ -67,16 +66,40 @@ public class AnalyzeDataController {
             WebRequest request,
             Model model) {
         
+        StartEndDateDto starEndDateDto = new StartEndDateDto();
+        
+        model.addAttribute(starEndDateDto);
+        
         return "/data/datacollection/analyze-data";
     }
 
     @PostMapping("data/datacollection/analyze-data")
     public ModelAndView analyzeData(
-            @RequestParam(value="startDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(value="endDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @ModelAttribute("startEndDateDto") StartEndDateDto startEndDateDto,
+            BindingResult result,
             WebRequest request,
+            Errors errors,
             Model model) {
         User user = this.getLoggedInUser();
+        
+        boolean hasErrors = false;
+        
+        LocalDate startDate = startEndDateDto.getStartDate();
+        LocalDate endDate = startEndDateDto.getEndDate();
+        
+        if(result.hasErrors()) {
+            hasErrors = true;
+        }
+        
+        if(startDate.isAfter(endDate)) {
+            errors.rejectValue("startDate", "messages.validation.start-end-invalid");
+            hasErrors = true;
+        }
+        
+        if(hasErrors) {
+            return new ModelAndView("data/datacollection/analyze-data", "startEndDateDto", startEndDateDto);
+        }
+        
         
         List<ObservedDayValue> observedValuesInRange = this.observedDayValueRepository
                 .findActiveByUserInRange(this.getDateFromLocalDate(startDate), this.getDateFromLocalDate(endDate), user);

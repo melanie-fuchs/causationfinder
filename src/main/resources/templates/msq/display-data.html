@@ -9,14 +9,14 @@
 		<br>
 		
 		<form action="#" th:action="@{/msq/display-data}"
-			  method="POST">
+			 th:object="${startEndDateDto}"  method="POST">
 			<strong><label for="startDate" th:text="#{messages.msq.display-data.start} + ':'"></label></strong> <br />
 			
 			<div class="row">
 				<div class="col-6 col-lg-5">
 					<input class="form-control"
 						   name="startDate" type="date" required="required"
-				           th:value="${startDate}" />
+				           th:field="*{startDate}" />
 				</div>
 			</div>
 			
@@ -26,10 +26,13 @@
 			<div class="row">
 				<div class="col-6 col-lg-5">
 					<input class="form-control"
-						   name="endDate" type="date" required="required" th:value="${endDate}" />
+						   name="endDate" type="date" required="required"
+						   th:field="*{endDate}" />
 				</div>
 			</div>
-			
+			<br/>
+			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
+
 
 			<br />
 			<br />

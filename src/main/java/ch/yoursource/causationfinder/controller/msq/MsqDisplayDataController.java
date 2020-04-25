@@ -8,7 +8,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,17 +19,19 @@ import java.util.stream.Collectors;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.yoursource.causationfinder.dto.StartEndDateDto;
 import ch.yoursource.causationfinder.entity.MedicalSymptomsQuestionnaire;
 import ch.yoursource.causationfinder.entity.User;
 import ch.yoursource.causationfinder.repository.MsqRepository;
@@ -57,19 +58,43 @@ public class MsqDisplayDataController {
             WebRequest request,
             Model model) {
         
+        StartEndDateDto startEndDateDto = new StartEndDateDto();
+        
+        model.addAttribute(startEndDateDto);
+        
         return "/msq/display-data";
         
     }
     
     @PostMapping("/msq/display-data")
     public ModelAndView displayData(
-            @RequestParam(value="startDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(value="endDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @ModelAttribute("startEndDateDto") StartEndDateDto startEndDateDto,
+            BindingResult result,
             WebRequest request,
             Model model,
+            Errors errors,
             Locale locale) {
         
         User user = this.getLoggedInUser();
+        
+        boolean hasErrors = false;
+        
+        LocalDate startDate = startEndDateDto.getStartDate();
+        LocalDate endDate = startEndDateDto.getEndDate();
+        
+        if(result.hasErrors()) {
+            hasErrors = true;
+        }
+        
+        if(startDate.isAfter(endDate)) {
+            errors.rejectValue("startDate", "messages.validation.start-end-invalid");
+            hasErrors = true;
+        }
+        
+        if(hasErrors) {
+            return new ModelAndView("msq/display-data", "startEndDateDto", startEndDateDto);
+        }
+        
         
         // get all Dates between the two dates (add one day (plusDays(1L)) to the endDate,
         // so the enddate itself will be analyzed as well)

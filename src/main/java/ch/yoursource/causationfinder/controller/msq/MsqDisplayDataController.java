@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.context.MessageSource;
@@ -203,11 +205,11 @@ public class MsqDisplayDataController {
             String msqField = msqFields.get(j);
             
             // setting the values for the left column
-            tableData[j+1][0] = msqField;
-            
-            //TODO:
-            //use translation like this: this.messageSource.getMessage(new DefaultMessageSourceResolvable(msqField), locale);
-            //headHeadaches -> messages.msq.enterdata.head.headaches
+            tableData[j+1][0] = this.messageSource.getMessage(
+                    new DefaultMessageSourceResolvable(
+                            this.getTranslationKeyFromFieldName(msqField)
+                    ), locale
+            );
             
             // filling data row by row
             for (int i = 0; i < allDates.size(); i++) {
@@ -278,5 +280,19 @@ public class MsqDisplayDataController {
     {   
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }
-      
+
+    private String getTranslationKeyFromFieldName(String fieldName) {
+        Pattern pattern = Pattern.compile("([A-Z])");
+        Matcher matcher = pattern.matcher(fieldName);
+
+        if (matcher.find()) {
+            String allLower = fieldName.toLowerCase();
+            return "messages.msq.enterdata." +
+                    allLower.substring(0, matcher.start()) +
+                    "." +
+                    allLower.substring(matcher.start());
+        }
+
+        return fieldName;
+    }
 }

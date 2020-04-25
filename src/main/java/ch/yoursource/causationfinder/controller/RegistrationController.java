@@ -15,6 +15,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,6 +69,7 @@ public class RegistrationController {
 	@PostMapping("/registration")
 	public ModelAndView saveUser(
 			@ModelAttribute("user") @Valid User user,
+			@RequestHeader String host,
 			BindingResult result,
 			WebRequest request,
 			Errors errors,
@@ -121,7 +123,7 @@ public class RegistrationController {
                 locale
         );
         mailMessage.setText(emailText + ": " +
-                "http://localhost:8080/user-registration/confirm-account?token="+confirmationToken.getConfirmationToken());
+                "http://" + host + "/user-registration/confirm-account?token="+confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(mailMessage);
         modelAndView.addObject("email", user.getEmail());
         modelAndView.addObject("user", user);

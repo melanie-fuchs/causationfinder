@@ -39,7 +39,7 @@ public class MsqEnterDataController {
 
     @GetMapping("/msq/enter-data")
     public String showMsqEnterDataForm(
-            @RequestParam(value = "data", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             WebRequest request,
             Model model) {
 

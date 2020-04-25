@@ -7,6 +7,7 @@
 		<h2 th:text="#{messages.fragments.navigation.enter-and-analyze-data}"></h2>
 		<h3 th:text="#{messages.enter-data.edit-existing}"></h3>
 
+		<!-- form to reload an old data and fill in the values of that day -->
 		<form action="#" th:action="@{/data/datacollection/enter-data}" method="GET">
 			<div class="row mb-4">
 				<div class="col-6 col-lg-5">
@@ -18,6 +19,8 @@
 			</div>
 		</form>
 
+		
+		<!-- form to enter a date (default is "today") or to add data for a past day by setting that date -->
 		<form id="loadDataFromYesterdayForm" action="#" th:action="@{/data/datacollection/enter-data} + '#setTodayAfterLoad'" method="GET">
 			<input name="date" id="dateHidden" type="hidden" th:value="${date}" />
 		</form>

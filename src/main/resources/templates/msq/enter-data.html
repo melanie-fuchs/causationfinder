@@ -16,16 +16,38 @@
 		<span th:text="#{messages.msq.enterdata.point-scale-3}"></span><br>
 		<span th:text="#{messages.msq.enterdata.point-scale-4}"></span><br><br>
 	
-	
-		<form action="#" th:action="@{/msq/enter-data}" method="POST"
+		<!-- form to reload an old data and fill in the values of that day -->
+		<form action="#" th:action="@{/msq/enter-data}" method="GET">
+			<div class="row mb-4">
+				<div class="col-6 col-lg-5">
+					<input class="form-control" name="date" type="date" required="required" th:value="${date}" />					
+				</div>
+				<div class="col-6 col-lg-7">
+					<input class="btn btn-secondary" type="submit" value="Change date and reload" />					
+				</div>
+			</div>
+		</form>
+		
+		
+		<!-- form to enter a date (default is "today") or to add data for a past day by setting that date -->
+		<form id="loadDataFromYesterdayForm" action="#" th:action="@{/msq/enter-data} + '#setTodayAfterLoad'" method="GET">
+			<input name="date" id="dateHidden" type="hidden" th:value="${date}" />
+		</form>
+		
+		
+		<!-- The actual form that contains all the data -->
+		<form id="actualForm" action="#" th:action="@{/msq/enter-data}" method="POST"
 				th:object="${medicalSymptomsQuestionnaireDto}">
-				
-			<br/>
+			
+			<!-- Button to load yesterday's data into the form -->
+			<button class="btn btn-secondary" id="loadDataFromYesterday" th:text="#{messages.enter-data.overwrite-button}"></button>
+			<br /><br />
+			
+			
 			<strong for="date" th:text="#{messages.msq.enterdata.date}"></strong><br>
-
 			<div class="row">
 				<div class="col-6">
-					<input class="form-control" id="date" type="date" name="date" required="required" th:value="${date}" /><br/>
+					<input class="form-control" id="actualDate" type="date" name="date" required="required" th:value="${date}" /><br/>
 				</div>
 			</div>
 			
@@ -56,7 +78,7 @@
 					<input class="form-control" th:field="*{headDizziness}" type="number" required="required" th:name="headDizziness" min=0 max=4/>
 				</div>
 				<div class="col-6 col-sm-9">
-					<label for="headDizziness" th:text="#{messages.msq.enterdata.head.dizzyness}"></label>
+					<label for="headDizziness" th:text="#{messages.msq.enterdata.head.dizziness}"></label>
 				</div>
 			</div>
 
@@ -734,8 +756,51 @@
 
 			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
 			
-		</form>
-	
+		</form>	
 		</th:block>
+		
+		<script>
+
+			function zeroPad(number, width){
+				width -= number.toString().length;
+				if ( width > 0 )
+				{
+					return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+				}
+				return number + ""; // always return a string
+			}
+	
+			function getToday() {
+				var today = new Date();
+				return today.getFullYear()+'-'+(zeroPad(today.getMonth()+1, 2))+'-'+zeroPad(today.getDate(), 2);
+			}
+	
+			function getYesterday() {
+				var date = new Date();
+				date.setDate(date.getDate() - 1);
+				return date.getFullYear()+'-'+(zeroPad(date.getMonth()+1, 2))+'-'+zeroPad(date.getDate(), 2);
+			}
+	
+			document.addEventListener("DOMContentLoaded", function() {
+				var button = document.getElementById("loadDataFromYesterday").addEventListener("click", function (e) {
+					e.preventDefault();
+					var date = document.getElementById("dateHidden");
+					date.value = getYesterday();
+	
+					var form = document.getElementById("loadDataFromYesterdayForm");
+					form.submit();
+				});
+	
+				if (window.location.hash == "#setTodayAfterLoad") {
+					var form = document.getElementById("actualForm");
+					var date = document.getElementById("actualDate");
+					date.value = getToday();
+				}
+			});
+		</script>
 	</div>
 </html>
+
+
+
+

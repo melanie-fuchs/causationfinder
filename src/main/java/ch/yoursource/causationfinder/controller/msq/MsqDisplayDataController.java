@@ -12,9 +12,12 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,12 +39,15 @@ public class MsqDisplayDataController {
 
     private UserService userService;
     private MsqRepository msqRepository;
+    private MessageSource messageSource;
     
     public MsqDisplayDataController(
             UserService userService,
-            MsqRepository msqRepository) {
+            MsqRepository msqRepository,
+            MessageSource messageSource) {
         this.userService = userService;
         this.msqRepository = msqRepository;
+        this.messageSource = messageSource;
     }
     
     @GetMapping("/msq/display-data")
@@ -58,7 +64,8 @@ public class MsqDisplayDataController {
             @RequestParam(value="startDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value="endDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             WebRequest request,
-            Model model) {
+            Model model,
+            Locale locale) {
         
         User user = this.getLoggedInUser();
         
@@ -197,6 +204,10 @@ public class MsqDisplayDataController {
             
             // setting the values for the left column
             tableData[j+1][0] = msqField;
+            
+            //TODO:
+            //use translation like this: this.messageSource.getMessage(new DefaultMessageSourceResolvable(msqField), locale);
+            //headHeadaches -> messages.msq.enterdata.head.headaches
             
             // filling data row by row
             for (int i = 0; i < allDates.size(); i++) {

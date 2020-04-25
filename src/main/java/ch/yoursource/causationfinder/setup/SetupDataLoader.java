@@ -77,9 +77,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		userAdminRoles.add(userRole);
 		userAdminRoles.add(adminRole);
 		
-		if (userRepository.findByUsername(this.adminUserName) == null) {
-			createAdminUser(userAdminRoles);
-		}
+		//TODO: reactivate admin user once he can do something
+		//if (userRepository.findByUsername(this.adminUserName) == null) {
+		//	createAdminUser(userAdminRoles);
+		//}
 		
 		this.definePrefedinedParameter();
 

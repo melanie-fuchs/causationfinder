@@ -7,6 +7,7 @@ import java.beans.PropertyDescriptor;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +45,8 @@ public class MsqDisplayDataController {
     private MsqRepository msqRepository;
     private MessageSource messageSource;
     
+    private DateTimeFormatter dateTimeFormatter;
+    
     public MsqDisplayDataController(
             UserService userService,
             MsqRepository msqRepository,
@@ -51,6 +54,7 @@ public class MsqDisplayDataController {
         this.userService = userService;
         this.msqRepository = msqRepository;
         this.messageSource = messageSource;
+        this.dateTimeFormatter  = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     }
     
     @GetMapping("/msq/display-data")
@@ -219,7 +223,7 @@ public class MsqDisplayDataController {
         
         // setting the column-titles (date)
         for (int i = 0; i < allDates.size(); i++) {            
-            String dateString = allDates.get(i).toString();
+            String dateString = allDates.get(i).format(dateTimeFormatter);
             
             // add dates for header row
             tableData[0][i + 1] = dateString;
@@ -242,7 +246,7 @@ public class MsqDisplayDataController {
                 
                 Integer valueAtDate = fieldValuesByDate.get(dateString).get(msqField);
                 
-                tableData[j+1][i+1] = String.valueOf(valueAtDate);
+                tableData[j+1][i+1] = valueAtDate != null ? String.valueOf(valueAtDate) : "-";
                 
                 //continuous sum of values per date
                 if (valueAtDate != null) {

@@ -18,11 +18,11 @@
 				<br />
 				<div class="row">
 					<div class="col-md-6">
-						<label th:text="#{messages.update-customparameter.min-value}"></label>
+						<strong><label th:text="#{messages.update-customparameter.min-value}"></label></strong>
 						<input class="form-control" type="number" th:max="*{updateCustomParameterDtoList[__${stat.index}__].lowestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" />
 					</div>
 					<div class="col-md-6">
-						<label th:text="#{messages.update-customparameter.max-value}"></label>
+						<strong><label th:text="#{messages.update-customparameter.max-value}"></label></strong>
 						<input class="form-control" type="number" th:min="*{updateCustomParameterDtoList[__${stat.index}__].highestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" />
 					</div>
 				</div>

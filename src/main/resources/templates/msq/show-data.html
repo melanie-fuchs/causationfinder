@@ -7,6 +7,10 @@
 		<h2 th:text="#{messages.fragments.navigation.msq}"></h2>		
 		<h3 th:text="#{messages.fragments.navigation.msq.display-data}"></h3>
 		
+		<div>
+			<p th:text="#{messages.msq.show-data.text}"></p>
+		</div>
+		
 		<table class="table table-bordered table-striped">
 			<th:block th:each="row, loop : ${tableData}">
 				<tr th:if="${loop.index} < 1">

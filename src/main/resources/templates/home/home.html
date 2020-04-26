@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="fragments/layout :: layout(#{messages.home.title.welcome}, ~{ :: .navigation}, ~{ :: .content})">
 	<div class="navigation">
-		<div sec:authorize="isAuthenticated()">
-			<div th:insert="fragments/navigation :: navigation"></div>
-		</div>
 	</div>
 	<div class="content">
+		<h3 th:text="#{messages.causationfinder}"></h3>
+		<div>
+			<p th:text="#{messages.causationfinder.what-is-1}"></p>
+			<p th:text="#{messages.causationfinder.what-is-2}"></p>
+			<p th:text="#{messages.causationfinder.what-is-3}"></p>
+			<p><strong th:text="#{messages.causationfinder.what-is-4}"></strong></p>
+			<hr>
+		</div>
+	
 		<div sec:authorize="isAuthenticated()">
 			<div>
 				<span th:text="#{messages.home.hello}"></span>
@@ -27,10 +33,6 @@
 				<span th:text="#{messages.home.do-you-want-to-sign-up}"></span>
 				<strong><a href="/registration"	th:text="#{messages.home.register}"></a></strong>
 			</div>
-		</div>
-		
-		<div>
-			Test
 		</div>
 	</div>
 </html>

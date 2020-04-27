@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -31,6 +32,7 @@ public class PredefinedParameter {
 	@Column(name = "param_name_de")
 	private String paramNameDe;
 
+	@Lob
     @Column(name = "description_de")
     private String descriptionDe;
     
@@ -38,6 +40,7 @@ public class PredefinedParameter {
     @Column(name = "param_name_en")
     private String paramNameEn;
 
+    @Lob
     @Column(name = "description_en")
     private String descriptionEn;
     

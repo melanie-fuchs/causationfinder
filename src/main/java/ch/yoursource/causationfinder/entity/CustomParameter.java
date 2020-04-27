@@ -42,8 +42,7 @@ public class CustomParameter {
 	@JoinColumn(name = "predefined_param_id", nullable = true)
 	private PredefinedParameter predefinedParam;
 
-    @Lob
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition="TEXT")
     private String description;
 	
 	@NotNull

@@ -37,8 +37,7 @@ public class ObservedDayValue {
 	@Column(name = "boolean_value")
 	private Boolean booleanValue;
 
-	@Lob
-	@Column(name = "string_value")
+	@Column(name = "string_value", columnDefinition="TEXT")
 	private String stringValue;
 	
 	public ObservedDayValue() {}

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.websocket.ClientEndpoint;
 
 import ch.yoursource.causationfinder.setup.ParameterType;
 
@@ -32,16 +33,14 @@ public class PredefinedParameter {
 	@Column(name = "param_name_de")
 	private String paramNameDe;
 
-	@Lob
-    @Column(name = "description_de")
+    @Column(name = "description_de", columnDefinition="TEXT")
     private String descriptionDe;
     
     @NotNull
     @Column(name = "param_name_en")
     private String paramNameEn;
-
-    @Lob
-    @Column(name = "description_en")
+    
+    @Column(name = "description_en", columnDefinition="TEXT")
     private String descriptionEn;
     
     @Column(name="min_value")

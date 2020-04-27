@@ -69,8 +69,8 @@ public class RegistrationController {
 	@PostMapping("/registration")
 	public ModelAndView saveUser(
 			@ModelAttribute("user") @Valid User user,
-			@RequestHeader String host,
 			BindingResult result,
+            @RequestHeader String host,
 			WebRequest request,
 			Errors errors,
 			ModelAndView modelAndView,

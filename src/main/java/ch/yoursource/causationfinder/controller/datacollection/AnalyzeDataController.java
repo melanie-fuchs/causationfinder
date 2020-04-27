@@ -241,7 +241,7 @@ public class AnalyzeDataController {
         CustomParameterDayAnalyzeDto msqCustomParameter = new CustomParameterDayAnalyzeDto();
         msqCustomParameter.setBoolean(true); // will make the line curved or straight
         msqCustomParameter.setMinValue(0.0);
-        msqCustomParameter.setMaxValue(284.0); // 71 params * max 4 per Value = 284
+        msqCustomParameter.setMaxValue(null); // null, so the serializer will use the highest number the user has ever reached (total of all points would be 284 (71 params x 4 max points), but nobody should ever reach that. Line would not look good if using 284 as max value)
         msqCustomParameter.setParameterName("MSQ");
 
         // Creating a list of all dates. Will be used to loop over and find dates that

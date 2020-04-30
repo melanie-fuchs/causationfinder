@@ -9,14 +9,19 @@
 				<legend th:text="#{messages.login.login}"></legend>
 				<div th:if="${param.error}" class="alert alert-error" th:text="#{messages.login.error}"></div>
 					
-				<input type="text" id="username" name="username"/>			
-				<label for="username" th:text="#{messages.login.username}"></label>
+				<div class="row">
+					<div class="col-sm-6">
+						<label for="username" th:text="#{messages.login.username}"></label>
+						<input class="form-control" type="text" id="username" name="username"/>			
+					</div>
+					<div class="col-sm-6">
+						<label for="password" th:text="#{messages.login.password}"></label>
+						<input class="form-control" type="password" id="password" name="password"/>
+					</div>
+				</div>
 				<br/>
-				<input type="password" id="password" name="password"/>
-				<label for="password" th:text="#{messages.login.password}"></label>
-				
 				<div class="form-actions">
-				<button class="btn btn-primary" type="submit" class="btn" th:text="#{messages.login.button}"></button>
+				<button class="btn btn-primary" type="submit" th:text="#{messages.login.button}"></button>
 				</div>
 		
 		</form>

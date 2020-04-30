@@ -10,32 +10,22 @@
 		<form action="#" th:action="@{/data/datacollection/display-texts}"
 			  th:object="${startEndDateDto}" method="POST">
 			  
-			<strong><label for="startDate" th:text="#{messages.displaytexts.start} +':'"></label></strong>
-			<br />
+
 			
 			<div class="row">
 				<div class="col-6 col-lg-5">
-					<input class="form-control"
-						name="startDate" type="date" required="required"
-						th:field="*{startDate}" />
-				</div>			
-			</div>
-			<br />
-			<strong><label for="endDate" th:text="#{messages.displaytexts.end} +':'"></label></strong> 
-			
-			<div class="row">
+					<strong><label for="startDate" th:text="#{messages.displaytexts.start} +':'"></label></strong>
+					<input class="form-control"	name="startDate" type="date" required="required" th:field="*{startDate}" />
+				</div>
 				<div class="col-6 col-lg-5">
-					<input class="form-control"
-						name="endDate" type="date" required="required"
-						th:field="*{endDate}" />
+					<strong><label for="endDate" th:text="#{messages.displaytexts.end} +':'"></label></strong> 
+					<input class="form-control"	name="endDate" type="date" required="required" th:field="*{endDate}" />
 				</div>
 			</div>
-			<br/>
+			<br />
+			
 			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
-			
-			
-			<br />
-			<br />
+
 			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
 		</form>
 	</div>

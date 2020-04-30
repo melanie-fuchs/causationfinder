@@ -13,7 +13,6 @@
 			<h3 th:text="#{messages.fragments.navigation.manage-parameters.add-parameter}"></h3>
 			<p th:text="#{messages.addParameter.create-your-parameters}"></p>
 
-
 			<h4 th:text="#{messages.addParameter.choose-type} +'*'"></h4>
 			<div>
 				<input type="radio" name="type" value="STRING" required="required" />
@@ -29,19 +28,21 @@
 				<label for="type"
 					   th:text="#{messages.addParameter.choose-type.boolean}"></label>
 			</div>
-
-			<br>
+			<br/>
 			<div id="minMaxContainer" style="display: none">
-				<br />
 				<span th:text="#{messages.addParameter.choose-type.number.min-max.text}"></span>
-				<br />
-				<label for="minValue" th:text="#{messages.addParameter.choose-type.number.min-max.minValue}"></label>
-				<br />
-				<input class="form-control" type="number" name="minValue" min="-40" step="0.01" />
-				<br />
-				<label for="maxValue" th:text="#{messages.addParameter.choose-type.number.min-max.maxValue}"></label>
-				<br />
-				<input class="form-control" type="number" name="maxValue" min="0" step="0.01" />
+				<br /></br>
+				<div class="row mb-4">
+					<div class="col-6 col-lg-5">
+							<label for="minValue" th:text="#{messages.addParameter.choose-type.number.min-max.minValue} + ':'"></label>
+							<input class="form-control" type="number" name="minValue" min="-40" step="0.01" />
+					</div>
+					<div class="col-6 col-lg-5">
+						<label for="maxValue" th:text="#{messages.addParameter.choose-type.number.min-max.maxValue} + ':'"></label>
+						<input class="form-control" type="number" name="maxValue" min="0" step="0.01" />
+					</div>
+			    </div>
+				<br/>
 			</div>
 			<h4 th:text="#{messages.addParameter.write-param-title} +'*'"></h4>
 			<label for="parameterName"

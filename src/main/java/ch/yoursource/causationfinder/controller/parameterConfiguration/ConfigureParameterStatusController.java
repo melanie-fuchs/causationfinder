@@ -101,7 +101,7 @@ public class ConfigureParameterStatusController {
             }
         }
   
-        return new ModelAndView("/data/parameter-configuration/configure-parameter-status");
+        return new ModelAndView("data/parameter-configuration/manage-parameters");
     }
     
     private List<CustomParameter> getPredefinedParametersByCurrentUser()

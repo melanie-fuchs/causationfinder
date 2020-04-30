@@ -68,7 +68,7 @@ public class AddCustomParameterController {
         }
         customParameterRepository.save(customParameter);
         
-        return "home/userhome";        
+        return "data/parameter-configuration/manage-parameters";       
     }
 
     private User getLoggedInUser()

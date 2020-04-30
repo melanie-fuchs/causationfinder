@@ -175,7 +175,7 @@ public class EnterDataController {
         observedValuesFromGivenDay = this.observedDayValueRepository.findByDateAndUser(getDateFromLocalDate(givenDay), user);
         this.prepareModelData(model, givenDay, user, observedValuesFromGivenDay);
 
-        return new ModelAndView("/data/datacollection/enter-data");
+        return new ModelAndView("data/datacollection/enter-and-analyze-data");
     }
     
     private void prepareModelData(

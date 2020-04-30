@@ -157,7 +157,7 @@ public class MsqEnterDataController {
 
         msqRepository.save(msq);
 
-        return new ModelAndView("home/userhome");
+        return new ModelAndView("msq/msq");
     }
 
     private User getLoggedInUser()

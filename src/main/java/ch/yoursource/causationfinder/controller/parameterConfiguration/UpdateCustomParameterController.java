@@ -84,7 +84,7 @@ public class UpdateCustomParameterController {
             return new ModelAndView("/data/parameter-configuration/update-customparameter", "updateCustomParameterDtoListWrapper", updateCustomParameterDtoListWrapper);
         }
         
-        return new ModelAndView("home/userhome");
+        return new ModelAndView("data/parameter-configuration/manage-parameters");
         
     }
     

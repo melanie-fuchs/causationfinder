@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.controller;
+package ch.yoursource.causationfinder.controller.authentication;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +9,6 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         
-        return "login";
+        return "authentication/login";
     }
 }

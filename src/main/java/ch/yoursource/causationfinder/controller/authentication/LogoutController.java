@@ -1,4 +1,4 @@
-package ch.yoursource.causationfinder.controller;
+package ch.yoursource.causationfinder.controller.authentication;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +8,6 @@ public class LogoutController {
 
         @GetMapping("/logout")
         public String logout() {
-            return "logout";
+            return "authentication/logout";
         }
 }

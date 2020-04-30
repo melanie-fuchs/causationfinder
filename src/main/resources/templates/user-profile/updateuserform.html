@@ -44,7 +44,7 @@
 
 			<p data-th-each="err: ${#fields.allErrors()}" data-th-text="${err}" class="error"></p>
 
-			<input class="btn btn-primary" type="submit"/>
+			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>
 		</form>
 	</div>
 </html>

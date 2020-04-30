@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="fragments/layout :: layout(#{messages.home.title.welcome}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+	</div>
+	<div class="content">	
+		<h2 th:text="#{messages.login}"></h2>
+
+		<form action="#" th:action="@{/login}" method="POST">
+				<legend th:text="#{messages.login.login}"></legend>
+				<div th:if="${param.error}" class="alert alert-error" th:text="#{messages.login.error}"></div>
+					
+				<input type="text" id="username" name="username"/>			
+				<label for="username" th:text="#{messages.login.username}"></label>
+				<br/>
+				<input type="password" id="password" name="password"/>
+				<label for="password" th:text="#{messages.login.password}"></label>
+				
+				<div class="form-actions">
+				<button type="submit" class="btn" th:text="#{messages.login.button}"></button>
+				</div>
+		
+		</form>
+	</div>
+</body>
+</html>

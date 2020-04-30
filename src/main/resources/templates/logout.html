@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="fragments/layout :: layout(#{messages.home.title.welcome}, ~{ :: .navigation}, ~{ :: .content})">
+	<div class="navigation">
+	</div>
+	<div class="content">	
+		<h2 th:text="#{messages.logout}"></h2>
+
+		<form th:action="@{/logout}" method="POST">
+			<input type="submit" th:value="#{messages.logout.button}"/>
+
+		</form>
+	</div>
+</body>
+</html>

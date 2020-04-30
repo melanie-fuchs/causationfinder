@@ -55,10 +55,13 @@ public class Configuration extends WebSecurityConfigurerAdapter implements WebMv
         anyRequest().authenticated() // any request: the user MUST be logged in! (authenticated)
         .and()
         .formLogin()
+        .loginPage("/login").permitAll() // will tell spring to use the custom login-page
         .defaultSuccessUrl("/userhome", false)
         .and()
-        .logout().permitAll() // add logout support for default URL /logout
-        .logoutSuccessUrl("/");
+        .logout()
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/")
+        .permitAll(); // add logout support for default URL /logout
     }
     
 }

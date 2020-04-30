@@ -14,22 +14,22 @@
 			<p th:text="#{messages.update-customparameter.text}"></p>
 
 			<th:block th:each="parameter, stat : *{updateCustomParameterDtoList}">
-				<label class="font-weight-bold" th:text="${parameter.paramName}"></label>
+				<strong th:text="${parameter.paramName}"></strong>
 				<br />
 				<div class="row">
-					<div class="col-md-6">
-						<strong><label th:text="#{messages.update-customparameter.min-value}"></label></strong>
+					<div class="col-6 col-lg-5">
+						<label th:text="#{messages.update-customparameter.min-value}"></label>
 						<input class="form-control" type="number" th:max="*{updateCustomParameterDtoList[__${stat.index}__].lowestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].minValue}" />
 					</div>
-					<div class="col-md-6">
-						<strong><label th:text="#{messages.update-customparameter.max-value}"></label></strong>
+					<div class="col-6 col-lg-5">
+						<label th:text="#{messages.update-customparameter.max-value}"></label>
 						<input class="form-control" type="number" th:min="*{updateCustomParameterDtoList[__${stat.index}__].highestValue}" step="0.01" th:field="*{updateCustomParameterDtoList[__${stat.index}__].maxValue}" />
 					</div>
 				</div>
 				<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].id}" />
 				<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].paramName}" />
 				<input type="hidden" th:field="*{updateCustomParameterDtoList[__${stat.index}__].description}" />
-				<br /><br />
+				<br />
 			</th:block>
 
 			<input class="btn btn-primary" type="submit" th:value="#{messages.submitbutton}"/>

@@ -9,6 +9,8 @@
 
 		<!-- form to reload an old data and fill in the values of that day -->
 		<form action="#" th:action="@{/data/datacollection/enter-data}" method="GET">
+			<div>
+			</div>
 			<div class="row mb-4">
 				<div class="col-6 col-md-5">
 					<input class="form-control" name="date" type="date" required="required" th:value="${date}" />					
@@ -38,7 +40,6 @@
 				<div class="col-6 col-md-7">
 					<!-- Button to load yesterday's data into the form -->
 					<button class="btn btn-warning btn-block" id="loadDataFromYesterday" th:text="#{messages.enter-data.load-yesterday-button}"></button>
-					<br /><br />
 				</div>
 			</div>
 			<br />

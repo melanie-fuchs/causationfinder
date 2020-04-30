@@ -9,7 +9,6 @@
 
 			<h2 th:text="#{messages.fragments.navigation.manage-parameters}"></h2>
 			<h3 th:text="#{messages.fragments.navigation.manage-parameters.parameter-status}"></h3>
-			
 
 			<p th:text="#{messages.configure-parameter-status.text}"></p>
 
@@ -18,7 +17,7 @@
 				<input type="checkbox" th:name="checkedPredefinedParameters[]"
 					   th:value="${parameter.id}"
 					   th:checked="${parameter.active} ? ${true}: ${false}" />
-				<label class="font-weight-bold" th:text="${parameter.paramName}"></label>
+				<strong th:text="${parameter.paramName}"></strong>
 				<div th:text="${parameter?.description}"></div>
 				<br>
 			</th:block>
